@@ -34,7 +34,7 @@ par contre je sais pas comment faire:
  
  - on télécharge 100 images
  
- - on les compare avec celle actuelle/celle crop (couteau/fourchette) avec les proportions 
+ - on les compare avec celle actuelle/celle crop (couteau/fourchette) avec les proportions (faut avancer en math gros)
  
  - on remplis le csv avec le nouveau label(donc refaire le csv ptin)
  
