@@ -26,22 +26,18 @@ ok pendant les chargements, et le soir
   
     de quoi est composé ... (csv a par)
   
-   -  si verbe comment 
-   
-    pourquoi manger/courir
-    
-    quand manger/courir
-    
-    avec quoi on mange/court (conjugai present)
-  
-  
+    <strong>-> but </strong> trouvé verre, couteau, fourchette 
+
  -  filtrage des réponses + traitement
  
-        on télécharge 100 images le but trouver couteau + fourchette
+        on télécharge 200 images le but trouver couteau + fourchette
  
         on les compare avec les autres air détecter 
         
         les proportions
+ 
+        <strong>-> but </strong> trouvé verre, couteau, fourchette 
+ 
  
  
  - on remplis le csv avec le nouveau label
