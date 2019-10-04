@@ -8,6 +8,11 @@ par contre je sais pas comment faire:
   
   - soit finir le téléchargement yolo
   
+  - soit comparaison directe des matrices
+  
+  - ou trouver un shéma entre toutes les matrices d'a peut pres
+  
+  
   - et on fait la technique du deplcement par la droite
     
     - faut faire un truk qui fait proportion donc nombre de carré/nos 50 * 50
