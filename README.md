@@ -10,7 +10,7 @@ par contre je sais pas comment faire:
   
   - soit comparaison directe des matrices
   
-  - ou trouver un shéma entre toutes les matrices d'a peut pres
+  - ou trouver des shémas entre toutes les matrices d'a peut pres
   
   
   - et on fait la technique du deplcement par la droite
