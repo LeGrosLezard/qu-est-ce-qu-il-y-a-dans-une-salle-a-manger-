@@ -2,18 +2,18 @@
 
 ok pendant les chargements, et le soir
 
-par contre je sais pas comment faire:
+  - ex: assiette -> téléchargement de 200 images ainsi de suite <- salle a manger
 
-  -  soit on fait un classificateur d'image
+  -  soit finir le téléchargement yolo
   
-  - soit finir le téléchargement yolo
+  - <strong>soit comparaison directe des matrices</strong>
   
-  - soit comparaison directe des matrices
+    - ou trouver des shémas entre toutes les matrices d'a peut pres
+
+    - toutes les comparer si 1 + de 50% des 1 alors ok
   
-  - ou trouver des shémas entre toutes les matrices d'a peut pres
   
-  
-  - et on fait la technique du deplcement par la droite
+  - et on fait la technique du deplcement par la droite (quadrillage)
     
     - faut faire un truk qui fait proportion donc nombre de carré/nos 50 * 50
   
