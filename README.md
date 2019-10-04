@@ -8,7 +8,7 @@ par contre je sais pas comment faire:
   
   - et on fait la technique du deplcement par la droite
     
-    - faut faire un truk qui fait proportion donc nombre de carré/nos 50 * 50
+    - faut faire un truk qui fait proportion donc nombre de carré/nos 50 * 50/ou finir le téléchargement yolo
   
   
   - si y'a une assiette on essais de la crop
