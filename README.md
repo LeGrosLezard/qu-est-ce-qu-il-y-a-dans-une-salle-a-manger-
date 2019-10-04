@@ -2,21 +2,29 @@
 
 ok pendant les chargements, et le soir
 
-  - ex: assiette -> téléchargement de 200 images ainsi de suite <- salle a manger
-
   <br> <br> 
 
-  -  soit finir le téléchargement yolo
+  -  soit finir le téléchargement yolo (jcroyais que set path c'était pour activer mysql c pteptre pour ca que chaque minuit ca se lance, mais nan c pour le path, jlajouté manuellement avant)
 
-  - si y'a une assiette on essais de la localiser et de localiser dans des réctangles (sinon trouver comment on met la probabilité que c'est une assiette/nombre et si -50% alors ne rien faire mais pas trouvé)
 
-    -> phrase générique
+  - détecter une assiette
 
-    - on demande a quoi sert une assiette/chemise,
-    qu'est-ce qu'une assiette/chemise, 
-    de quoi s'accompagne une assiette/chemise, 
+  - transformer l'image
   
-    - manger -> si verbe comment manger/courir, pourquoi manger/courir quand manger/courir avec quoi on mange/court (conjugai present)
+      -> trouver des area contours (fourchette couteau)
+
+  -  phrase générique
+
+    on demande a quoi sert une assiette/chemise
+    
+    qu'est-ce qu'une assiette/chemise
+    
+    de quoi s'accompagne une assiette/chemise
+  
+  
+   -  si verbe comment manger/courir, 
+   
+    pourquoi manger/courir quand manger/courir avec quoi on mange/court (conjugai present)
   
   
   
