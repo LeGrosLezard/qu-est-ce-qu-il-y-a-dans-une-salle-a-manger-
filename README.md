@@ -29,7 +29,7 @@ par contre je sais pas comment faire:
  
  - on télécharge 100 images
  
- - on les compare avec celle actuelle
+ - on les compare avec celle actuelle/celle crop (couteau/fourchette)
  
  - on remplis le csv avec le nouveau label(donc refaire le csv ptin)
  
