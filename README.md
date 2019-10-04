@@ -27,17 +27,18 @@ ok pendant les chargements, et le soir
     pourquoi manger/courir quand manger/courir avec quoi on mange/court (conjugai present)
   
   
-  
- - on essais de filtrer au max les réponses
+ -  filtrage des réponses + traitement
  
- - on télécharge 100 images
+        on télécharge 100 images le but trouver couteau + fourchette
  
- - on les compare avec celle actuelle/celle crop (couteau/fourchette) avec les proportions (faut avancer en math gros)
+        on les compare avec les autres air détecter 
+        
+        les proportions
  
  - on remplis le csv avec le nouveau label
   
-  - vérifier si a deja alors b si z deja alors aa et dire [1:] -> {[2:] ect
+        vérifier si a deja alors b si z deja alors aa et dire [1:] -> {[2:] ect
  
- - ensuite ca fait boule de neige
+ <br><br><br>
  
  - montre moi une salle a manger/dessine moi une salle a manger
