@@ -7,6 +7,9 @@ par contre je sais pas comment faire:
   -  soit on fait un classificateur d'image
   
   - et on fait la technique du deplcement par la droite
+    
+    - faut faire un truk qui fait proportion donc nombre de carré/nos 50 * 50
+  
   
   - si y'a une assiette on essais de la crop
 
