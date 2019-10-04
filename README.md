@@ -35,4 +35,4 @@ par contre je sais pas comment faire:
  
  - ensuite ca fait boule de neige
  
- - montre moi une salle a manger
+ - montre moi une salle a manger/dessine moi une salle a manger
