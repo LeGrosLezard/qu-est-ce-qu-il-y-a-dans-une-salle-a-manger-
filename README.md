@@ -27,3 +27,6 @@ par contre je sais pas comment faire:
  
  - un truk du genre
   
+ - ensuite ca fait boule de neige
+ 
+ - montre moi une salle a manger
