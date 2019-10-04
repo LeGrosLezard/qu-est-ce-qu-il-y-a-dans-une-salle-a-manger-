@@ -4,14 +4,17 @@ ok pendant les chargements, et le soir
 
   <br> <br> 
 
-  -  soit finir le téléchargement yolo (jcroyais que set path c'était pour activer mysql c pteptre pour ca que chaque minuit ca se lance, mais nan c pour le path, jlajouté manuellement avant)
+  -  finir le téléchargement yolo
 
+  - suivre tuto
+
+  - faire son model
 
   - détecter une assiette
 
-  - transformer l'image
+  -  transformer l'image
   
-      -> trouver des area contours (fourchette couteau)
+          trouver des area contours (fourchette couteau)
 
   -  phrase générique
 
@@ -24,7 +27,11 @@ ok pendant les chargements, et le soir
   
    -  si verbe comment manger/courir, 
    
-    pourquoi manger/courir quand manger/courir avec quoi on mange/court (conjugai present)
+    pourquoi manger/courir
+    
+    quand manger/courir
+    
+    avec quoi on mange/court (conjugai present)
   
   
  -  filtrage des réponses + traitement
