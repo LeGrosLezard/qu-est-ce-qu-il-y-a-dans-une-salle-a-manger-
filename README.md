@@ -18,7 +18,7 @@ par contre je sais pas comment faire:
     - faut faire un truk qui fait proportion donc nombre de carré/nos 50 * 50
   
   
-  - si y'a une assiette on essais de la crop
+  - si y'a une assiette on essais de la localiser et de localiser dans des réctangles (sinon trouver comment on met la probabilité que c'est une assiette/nombre et si -50% alors ne rien faire mais pas trouvé)
 
     -> phrase générique
 
