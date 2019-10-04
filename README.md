@@ -17,7 +17,10 @@ par contre je sais pas comment faire:
 
     - on demande a quoi sert une assiette/chemise,
     qu'est-ce qu'une assiette/chemise, 
-    de quoi s'accompagne une assiette/chemise,
+    de quoi s'accompagne une assiette/chemise, 
+  
+    - manger -> si verbe comment manger/courir, pourquoi manger/courir quand manger/courir
+  
   
   
  - on essais de filtrer au max les réponses
