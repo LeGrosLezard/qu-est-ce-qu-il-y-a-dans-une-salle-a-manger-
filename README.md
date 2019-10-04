@@ -4,7 +4,7 @@ ok pendant les chargements, et le soir
 
   - ex: assiette -> téléchargement de 200 images ainsi de suite <- salle a manger
 
-  <br> <br> <br> <br> <br> <br> <br> <br>
+  <br> <br> 
 
   -  soit finir le téléchargement yolo
   
@@ -38,7 +38,9 @@ ok pendant les chargements, et le soir
  
  - on les compare avec celle actuelle/celle crop (couteau/fourchette) avec les proportions (faut avancer en math gros)
  
- - on remplis le csv avec le nouveau label(donc refaire le csv ptin)
+ - on remplis le csv avec le nouveau label
+  
+  - vérifier si a deja alors b si z deja alors aa et dire [1:] -> {[2:] ect
  
  - ensuite ca fait boule de neige
  
