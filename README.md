@@ -7,19 +7,7 @@ ok pendant les chargements, et le soir
   <br> <br> 
 
   -  soit finir le téléchargement yolo
-  
-  - <strong>soit comparaison directe des matrices</strong>
-  
-    - ou trouver des shémas entre toutes les matrices d'a peut pres
 
-    - toutes les comparer si 1 + de 50% des 1 alors ok
-  
-  
-  - et on fait la technique du deplcement par la droite (quadrillage)
-    
-    - faut faire un truk qui fait proportion donc nombre de carré/nos 50 * 50
-  
-  
   - si y'a une assiette on essais de la localiser et de localiser dans des réctangles (sinon trouver comment on met la probabilité que c'est une assiette/nombre et si -50% alors ne rien faire mais pas trouvé)
 
     -> phrase générique
