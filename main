@@ -34,10 +34,11 @@ def to_list(thresh):
     return data
 
 
-def write_data_into_csv(data):
+def write_data_into_csv(data, label):
 
-    with open('csv/assiette.csv', 'a') as file:
+    with open('../csv/assiette.csv', 'a') as file:
         writer = csv.writer(file)
+        file.write(label+";")
         for i in data:
             file.write(str(i)+";")
 
@@ -59,14 +60,11 @@ for i in range(len(liste)):
     th3 = cv2.adaptiveThreshold(img,255,cv2.ADAPTIVE_THRESH_GAUSSIAN_C,\
                 cv2.THRESH_BINARY,11,2)
 
-    try:
-        th3 = reshape_thresh(th3)
-    except:
-        print(path.format(liste[i]))
+    th3 = reshape_thresh(th3)
+
     data = to_list(th3)
+    write_data_into_csv(data, "a")
 
-
-    write_data_into_csv(data)
 
 
 
