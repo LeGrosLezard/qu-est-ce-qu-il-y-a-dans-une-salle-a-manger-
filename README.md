@@ -29,12 +29,10 @@ par contre je sais pas comment faire:
  
  - on télécharge 100 images
  
- - on les compare avec celle actuelle/celle crop (couteau/fourchette)
+ - on les compare avec celle actuelle/celle crop (couteau/fourchette) avec les proportions 
  
  - on remplis le csv avec le nouveau label(donc refaire le csv ptin)
  
- - un truk du genre
-  
  - ensuite ca fait boule de neige
  
  - montre moi une salle a manger
