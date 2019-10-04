@@ -12,9 +12,9 @@ ok pendant les chargements, et le soir
 
   - détecter une assiette
 
-  -  transformer l'image
+ -    transformer l'image
   
-          trouver des area contours (fourchette couteau)
+     trouver des area contours (fourchette couteau)
 
   -  phrase générique
 
