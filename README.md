@@ -4,6 +4,8 @@ ok pendant les chargements, et le soir
 
   - ex: assiette -> téléchargement de 200 images ainsi de suite <- salle a manger
 
+  <br> <br> <br> <br> <br> <br> <br> <br>
+
   -  soit finir le téléchargement yolo
   
   - <strong>soit comparaison directe des matrices</strong>
