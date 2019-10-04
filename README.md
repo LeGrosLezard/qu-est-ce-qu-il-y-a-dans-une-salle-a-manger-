@@ -19,7 +19,7 @@ par contre je sais pas comment faire:
     qu'est-ce qu'une assiette/chemise, 
     de quoi s'accompagne une assiette/chemise, 
   
-    - manger -> si verbe comment manger/courir, pourquoi manger/courir quand manger/courir
+    - manger -> si verbe comment manger/courir, pourquoi manger/courir quand manger/courir avec quoi on mange/court (conjugai present)
   
   
   
