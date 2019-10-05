@@ -6,7 +6,7 @@ ok pendant les chargements, et le soir
 
   -  le faire avec un hog 
   
-      -> comprendre difference knn(100) / noyeau gaussien(98) / noyeau linéaire (53)
+      -> comprendre difference knn(100) / lieanarSVC / SVC
 
   -   transformer l'image
 
