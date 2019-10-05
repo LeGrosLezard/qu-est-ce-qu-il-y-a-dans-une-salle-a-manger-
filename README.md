@@ -4,15 +4,9 @@ ok pendant les chargements, et le soir
 
   <br> <br> 
 
-  -  le faire avec un hog 
-  
-      -> comprendre difference knn(100) / lieanarSVC / SVC
+  -> comprendre difference knn(100) / lieanarSVC / SVC
 
-  -   transformer l'image
-
-  - train positive et negative (les negatives j'ai pas compris)
-  
-  - balayage d'image
+  - balayage d'image (trouvé comment ca marche jve ca) sinon faire le tour des contours et les comparers...
 
   - détecter une assiette
 
