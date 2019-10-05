@@ -1,17 +1,67 @@
-import os
+from sklearn.neighbors import KNeighborsClassifier
+from skimage import exposure
+from skimage import feature
 import cv2
-import numpy as np
-import csv
+
+import os
+
 
 liste = os.listdir(r"C:\Users\jeanbaptiste\Desktop\assiette\image\assiette")
-path = "image/assiette/{}"
-
-model = r"C:\darknet\yolov3.weigths"
-cfg = r"C:\darknet\yolov3.cfg"
-net = cv2.dnn.readNet("yolov3.weigths", "yolov3.cfg")
+path  = r"C:\Users\jeanbaptiste\Desktop\assiette\image\assiette\{}"
 
 
+data = []
+labels = []
 
+for image in liste:
+
+    #on lit l'image, to contours uniquement
+    img = cv2.imread(path.format(image))
+    gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
+    edged = cv2.Canny(gray, 100, 200)
+
+    #on récupérer les contours
+    contours, _ = cv2.findContours(edged, cv2.RETR_EXTERNAL,
+                                cv2.CHAIN_APPROX_SIMPLE)
+
+
+    #on recupere le plus grand
+    max_cnt = 0
+    for i in contours:
+        if cv2.contourArea(i) >= max_cnt:
+            max_cnt = cv2.contourArea(i)
+
+    #on fait match le plus grand contour avec la liste puis corp gray
+    for i in contours:
+        if cv2.contourArea(i) == max_cnt:
+            x, y, w, h = cv2.boundingRect(i)
+            crop = gray[y:y + h, x:x + w]
+            crop = cv2.resize(crop, (50, 50))
+
+    #on prend l'histogram orienté gradient de l'image
+        #ICI FAUT LE FAIRE SANS CE MACHIN APRES
+    H, hogImage = feature.hog(crop, orientations=9, pixels_per_cell=(10, 10),
+            cells_per_block=(2, 2), transform_sqrt=True, block_norm="L1",
+                             visualize=True)
+
+    #on ajoute les info pour le model
+    data.append(H)
+    labels.append("assiette")
+
+    #on affiche les image HOG/gray crop
+    hogImage = exposure.rescale_intensity(hogImage, out_range=(0, 255))
+    hogImage = hogImage.astype("uint8")
+     
+    cv2.imshow("HOG Image", hogImage)
+    cv2.imshow("dzq", crop)
+    cv2.waitKey(0)
+
+
+
+
+
+
+print(labels)
 
 
 
