@@ -4,11 +4,13 @@ ok pendant les chargements, et le soir
 
   <br> <br> 
 
-  -  finir le téléchargement yolo
+  -  le faire avec un hog sinon yolo
 
-  - suivre tuto
+  -   transformer l'image
 
-  - faire son model
+  - train positive et negative (les negatives j'ai pas compris)
+  
+  - balayage d'image
 
   - détecter une assiette
 
