@@ -4,7 +4,9 @@ ok pendant les chargements, et le soir
 
   <br> <br> 
 
-  -  le faire avec un hog sinon yolo
+  -  le faire avec un hog 
+  
+      -> comprendre difference knn(100) / noyeau gaussien(98) / noyeau linéaire (53)
 
   -   transformer l'image
 
