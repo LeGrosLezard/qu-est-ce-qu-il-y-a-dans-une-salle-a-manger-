@@ -6,7 +6,9 @@ ok pendant les chargements, et le soir
 
   -> comprendre difference knn(100) / lieanarSVC / SVC
 
-  - balayage d'image (trouvé comment ca marche jve ca) sinon faire le tour des contours et les comparers...
+  - balayage d'image (le balayage automatique sans avoir a appuyer) (proportionalité -> pyramide image)
+  
+   - sinon faire le tour des contours et les comparers...
 
   - détecter une assiette
 
