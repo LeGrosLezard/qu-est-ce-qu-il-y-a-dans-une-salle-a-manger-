@@ -11,7 +11,7 @@ ok pendant les chargements, et le soir
   
         -> FORME
         
-          - effacer que les petits contours, nettoyaer au max
+          - effacer que les petits contours, nettoyaer au max mais garder les grands contours
           
           - récupérer pluss d'assiette
           
