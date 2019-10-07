@@ -28,7 +28,7 @@ ok pendant les chargements, et le soir
       
          a la fin l'assiette en entouré
       
-         faire une moyenne des 4 arretes
+         faire un truk qui dit ou est l'assiette via les detections
 
 
  -    ensuite
