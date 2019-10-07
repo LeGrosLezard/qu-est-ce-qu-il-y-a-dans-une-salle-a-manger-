@@ -4,7 +4,7 @@ ok pendant les chargements, et le soir
 
   <br> <br> 
 
-  -> comprendre difference knn(100) x voisin / lieanarSVC / SVC -> hyperplan mais pas lieanarSVC et SVC et les math je comprend pas tout avec les symboles
+  -> comprendre difference knn(100) x voisin / lieanarSVC / SVC -> hyperplan mais pas lieanarSVC et SVC et les math je comprend rien avec les symboles
 
  -   détecter une assiette
   
