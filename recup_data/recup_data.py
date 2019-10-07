@@ -5,15 +5,15 @@ from skimage import exposure
 
 
 liste = os.listdir()
-
 register = 0
 
 for i in liste:
-    if i == "recup_data.py":
+    if i == "recup_data.py" or i == "register":
         pass
     else:
+        print(i)
         img = cv2.imread(i)
-        img = cv2.resize(img, (100, 100))
+        #img = cv2.resize(img, (100, 100))
         gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
         edged = cv2.Canny(gray, 100, 200)
 
@@ -34,8 +34,8 @@ for i in liste:
             if cv2.contourArea(i) != max_cnt:
                 cv2.drawContours(edged, i, -1, (0))
 
-        for y in range(img.shape[0]):
-            for x in range(img.shape[1]):
+        for y in range(0, img.shape[0], 50):
+            for x in range(0, img.shape[1], 50):
                 crop = edged[y:y+50, x:x+50]
                 crop_g = gray[y:y+50, x:x+50]
 
@@ -65,7 +65,7 @@ for i in liste:
 ##                        cv2.imshow("hogImage", hogImage)
 ##                        cv2.waitKey(0)
 
-                        cv2.imwrite("register/" + str(register) + "crop.jpg", crop)
+                        cv2.imwrite("register2/" + str(register) + "crop1.jpg", crop_g)
 
                         register += 1
                 
