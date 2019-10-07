@@ -6,13 +6,13 @@ ok pendant les chargements, et le soir
 
   -> comprendre difference knn(100) / lieanarSVC / SVC
 
-  - détecter une assiette
+ -   détecter une assiette
   
-      -> la ou ca dit 1 mettre le cadre en rouge
+         la ou ca dit 1 mettre le cadre en rouge
       
-      -> a la fin l'assiette en entouré
+         a la fin l'assiette en entouré
       
-      -> faire une moyenne des 4 arretes
+         faire une moyenne des 4 arretes
 
 
  -    ensuite
