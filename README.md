@@ -25,12 +25,7 @@ ok pendant les chargements, et le soir
          
           
          - > DETECTION
-  
-  
-  
-  
-  
-  
+
          la ou ca dit 1 mettre le cadre en rouge
       
          a la fin l'assiette en entouré
