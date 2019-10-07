@@ -8,6 +8,29 @@ ok pendant les chargements, et le soir
 
  -   détecter une assiette
   
+  
+        -> FORME
+        
+          - effacer que les petits contours, nettoyaer au max
+          
+          - récupérer pluss d'assiette
+          
+          - pluss dassiette depuis plusieurs vu
+          
+          - en télécharger pluss
+          
+          - non au motif (celle avec ananas par exemple + motif en lignes)
+          
+          - récupérer des assiettes carré
+         
+          
+         - > DETECTION
+  
+  
+  
+  
+  
+  
          la ou ca dit 1 mettre le cadre en rouge
       
          a la fin l'assiette en entouré
