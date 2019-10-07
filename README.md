@@ -13,9 +13,7 @@ ok pendant les chargements, et le soir
         
           - effacer que les petits contours, nettoyaer au max mais garder les grands contours
           
-          - récupérer pluss d'assiette
-          
-          - pluss dassiette depuis plusieurs vu
+          - différentes vus
           
           - en télécharger pluss
           
