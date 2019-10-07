@@ -2,6 +2,8 @@
 
 ok pendant les chargements, et le soir
 
+pour cjhaque test image faire un dossier ne plus jamais effacer
+
   <br> <br> 
 
   -> comprendre difference knn(100) x voisin / lieanarSVC / SVC -> hyperplan mais pas lieanarSVC et SVC et les math je comprend rien avec les symboles
