@@ -1,68 +1,69 @@
-import cv2
 import os
-import csv
-import numpy as np
-from skimage import exposure
-from skimage import feature
-import time
-
-
+import cv2
 import joblib
 
-import imutils
+import time
+from skimage import exposure
+from skimage import feature
 
 
-def to_list(thresh):
-
-    data = []
-    for i in range(thresh.shape[0]):
-        for j in range(thresh.shape[1]):
-            if thresh[i, j] > 120:
-                nb = 1
-            else:
-                nb = 0
-        
-            data.append(nb)
-
-    return data
-
-##liste = os.listdir(r"C:\Users\jeanbaptiste\Desktop\assiette\image\assiette")
-##path  = "image/assiette/{}"
 
 liste = os.listdir(r"C:\Users\jeanbaptiste\Desktop\assiette\image\assiette_couvert")
 path  = "image/assiette_couvert/{}"
-
-
 model = joblib.load("model/miammiam_model")
-model1 = joblib.load("model/miammiam_model8")
 
 
-for image in liste:
+for i in liste:
+    print(path.format(liste[-1]))
 
-    print(image)
+    img = cv2.imread(path.format(i))
 
+    print(img.shape[0], img.shape[1])
+    
+    img = cv2.resize(img, (img.shape[0] + 300, img.shape[1] + 100))
+    img = img[50:img.shape[0]-50, 50:img.shape[1]-50]
 
-    img = cv2.imread(path.format(image))
-
-
-    blank_image = np.zeros((img.shape[0],img.shape[1],3), np.uint8)
-    blank_image[0:img.shape[0], 0:img.shape[1]] = 0, 0, 0
-
+    height, width, channel = img.shape
 
     gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
     edged = cv2.Canny(gray, 100, 200)
 
+    real_detect = img.copy()
+
+    listeX = []
+    listeY = []
+    listeW = []
+    listeH = []
+    
 
     for y in range(0, img.shape[0], 50):
         for x in range(0, img.shape[1], 50):
 
+            clone = img.copy()
             crop_g = gray[y:y+50, x:x+50]
             crop = edged[y:y+50, x:x+50]
-            clone = img.copy()
+
+            #on récupérer les contours
+            contours, _ = cv2.findContours(crop, cv2.RETR_EXTERNAL,
+                                           cv2.CHAIN_APPROX_SIMPLE)
+
+            #on recupere le plus grand
+            max_cnt = 0
+            for i in contours:
+                if cv2.contourArea(i) >= max_cnt:
+                    max_cnt = cv2.contourArea(i)
+
+
+            #on fait match le plus grand contour avec la liste puis corp gray
+            for i in contours:
+                if cv2.contourArea(i) != max_cnt:
+                    cv2.drawContours(crop, i, -1, (0))
 
             try:
-                (H, hogImage) = feature.hog(crop_g, orientations=9, pixels_per_cell=(10, 10),
+
+                (H, hogImage) = feature.hog(crop, orientations=9, pixels_per_cell=(10, 10),
                         cells_per_block=(2, 2), transform_sqrt=True, block_norm="L1", visualize=True)
+
 
                 hogImage = exposure.rescale_intensity(hogImage, out_range=(0, 255))
                 hogImage = hogImage.astype("uint8")
@@ -70,55 +71,38 @@ for image in liste:
                 pred = model.predict(H.reshape(1, -1))[0]
 
                 if pred == 1:
-                    crop_img_by_HOG = edged[y-50:y+100, x:x+150]
-                    crop_img_by_HOG = cv2.resize(crop_img_by_HOG, (50, 50))
-
-                    #cv2.imshow("crop_img_by_HOG", crop_img_by_HOG)
-                    #cv2.waitKey(0)
-
-                    data1 = to_list(crop_img_by_HOG)
-                    data1 = np.array(data1)
-
-                    pred1 = model1.predict(data1.reshape(1, -1))[0]
-                    print(pred1)
+                    cv2.rectangle(img, (x, y), (x + 50, y + 50), (0, 0, 255), 2)
+                    listeX.append(x)
+                    listeY.append(y)
 
 
-                    if pred1 == 1:
-                        cv2.rectangle(img, (x, y-50), (x+150, y+100), (0,0,255), 1)
-                        #cv2.imshow("img", img)
-                        #cv2.waitKey(0)
+                cv2.rectangle(clone, (x, y), (x + 50, y + 50), (0, 255, 0), 2)
+
+
+                cv2.imshow("Window", clone)
+                #cv2.imshow("fzafaz", hogImage)
+                #cv2.imshow("img", crop)
+                cv2.waitKey(1)
+                time.sleep(0.3)
+
+
 
 
             except:
                 pass
 
-            cv2.rectangle(clone, (x, y), (x + 50, y + 50), (0, 255, 0), 2)
-            cv2.imshow("Window", clone)
-            cv2.waitKey(1)
-            time.sleep(0.3)
 
 
 
+    a = int(sum(listeX)/len(listeX))
+    print("")
+    b = int(sum(listeY)/len(listeY))
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+    cv2.rectangle()
+    
+    cv2.imshow("imgage", img)
+    cv2.waitKey(0)
 
 
 
