@@ -11,22 +11,38 @@ import joblib
 import imutils
 
 
+
+
+#-------------------------------------------------------------------------- Part model learning
+
+
+#-------------------------------------------------------------------------- Part picture
 def open_picture(image):
+    """We open picture"""
     img = cv2.imread(image)
-    height, width, channel = img.shape
 
     return img
 
 
 def blanck_picture(img):
+    """Create a black background picture same dimension of original picture"""
 
     blank_image = np.zeros((img.shape[0],img.shape[1],3), np.uint8)
     blank_image[0:img.shape[0], 0:img.shape[1]] = 0, 0, 0
 
     return blank_image
 
-def reverse_img_by_pos(img, x, y, size):
 
+
+def reverse_img_by_pos(img, x, y, size):
+    """ 
+    We loop the picture x and y range.
+    We ask a crop of the picture x to x + 25 * 3, same for y
+    
+    If we are at border of picture x - 25 * 3 to x
+    """
+
+    
     height, width, channel = img.shape
 
     reverse_x = False
@@ -59,6 +75,9 @@ def reverse_img_by_pos(img, x, y, size):
 
 def HOG_detection(gray):
 
+    """We detect contour orientation gradient
+    from color"""
+
     (H, hogImage) = feature.hog(gray, orientations=9, pixels_per_cell=(10, 10),
                                 cells_per_block=(2, 2), transform_sqrt=True,
                                 block_norm="L1", visualize=True)
@@ -69,7 +88,12 @@ def HOG_detection(gray):
     return H, hogImage
 
 
+def rotation():
+    pass
+
 def parcours_image(img, model):
+    """We put picture into model. We try to match
+    The last crop with picture on model"""
 
     size = 25
     list_intersection = []
@@ -109,6 +133,9 @@ def parcours_image(img, model):
 
 
 def reconstruction(image, liste):
+    """We can have multiple detection so
+    We make an average of this and recup the final detection
+    We return this points"""
 
     a = 0
     b = 0
@@ -130,10 +157,13 @@ def reconstruction(image, liste):
 
 
 def remove_background(img):
+    """If background isn't white we delete it"""
     pass
 
 
 def get_other_object(img):
+    """We detecte contours from the picture
+    We try to recup them and to put it into rectangle"""
 
     blanck = blanck_picture(img)
 
@@ -157,7 +187,11 @@ def get_other_object(img):
     return liste
 
 
+
 def croping_it_from_original(img, liste, x, y, w, h):
+    """Now we must fusion the multiples detections from
+    a single object.
+    We must crop it now for an other matching with another model"""
 
     print(liste)
 
@@ -179,6 +213,7 @@ def show_picture(name, image, mode, destroy):
 
 
 
+#-------------------------------------------------------------------------- Part Scrapping
 
 
 if __name__ == "__main__":
@@ -194,4 +229,20 @@ if __name__ == "__main__":
     liste = get_other_object(img)
 
     croping_it_from_original(img_copy, liste, x, y, w, h)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
