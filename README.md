@@ -15,7 +15,7 @@ pour cjhaque test image faire un dossier ne plus jamais effacer
 
       -> faire un truk qui dit la vrai position
       
-      -> mettre le rouge sur le vert
+      -> mettre le rouge mais pas le vert le vert c le curseur
 
  -    ensuite
   
