@@ -12,7 +12,7 @@ pour cjhaque test image faire un dossier ne plus jamais effacer
   
          - > DETECTION
         
-         enfete jcrois qu'il disent mon image a ste taille, la voiture aura ste taille dans la scene detecte exactement la taille ?? 
+         enfete jcrois qu'il disent mon image a ste taille, la voiture aura ste taille dans la scene detecte exactement la taille ?? et c la le truk pyramid
          
          
          
