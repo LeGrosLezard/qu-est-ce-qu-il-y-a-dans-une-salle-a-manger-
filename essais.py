@@ -4,6 +4,8 @@ import csv
 import numpy as np
 from skimage import exposure
 from skimage import feature
+import time
+
 
 import joblib
 
@@ -38,7 +40,7 @@ model1 = joblib.load("model/miammiam_model8")
 for image in liste:
 
     print(image)
-    
+
 
     img = cv2.imread(path.format(image))
 
@@ -56,6 +58,7 @@ for image in liste:
 
             crop_g = gray[y:y+50, x:x+50]
             crop = edged[y:y+50, x:x+50]
+            clone = img.copy()
 
             try:
                 (H, hogImage) = feature.hog(crop_g, orientations=9, pixels_per_cell=(10, 10),
@@ -69,9 +72,9 @@ for image in liste:
                 if pred == 1:
                     crop_img_by_HOG = edged[y-50:y+100, x:x+150]
                     crop_img_by_HOG = cv2.resize(crop_img_by_HOG, (50, 50))
-   
-                    cv2.imshow("crop_img_by_HOG", crop_img_by_HOG)
-                    cv2.waitKey(0)
+
+                    #cv2.imshow("crop_img_by_HOG", crop_img_by_HOG)
+                    #cv2.waitKey(0)
 
                     data1 = to_list(crop_img_by_HOG)
                     data1 = np.array(data1)
@@ -79,20 +82,20 @@ for image in liste:
                     pred1 = model1.predict(data1.reshape(1, -1))[0]
                     print(pred1)
 
-           
 
                     if pred1 == 1:
                         cv2.rectangle(img, (x, y-50), (x+150, y+100), (0,0,255), 1)
-                        cv2.imshow("img", img)
-                        cv2.waitKey(0)
+                        #cv2.imshow("img", img)
+                        #cv2.waitKey(0)
 
 
             except:
                 pass
 
-
-
-    
+            cv2.rectangle(clone, (x, y), (x + 50, y + 50), (0, 255, 0), 2)
+            cv2.imshow("Window", clone)
+            cv2.waitKey(1)
+            time.sleep(0.3)
 
 
 
