@@ -51,7 +51,7 @@ pour cjhaque test image faire un dossier ne plus jamais effacer
  
         effacer images ou les transferer vers google drive
  
- - aller de fourchette vers frigo
+ - aller de fourchette vers couteau
  
  
  <br><br><br>
