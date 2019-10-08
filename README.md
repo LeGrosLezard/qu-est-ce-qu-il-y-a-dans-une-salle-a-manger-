@@ -18,7 +18,9 @@ pour cjhaque test image faire un dossier ne plus jamais effacer
 
           commencer la doc sur le vrai compte c comme si sté une promesse
 
-
+         enfete soit faut directe resize via proportion 2carré + loin et + bas
+         
+         soit ben c je comprend que dal et ce yolo me donne rien ptin jgaspille du temps pour de la merde ca fait pas comme le mec des voitures ni des tuto et y'a toutes les math a apprendre + tout les autres trucks + finir fear et la saison 0 + twd la nouvelle saison pfff
  -    ensuite
   
      trouver fourchette et couteau
