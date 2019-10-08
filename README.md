@@ -6,7 +6,8 @@
  -   détecter une assiette
  
          -> si nape, on fait un mask  et on efface la nape pour le blanc 
-
+    
+         -> faire des rotations 
 
 
   - Scrap
