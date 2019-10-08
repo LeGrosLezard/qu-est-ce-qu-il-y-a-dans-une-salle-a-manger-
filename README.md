@@ -1,21 +1,13 @@
 # qu-est-ce-qu-il-y-a-dans-une-salle-a-manger-
 
-8 svm image/6hog
-
-
-ok pendant les chargements, et le soir
-
-pour cjhaque test image faire un dossier ne plus jamais effacer
-
-  <br> <br> 
 
   -> comprendre difference knn(100) x voisin / lieanarSVC / SVC -> hyperplan mais pas lieanarSVC et SVC et les math je comprend rien avec les symboles
 
  -   détecter une assiette
 
-      -> faire un truk qui dit la vrai position
+      -> verifier sur les autres images 
       
-      -> mettre le rouge mais pas le vert le vert c le curseur
+      -> si nape, on fait un mask via edge et on efface la nape pour le blanc
 
  -    ensuite
   
