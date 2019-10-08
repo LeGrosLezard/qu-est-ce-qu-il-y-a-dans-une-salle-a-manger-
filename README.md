@@ -7,7 +7,7 @@
 
           -> verifier sur les autres images 
       
-         -> si nape, on fait un mask via edge et on efface la nape pour le blanc 
+         -> si nape, on fait un mask  et on efface la nape pour le blanc 
 
  -    ensuite
   
