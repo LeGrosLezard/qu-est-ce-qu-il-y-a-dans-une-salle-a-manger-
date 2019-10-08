@@ -13,14 +13,12 @@ pour cjhaque test image faire un dossier ne plus jamais effacer
          - > DETECTION
         
          re prendre tout depuis le début
+ 
+         en meme temps ce 21eme model était de trop ^^
          
-         putin ca marche pas c pas avec les arretes, c avec un svm avec une pyragmide mais grrrrrrr
-
-          commencer la doc sur le vrai compte c comme si sté une promesse
-
-         enfete soit faut directe resize via proportion 2carré + loin et + bas
          
-         soit ben c je comprend que dal et ce yolo me donne rien ptin jgaspille du temps pour de la merde ca fait pas comme le mec des voitures ni des tuto et y'a toutes les math a apprendre + tout les autres trucks + finir fear et la saison 0 + twd la nouvelle saison pfff
+         
+         
  -    ensuite
   
      trouver fourchette et couteau
