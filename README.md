@@ -4,16 +4,12 @@
   -> comprendre difference knn(100) x voisin / lieanarSVC / SVC -> hyperplan mais pas lieanarSVC et SVC et les math je comprend rien avec les symboles
 
  -   détecter une assiette
-
-          -> verifier sur les autres images 
-      
+ 
          -> si nape, on fait un mask  et on efface la nape pour le blanc 
 
- -    ensuite
-  
-     trouver fourchette et couteau
 
-  -  phrase générique
+
+  - Scrap
 
     on demande a quoi sert une ...
     
