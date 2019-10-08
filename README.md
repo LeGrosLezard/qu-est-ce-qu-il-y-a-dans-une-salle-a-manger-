@@ -12,9 +12,7 @@ pour cjhaque test image faire un dossier ne plus jamais effacer
   
          - > DETECTION
         
-         re prendre tout depuis le début
- 
-         en meme temps ce 21eme model était de trop ^^
+         enfete jcrois qu'il disent mon image a ste taille, la voiture aura ste taille dans la scene detecte exactement la taille ?? 
          
          
          
