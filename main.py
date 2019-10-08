@@ -2,99 +2,112 @@ import cv2
 import os
 import csv
 import numpy as np
+
 from skimage import exposure
 from skimage import feature
+
 import time
-
-
 import joblib
-
 import imutils
 
 
-def to_list(thresh):
+def open_picture(image):
+    img = cv2.imread(image)
+    height, width, channel = img.shape
 
-    data = []
-    for i in range(thresh.shape[0]):
-        for j in range(thresh.shape[1]):
-            if thresh[i, j] > 120:
-                nb = 1
-            else:
-                nb = 0
-        
-            data.append(nb)
-
-    return data
-
-##liste = os.listdir(r"C:\Users\jeanbaptiste\Desktop\assiette\image\assiette")
-##path  = "image/assiette/{}"
-
-liste = os.listdir(r"C:\Users\jeanbaptiste\Desktop\assiette\image\assiette_couvert")
-path  = "image/assiette_couvert/{}"
+    return img
 
 
-model = joblib.load("model/miammiam_model6")
-model1 = joblib.load("model/miammiam_model8")
+def reverse_img_by_pos(img, x, y, size):
+
+    height, width, channel = img.shape
+
+    reverse_x = False
+    reverse_y = False
+    
+    if x >= width - size:
+        reverse_x = True
+
+    if y >= height/2:
+        reverse_y = True
 
 
-for image in liste:
+    if reverse_x is True:
+        crop = img[y:y+size*5, x-size*5:x]
 
-    print(image)
+    if reverse_y is True:
+        crop = img[y-size*5:y, x:x+size*5]
 
+    if reverse_x is False and reverse_y is False:
+        crop = img[y:y+size*5, x:x+size*5]
 
-    img = cv2.imread(path.format(image))
-
-
-    blank_image = np.zeros((img.shape[0],img.shape[1],3), np.uint8)
-    blank_image[0:img.shape[0], 0:img.shape[1]] = 0, 0, 0
-
-    gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
-    edged = cv2.Canny(gray, 100, 200)
+    return crop
 
 
-    for y in range(0, img.shape[0], 50):
-        for x in range(0, img.shape[1], 50):
 
-            crop_g = gray[y:y+50, x:x+50]
-            crop = edged[y:y+50, x:x+50]
+def HOG_detection(gray):
+
+    (H, hogImage) = feature.hog(gray, orientations=9, pixels_per_cell=(10, 10),
+                                cells_per_block=(2, 2), transform_sqrt=True,
+                                block_norm="L1", visualize=True)
+
+    hogImage = exposure.rescale_intensity(hogImage, out_range=(0, 255))
+    hogImage = hogImage.astype("uint8")
+
+    return H, hogImage
+
+
+def parcours_image(img, model):
+
+    size = 25
+    list_intersection = []
+    img_detection = img.copy()
+
+    for y in range(0, img.shape[0], size):
+        for x in range(0, img.shape[1], size):
+
             clone = img.copy()
 
+            crop = reverse_img_by_pos(img, x, y, size)
+
+            crop = cv2.resize(crop, (50, 50))
+            gray = cv2.cvtColor(crop, cv2.COLOR_BGR2GRAY)
+
+
             try:
-                (H, hogImage) = feature.hog(crop_g, orientations=9, pixels_per_cell=(10, 10),
-                        cells_per_block=(2, 2), transform_sqrt=True, block_norm="L1", visualize=True)
 
-                hogImage = exposure.rescale_intensity(hogImage, out_range=(0, 255))
-                hogImage = hogImage.astype("uint8")
-
-                #cv2.imshow("hogImage", hogImage)
-                #cv2.waitKey(0)
-
+                H, hogImage = HOG_detection(gray)
                 pred = model.predict(H.reshape(1, -1))[0]
-                print("pred HOG", pred)
 
                 if pred == 1:
-                    crop_img_by_HOG = edged[y-50:y+100, x:x+150]
-                    crop_img_by_HOG = cv2.resize(crop_img_by_HOG, (50, 50))
 
-                    cv2.imshow("crop_img_by_HOG", crop_img_by_HOG)
-                    cv2.waitKey(0)
-
-                    data1 = to_list(crop_img_by_HOG)
-                    data1 = np.array(data1)
-
-                    pred1 = model1.predict(data1.reshape(1, -1))[0]
-                    print("pred svm", pred1)
-
-                    if pred1 == 1:
-                        cv2.rectangle(img, (x, y-50), (x+150, y+100), (0,0,255), 1)
-                        cv2.imshow("img", img)
-                        cv2.waitKey(0)
-
-
+                    cv2.rectangle(img_detection, (x, y), (x + size*5, y + size*5), (0, 0, 255), 2)
+                    list_intersection.append([x, y, x+w, y+h])
             except:
                 pass
 
-            cv2.rectangle(clone, (x, y), (x + 50, y + 50), (0, 255, 0), 2)
-            cv2.imshow("Window", clone)
-            cv2.waitKey(1)
+            cv2.rectangle(clone, (x, y), (x + size, y + size), (0, 255, 0), 2)
+            show_picture("clone", clone, 1, "")
+            show_picture("img_detection", img_detection, 1, "")
             time.sleep(0.3)
+
+
+
+
+def show_picture(name, image, mode, destroy):
+    cv2.imshow(name, image)
+    cv2.waitKey(mode)
+    if destroy == "y":
+        cv2.destroyAllWindows()
+
+
+
+
+
+if __name__ == "__main__":
+
+    model = joblib.load("model/miammiamsvmImage")
+
+    img = open_picture("assiette1.jpg")
+    parcours_image(img, model)
+
