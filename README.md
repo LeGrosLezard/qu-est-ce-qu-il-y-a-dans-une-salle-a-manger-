@@ -1,5 +1,8 @@
 # qu-est-ce-qu-il-y-a-dans-une-salle-a-manger-
 
+8 svm image/6hog
+
+
 ok pendant les chargements, et le soir
 
 pour cjhaque test image faire un dossier ne plus jamais effacer
@@ -9,18 +12,10 @@ pour cjhaque test image faire un dossier ne plus jamais effacer
   -> comprendre difference knn(100) x voisin / lieanarSVC / SVC -> hyperplan mais pas lieanarSVC et SVC et les math je comprend rien avec les symboles
 
  -   détecter une assiette
-  
-         - > DETECTION
-        
-         comprendre et demandé
-         
-         y'a plein de fausse detection (par exemple la nape)
-         
-         et il faut pluss de detection
-         
-         
-         
-         
+
+      -> faire un truk qui dit la vrai position
+
+
  -    ensuite
   
      trouver fourchette et couteau
