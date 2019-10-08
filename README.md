@@ -14,7 +14,8 @@ pour cjhaque test image faire un dossier ne plus jamais effacer
  -   détecter une assiette
 
       -> faire un truk qui dit la vrai position
-
+      
+      -> mettre le rouge sur le vert
 
  -    ensuite
   
