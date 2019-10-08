@@ -18,6 +18,13 @@ def open_picture(image):
     return img
 
 
+def blanck_picture(img):
+
+    blank_image = np.zeros((img.shape[0],img.shape[1],3), np.uint8)
+    blank_image[0:img.shape[0], 0:img.shape[1]] = 0, 0, 0
+
+    return blank_image
+
 def reverse_img_by_pos(img, x, y, size):
 
     height, width, channel = img.shape
@@ -34,14 +41,19 @@ def reverse_img_by_pos(img, x, y, size):
 
     if reverse_x is True:
         crop = img[y:y+size*5, x-size*5:x]
+        pts = (y, y+size*5, x-size*5, x)
+
 
     if reverse_y is True:
         crop = img[y-size*5:y, x:x+size*5]
+        pts = (y-size*5, y, x, x+size*5)
 
     if reverse_x is False and reverse_y is False:
         crop = img[y:y+size*5, x:x+size*5]
+        pts = (y, y+size*5, x, x+size*5)
 
-    return crop
+
+    return crop, pts
 
 
 
@@ -68,28 +80,93 @@ def parcours_image(img, model):
 
             clone = img.copy()
 
-            crop = reverse_img_by_pos(img, x, y, size)
-
-            crop = cv2.resize(crop, (50, 50))
-            gray = cv2.cvtColor(crop, cv2.COLOR_BGR2GRAY)
-
-
             try:
+                crop, pts = reverse_img_by_pos(img, x, y, size)
+
+                crop = cv2.resize(crop, (50, 50))
+                gray = cv2.cvtColor(crop, cv2.COLOR_BGR2GRAY)
 
                 H, hogImage = HOG_detection(gray)
                 pred = model.predict(H.reshape(1, -1))[0]
 
                 if pred == 1:
+                    cv2.rectangle(img_detection, (pts[2], pts[0]), (pts[3], pts[1]), (0, 0, 255), 2)
+                    list_intersection.append([pts[2], pts[0], pts[3], pts[1]])
 
-                    cv2.rectangle(img_detection, (x, y), (x + size*5, y + size*5), (0, 0, 255), 2)
-                    list_intersection.append([x, y, x+w, y+h])
+
             except:
                 pass
 
-            cv2.rectangle(clone, (x, y), (x + size, y + size), (0, 255, 0), 2)
-            show_picture("clone", clone, 1, "")
-            show_picture("img_detection", img_detection, 1, "")
-            time.sleep(0.3)
+##            cv2.rectangle(clone, (x, y), (x + size, y + size), (0, 255, 0), 2)
+##            show_picture("clone", clone, 1, "")
+##            show_picture("img_detection", img_detection, 1, "")
+##            time.sleep(0.3)
+
+    return list_intersection
+
+
+
+
+
+def reconstruction(image, liste):
+
+    a = 0
+    b = 0
+    c = 0
+    d = 0
+
+    for i in liste:
+        a += i[0]
+        b += i[1]
+        c += i[2]
+        d += i[3]
+
+    e = len(liste)
+
+    cv2.rectangle(image, (int(a/e), int(b/e)), (int(c/e), int(d/e)), (0, 0, 255), 1)
+    show_picture("image", image, 0, "y")
+
+    return int(a/e), int(b/e), int(c/e), int(d/e)
+
+
+def remove_background(img):
+    pass
+
+
+def get_other_object(img):
+
+    blanck = blanck_picture(img)
+
+    gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
+
+    th3 = cv2.adaptiveThreshold(gray, 255, cv2.ADAPTIVE_THRESH_GAUSSIAN_C,\
+                                cv2.THRESH_BINARY,11,10)
+
+    contours, _ = cv2.findContours(th3, cv2.RETR_TREE,
+                                   cv2.CHAIN_APPROX_SIMPLE)
+
+    liste = []
+    for cnts in contours:
+        if 30000 > cv2.contourArea(cnts) > 200:
+            x, y, w, h = cv2.boundingRect(cnts)
+            liste.append([x, y, w, h])
+            cv2.drawContours(blanck, cnts, -1, (255, 255, 255), 1)
+
+ 
+    show_picture("blanck", blanck, 0, "y")
+    return liste
+
+
+def croping_it_from_original(img, liste, x, y, w, h):
+
+    print(liste)
+
+    for i in liste:
+        print(i)
+        cv2.rectangle(img, (i[0], i[1]), (i[0] + i[2], i[1] + i[3]), (0, 0, 255), 1)
+
+    
+    show_picture("img", img, 0, "")
 
 
 
@@ -109,5 +186,12 @@ if __name__ == "__main__":
     model = joblib.load("model/miammiamsvmImage")
 
     img = open_picture("assiette1.jpg")
-    parcours_image(img, model)
+    img_copy = img.copy()
+
+    list_intersection = parcours_image(img, model)
+
+    x, y, w, h = reconstruction(img, list_intersection)
+    liste = get_other_object(img)
+
+    croping_it_from_original(img_copy, liste, x, y, w, h)
 
