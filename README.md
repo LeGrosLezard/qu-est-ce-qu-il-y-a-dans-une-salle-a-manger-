@@ -14,7 +14,9 @@ pour cjhaque test image faire un dossier ne plus jamais effacer
         
          re prendre tout depuis le début
          
-         
+         ![v](https://user-images.githubusercontent.com/53193299/66360264-b85e9900-e97a-11e9-879c-393930d7dc05.png)
+
+          commencer la doc sur le vrai compte c comme si sté une promesse
 
 
  -    ensuite
