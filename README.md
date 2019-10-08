@@ -11,16 +11,8 @@ pour cjhaque test image faire un dossier ne plus jamais effacer
  -   détecter une assiette
   
          - > DETECTION
-
-          sans faire expres y'a des images ou y'a que du noir
-          
-          dans les crop voir si y'a que du noir si oui ne pas les prendre et c'est bon
-
-         la ou ca dit 1 mettre le cadre en rouge
-      
-         a la fin l'assiette en entouré
-      
-         faire un truk qui dit ou est l'assiette via les detections
+        
+         re prendre tout depuis le début
          
          
 
