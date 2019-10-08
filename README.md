@@ -12,7 +12,11 @@ pour cjhaque test image faire un dossier ne plus jamais effacer
   
          - > DETECTION
         
-         enfete jcrois qu'il disent mon image a ste taille, la voiture aura ste taille dans la scene detecte exactement la taille ?? et c la le truk pyramid
+         comprendre et demandé
+         
+         y'a plein de fausse detection (par exemple la nape)
+         
+         et il faut pluss de detection
          
          
          
