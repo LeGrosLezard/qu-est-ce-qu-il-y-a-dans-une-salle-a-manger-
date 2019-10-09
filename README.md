@@ -60,7 +60,7 @@
              
              -> je n'ai pas encore appris 2 sec 
              
-             
+             -> je ne sais pas encore ... tout a l'heure vous m'avre montré ca peut etre que c ca !
              
              
  - montre moi une salle a manger/dessine moi une salle a manger
