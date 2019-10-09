@@ -26,6 +26,9 @@ moi aussi jve que mes trucks marchent tout le tmeps
         
         -> avec marteau -> on veut clou ou scie mais on a a la place marteau pillon
         
+        -> voir si y'a un model qui s'enregistre image par image et si on lui presente un nouveau ca dit ok ou non
+        
+        -> faire contour si cuillerre penchée alors reposition
    
  - travail des images data
  
