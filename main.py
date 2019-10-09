@@ -269,7 +269,8 @@ def show_picture(name, image, mode, destroy):
 def our_dico_path_url():
 
     dico_path = {"google":"https://www.google.com/search?sxsrf=ACYBGNSdXLbezE1nvpQMhQ6Hp7qFGaiDxg%3A1570625734452&ei=xtidXfahG8rCgwfSsauQDQ&q=cat%C3%A9gorie+de+l%27objet+{0}&oq=cat%C3%A9gorie+de+l%27objet+{0}&gs_l=psy-ab.3..33i160.683.1619..1667...0.0..0.200.916.0j6j1......0....1..gws-wiz.......33i22i29i30.ya7xfhMLlT8&ved=0ahUKEwj2nOjnnI_lAhVK4eAKHdLYCtIQ4dUDCAs&uact=5",
-                 "wikipedia": "https://fr.wikipedia.org/wiki/{}"}
+                 "wikipedia": "https://fr.wikipedia.org/wiki/{}",
+                 "exemple_of":"https://www.google.com/search?hl=fr&sxsrf=ACYBGNQeVb_NYY7utIXV-9TKkWxW89ABgg%3A1570629335228&ei=1-adXZHODb6IjLsP6N2VuAc&q=exemple+de+{0}&oq=exemple+de+{0}&gs_l=psy-ab.3..0i22i10i30j0i22i30l9.4989.6189..6333...0.4..0.115.711.4j3......0....1..gws-wiz.......0i71j0j0i20i263j0i203.QvdVxJ7yvh4&ved=0ahUKEwjRleacqo_lAhU-BGMBHehuBXcQ4dUDCAs&uact=5"}
 
     return dico_path
 
@@ -345,7 +346,7 @@ def searching_category(label, dico_path):
 def other_element_from_category(object_category, label, dico_path):
 
 
-    print("other object from category where ", label, "is ", object_category)
+    print("\nother object from category where ", label, "is ", object_category)
 
     #BS4 function
     content_html = content_html = bs4_function(dico_path["wikipedia"],
@@ -359,13 +360,51 @@ def other_element_from_category(object_category, label, dico_path):
             liste.append(i.get_text())
         if nb >= 10:
             break
-    print("We found :" + liste)
+
+    print("We found :", liste, "\n")
     return liste
 
     
+def search_no_object(content_html):
+
+    liste = [str(i.get_text()) for i in content_html]
+    liste_object = []
+    for i in liste:
+        if i in ("Toutes les langues", "Rechercher les pages en Français",
+                "Date indifférente", " Moins d'une heure", 
+                " Moins de 24 heures", " Moins d'une semaine",
+                " Moins d'un mois", " Moins d'un an", "Moins de 24\xa0heures"
+                "Tous les résultats", "Mot à mot", "Tous les résultats",
+                'Date indifférente', 'Rechercher les pages en Français',
+                'Toutes les langues', 'Date indifférente'):
+            pass
+        else:
+            liste_object.append(i)
+
+
+    print(liste_object)
+    return liste_object
 
 
 
+def transform_category_to_object(category_found, dico_path):
+
+
+    for objects in category_found:
+        print(objects)
+
+        #BS4 function
+        content_html_td = bs4_function(dico_path["exemple_of"],
+                                       objects, ("td", {"class":"mod"}))
+
+        content_html_li = bs4_function(dico_path["exemple_of"],
+                                        objects, ("li", {"class":"mod"}))
+
+
+        liste_td = search_no_object(content_html_td)
+        liste_li = search_no_object(content_html_li)
+        print("")
+        
 
 
 
@@ -407,8 +446,8 @@ if __name__ == "__main__":
     def searching_on_internet(label):
         our_path = our_dico_path_url()
         category = searching_category(label, our_path)
-        other_element_from_category(category, label, our_path)
-
+        category_found = other_element_from_category(category, label, our_path)
+        transform_category_to_object(category_found, our_path)
 
 
     number_label, label = inventory_item()
