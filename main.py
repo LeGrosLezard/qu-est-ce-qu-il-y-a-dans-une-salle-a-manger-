@@ -10,7 +10,6 @@ import time
 import joblib
 import imutils
 
-
 import requests
 import datetime
 import urllib.request
@@ -269,44 +268,103 @@ def show_picture(name, image, mode, destroy):
 
 def our_dico_path_url():
 
-    dico_path = {"wikipedia":"https://fr.wikipedia.org/wiki/{}"}
+    dico_path = {"google":"https://www.google.com/search?sxsrf=ACYBGNSdXLbezE1nvpQMhQ6Hp7qFGaiDxg%3A1570625734452&ei=xtidXfahG8rCgwfSsauQDQ&q=cat%C3%A9gorie+de+l%27objet+{0}&oq=cat%C3%A9gorie+de+l%27objet+{0}&gs_l=psy-ab.3..33i160.683.1619..1667...0.0..0.200.916.0j6j1......0....1..gws-wiz.......33i22i29i30.ya7xfhMLlT8&ved=0ahUKEwj2nOjnnI_lAhVK4eAKHdLYCtIQ4dUDCAs&uact=5",
+                 "wikipedia": "https://fr.wikipedia.org/wiki/{}"}
 
     return dico_path
 
 
-def searching(label, dico_path):
+def bs4_function(path, label, element_search):
+
+    """Request, content, bs4, element"""
+
+    request = requests.get(path.format(label))
+    page = request.content
+    soup_html = BeautifulSoup(page, "html.parser")
+    content_html = soup_html.find_all(element_search)
+
+    return content_html
 
 
-    def bs4_function(path, label, element_search):
+def treatment_list_category(liste, label):
 
-        """Request, content, bs4, element"""
+    print("We found category")
 
-        request = requests.get(path.format(label))
-        page = request.content
-        soup_html = BeautifulSoup(page, "html.parser")
-        content_html = soup_html.find_all(element_search)
+    category_object = ""
+    increment = ""
+    count = 0
 
-        return content_html
+    for i in liste:
+        for j in i:
+            if j == " ":
+                category = str(i).find(str("Catégorie:"))
+                category_object = str(i[category+10:count])
+                break
+
+            count+=1
+
+
+    print(label, "=", category_object)
+    return category_object
+
+
+
+def searching_category(label, dico_path):
 
 
     print(label)
+    print("time to search object catergory...")
     print("")
 
-    for key, value in dico_path.items():
-        print(key)
-        print("")
+    liste = []
 
-        content_html = bs4_function(value, label, ("a", {"class":"mw-body"}))
+    #BS4 function
+    content_html = bs4_function(dico_path["google"], label, ("a", {"class":"mw-body"}))
 
-        for i in content_html:
-            if i.get_text() in ("", "\n"):
-                pass
-            else:
-                if str(i) == '<a href="/wiki/Cat%C3%A9gorie:Accueil" title="Catégorie:Accueil">Catégorie</a>':
-                    break
-                print(i)
-                print("")
-            
+    #pass for "" or \n
+    for i in content_html:
+        if i.get_text() in ("", "\n"):
+            pass
+
+        else:
+            #search word wikipedia and category
+            wiki_search = str(i).find(str("wikipedia"))
+            categorie = str(i).find(str("Catégorie"))
+
+            #recup only text for category
+            if wiki_search >= 0 and categorie >= 0:
+                liste.append(i.get_text())
+
+    #recup category
+    object_category = treatment_list_category(liste, label)
+    return object_category
+
+
+
+
+def other_element_from_category(object_category, label, dico_path):
+
+
+    print("other object from category where ", label, "is ", object_category)
+
+    #BS4 function
+    content_html = content_html = bs4_function(dico_path["wikipedia"],
+                                               object_category, ("a", {"class":"mw-body"}))
+    
+    liste = []
+
+    for nb, i in enumerate(content_html):
+        no_navigation = str(i).find(str("title"))
+        if no_navigation >= 0 and i.get_text() not in (""):
+            liste.append(i.get_text())
+        if nb >= 10:
+            break
+    print("We found :" + liste)
+    return liste
+
+    
+
+
 
 
 
@@ -328,6 +386,7 @@ if __name__ == "__main__":
 
         return number_label, label
 
+
     def detection_picture():
         #load model
         model = joblib.load("model/miammiamsvmImage")
@@ -345,15 +404,17 @@ if __name__ == "__main__":
         croping_it_from_original(img_copy, liste, x, y, w, h)
 
 
-    def searching_on_wiki(label):
+    def searching_on_internet(label):
         our_path = our_dico_path_url()
-        searching(label, our_path)
+        category = searching_category(label, our_path)
+        other_element_from_category(category, label, our_path)
+
 
 
     number_label, label = inventory_item()
     for i in label:
-        searching_on_wiki(i)
-
+        searching_on_internet(i)
+        
 
 
 
