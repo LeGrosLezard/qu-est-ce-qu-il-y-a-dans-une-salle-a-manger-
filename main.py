@@ -561,10 +561,7 @@ if __name__ == "__main__":
 
 
 
-    object_to_download = []
-
     number_label, label = inventory_item()  #1
     for i in label:
-        objects_to_search = searching_on_internet(i)    #3
-        object_to_download.append(objects_to_search)
+        object_to_download = searching_on_internet(i)    #3
         download_picture(object_to_download)            #4
