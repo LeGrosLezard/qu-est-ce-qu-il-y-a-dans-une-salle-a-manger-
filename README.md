@@ -22,9 +22,11 @@
         -> avec les truk long comme marteau y'a le menu
         
         -> avec marteau -> on veut clou ou scie mais on a a la place marteau pillon
+        
+        -> faire pour toutes les recherches
 
    
- - travail des images data
+ - travail des images data 
  
         -> si l'image est rectangle w > h alors on la rotation
         
