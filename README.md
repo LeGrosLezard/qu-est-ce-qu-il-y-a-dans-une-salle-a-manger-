@@ -14,6 +14,7 @@
 
         -> réfléchir ca va etre super dur ca par contre ^^ 
         
+        -> assiette/vaisselle/ a couvert de table/ a couteau/fourchette <- c le moins long et le dico y'a 2 definitions pour assiette
      
   
     <strong>-> but </strong> trouvé verre, couteau, fourchette 
