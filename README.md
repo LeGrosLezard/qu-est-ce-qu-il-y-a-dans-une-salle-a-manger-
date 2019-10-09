@@ -22,14 +22,14 @@
         
         -> avec marteau -> on veut clou ou scie mais on a a la place marteau pillon
         
-        -> dire comment télécharger webdriver et comment connaitre sa version
+   
      
   
     
 
  -  filtrage des réponses + traitement
  
-        on télécharge 200 images le but trouver couteau + fourchette
+             -> les couteaux sont pas comme je veux...
  
         on les compare avec les autres air détecter 
         
@@ -50,5 +50,17 @@
  
  <br><br><br>
  
+ V2
  
+ 
+  
+             -> dire comment télécharger webdriver et comment connaitre sa version
+             
+             -> tout refaire (et réflchri pcque detecter un objet et se taper tout ca merci (thread ? et on rempli un liste et ca se      rempli petit a petit du genre je ne peux pas vous dire mtn.... .... ... j'ai trouvé cela ressemble a une cuillère))
+             
+             -> je n'ai pas encore appris 2 sec 
+             
+             
+             
+             
  - montre moi une salle a manger/dessine moi une salle a manger
