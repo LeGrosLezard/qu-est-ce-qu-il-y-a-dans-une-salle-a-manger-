@@ -5,6 +5,8 @@
 
  -   détecter une assiette
  
+         -> a améliorer: 
+ 
          -> si nape, on fait un mask  et on efface la nape pour le blanc 
     
          -> faire des rotations 
