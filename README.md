@@ -42,11 +42,9 @@
 
  -  filtrage des réponses + traitement
  
-             -> les couteaux sont pas comme je veux...
- 
+
         on les compare avec les autres air détecter 
         
-        les proportions
  
         <strong>-> but </strong> trouvé verre, couteau, fourchette 
  
@@ -57,6 +55,7 @@
         vérifier si a deja alors b si z deja alors aa et dire [1:] -> {[2:] ect
  
         effacer images ou les transferer vers google drive
+ 
  
  - aller de fourchette vers couteau
  
