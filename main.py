@@ -23,7 +23,8 @@ def element_to_detection(label, detection):
     with open("label.py", "a") as file:
         row = str(label) + "," + str(detection) + ";\n"
         file.write(str(row))
-        
+
+
 def element_in_label_PY():
 
     label = []
@@ -43,7 +44,6 @@ def element_in_label_PY():
                         j = int(j)
                         if j == int(j):
                             number_label.append(j)
-   
                     except:
                         increment += j
 
@@ -95,11 +95,9 @@ def reverse_img_by_pos(img, x, y, size):
     if y >= height/2:
         reverse_y = True
 
-
     if reverse_x is True:
         crop = img[y:y+size*5, x-size*5:x]
         pts = (y, y+size*5, x-size*5, x)
-
 
     if reverse_y is True:
         crop = img[y-size*5:y, x:x+size*5]
@@ -131,6 +129,7 @@ def HOG_detection(gray):
 
 def rotation():
     pass
+
 
 def parcours_image(img, model):
 
@@ -226,7 +225,7 @@ def get_other_object(img):
             liste.append([x, y, w, h])
             cv2.drawContours(blanck, cnts, -1, (255, 255, 255), 1)
 
- 
+
     show_picture("blanck", blanck, 0, "y")
     return liste
 
@@ -244,7 +243,6 @@ def croping_it_from_original(img, liste, x, y, w, h):
         print(i)
         cv2.rectangle(img, (i[0], i[1]), (i[0] + i[2], i[1] + i[3]), (0, 0, 255), 1)
 
-    
     show_picture("img", img, 0, "")
 
 
@@ -267,12 +265,17 @@ def show_picture(name, image, mode, destroy):
 #-------------------------------------------------------------------------- Part Scrapping
 
 def our_dico_path_url():
+    """Google for category of our label,
+    wiki for words in ahref
+    exemple_of google for example of category
+    """
 
     dico_path = {"google":"https://www.google.com/search?sxsrf=ACYBGNSdXLbezE1nvpQMhQ6Hp7qFGaiDxg%3A1570625734452&ei=xtidXfahG8rCgwfSsauQDQ&q=cat%C3%A9gorie+de+l%27objet+{0}&oq=cat%C3%A9gorie+de+l%27objet+{0}&gs_l=psy-ab.3..33i160.683.1619..1667...0.0..0.200.916.0j6j1......0....1..gws-wiz.......33i22i29i30.ya7xfhMLlT8&ved=0ahUKEwj2nOjnnI_lAhVK4eAKHdLYCtIQ4dUDCAs&uact=5",
                  "wikipedia": "https://fr.wikipedia.org/wiki/{}",
                  "exemple_of":"https://www.google.com/search?hl=fr&sxsrf=ACYBGNQeVb_NYY7utIXV-9TKkWxW89ABgg%3A1570629335228&ei=1-adXZHODb6IjLsP6N2VuAc&q=exemple+de+{0}&oq=exemple+de+{0}&gs_l=psy-ab.3..0i22i10i30j0i22i30l9.4989.6189..6333...0.4..0.115.711.4j3......0....1..gws-wiz.......0i71j0j0i20i263j0i203.QvdVxJ7yvh4&ved=0ahUKEwjRleacqo_lAhU-BGMBHehuBXcQ4dUDCAs&uact=5"}
 
     return dico_path
+
 
 
 def bs4_function(path, label, element_search):
@@ -287,6 +290,7 @@ def bs4_function(path, label, element_search):
     return content_html
 
 
+
 def treatment_list_category(liste, label):
 
     print("We found category")
@@ -298,6 +302,7 @@ def treatment_list_category(liste, label):
     for i in liste:
         for j in i:
             if j == " ":
+                #google give: "Categorie:dog - ...."
                 category = str(i).find(str("Catégorie:"))
                 category_object = str(i[category+10:count])
                 break
@@ -320,7 +325,7 @@ def searching_category(label, dico_path):
 
     liste = []
 
-    #BS4 function
+    #BS4 function 1)search category of ... ->2) give wikipedia:categorie of...
     content_html = bs4_function(dico_path["google"], label, ("a", {"class":"mw-body"}))
 
     #pass for "" or \n
@@ -351,16 +356,18 @@ def other_element_from_category(object_category, label, dico_path):
 
     print("\nother object from category where ", label, "is ", object_category)
 
-    #BS4 function
+    #BS4 function We recup all ahref of text content
     content_html = content_html = bs4_function(dico_path["wikipedia"],
                                                object_category, ("a", {"class":"mw-body"}))
-    
+
     liste = []
 
     for nb, i in enumerate(content_html):
+        #only tag with title (no navigation)
         no_navigation = str(i).find(str("title"))
         if no_navigation >= 0 and i.get_text() not in (""):
             liste.append(i.get_text())
+        #stop at 10 elements
         if nb >= 10:
             break
 
@@ -376,8 +383,10 @@ def search_no_object(content_html):
     else like assiette google doesn't give example
     """
 
+    #tag to str
     liste = [str(i.get_text()) for i in content_html]
     liste_object = []
+    #filter search
     for i in liste:
         if i in ("Toutes les langues", "Rechercher les pages en Français",
                 "Date indifférente", " Moins d'une heure", 
@@ -387,7 +396,9 @@ def search_no_object(content_html):
                 'Date indifférente', 'Rechercher les pages en Français',
                 'Toutes les langues', 'Date indifférente'):
             pass
+
         else:
+            #Sometimes there are in end words
             if i[-1] in (".", ",", ";"):
                 i = i[:-1]
             liste_object.append(i)
@@ -409,12 +420,12 @@ def transform_category_to_object(category_found, dico_path):
         print(objects, "in course...")
 
         #BS4 function
+        #category of category google give examples -> 1)quadrupede -> 2)(we are here) animals -> 3)god/cat
         content_html_td = bs4_function(dico_path["exemple_of"],
                                        objects, ("td", {"class":"mod"}))
 
         content_html_li = bs4_function(dico_path["exemple_of"],
                                         objects, ("li", {"class":"mod"}))
-
 
         liste_td = search_no_object(content_html_td)
         liste_li = search_no_object(content_html_li)
@@ -423,16 +434,15 @@ def transform_category_to_object(category_found, dico_path):
             objects_to_search.append(objects)
 
         else:
-
             if liste_td not in []:
                 for i in liste_td:
                     objects_to_search.append(i)
- 
+
             if liste_li not in []:
                 for i in liste_li:
                     objects_to_search.append(i)
-        
-    print(objects_to_search)
+
+    return objects_to_search
 
 
 #-------------------------------------------------------------------------- Part Scrapping
@@ -440,10 +450,19 @@ def transform_category_to_object(category_found, dico_path):
 
 
 
+#-------------------------------------------------------------------------- Part Download
+
+
+
+#-------------------------------------------------------------------------- Part Download
+
+
+    
 
 if __name__ == "__main__":
 
 
+    #1
     def inventory_item():
         #Writte a new lign in our inventory
         #element_to_detection("1", "assiette")
@@ -452,7 +471,7 @@ if __name__ == "__main__":
 
         return number_label, label
 
-
+    #2
     def detection_picture():
         #load model
         model = joblib.load("model/miammiamsvmImage")
@@ -469,18 +488,36 @@ if __name__ == "__main__":
         """     IN COURSE    """    
         croping_it_from_original(img_copy, liste, x, y, w, h)
 
-
+    #3
     def searching_on_internet(label):
+        #It's our path ex: wikipedia question url
         our_path = our_dico_path_url()
+        #We search category of our first label
         category = searching_category(label, our_path)
+        #We recup other object from this last category
         category_found = other_element_from_category(category, label, our_path)
-        transform_category_to_object(category_found, our_path)
+        #We filter this object because we can have category of the last category
+        objects_to_search = transform_category_to_object(category_found, our_path)
+
+        return objects_to_search
+
+    #4
+    def download_picture(object_to_download):
+        pass
 
 
-    number_label, label = inventory_item()
+    #5
+    def trainning_model():
+        pass
+
+
+
+    object_to_download = []
+
+    number_label, label = inventory_item()  #1
     for i in label:
-        searching_on_internet(i)
-        
+        objects_to_search = searching_on_internet(i)    #3
+        object_to_download.append(objects_to_search)    #4
 
 
 
