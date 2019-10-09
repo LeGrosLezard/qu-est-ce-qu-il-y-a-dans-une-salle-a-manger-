@@ -270,6 +270,143 @@ def show_picture(name, image, mode, destroy):
 
 
 
+
+
+
+
+
+
+
+
+
+#-------------------------------------------------------------------------- Part picture treatment
+
+
+
+def open_download_folder(objects_to_search):
+
+    for i in objects_to_search:
+
+        liste_obj = os.listdir("dataset1/" + i)
+        take_features(liste_obj, i)
+
+        break
+
+
+
+
+def take_features(liste_obj, category):
+
+    path = "dataset1/{}/{}"
+    
+    for i in liste_obj:
+
+        print(i)
+        img = open_picture(path.format(category, i))
+        
+
+        height, width, channel = img.shape
+        if height > 200 and width > 200:
+            img = cv2.resize(img, (200, 200))
+
+
+        blanck = blanck_picture(img)
+
+        gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
+        edged = cv2.Canny(img, 100, 200)
+
+        contours, _ = cv2.findContours(edged, cv2.RETR_TREE,
+                                       cv2.CHAIN_APPROX_SIMPLE)
+
+        # ICI
+
+        positionX = []; positionY = []; positionW = []; positionH = [];
+        maxi1 = 0; maxi2 = 0; maxi3 = 0; 
+
+
+        #3 highters detections
+        for cnts in contours:
+            if cv2.contourArea(cnts) > maxi1:       
+                maxi1 = cv2.contourArea(cnts)#higther dection
+            elif cv2.contourArea(cnts) > maxi2 and\
+                 cv2.contourArea(cnts) < maxi1:
+                maxi2 = cv2.contourArea(cnts)#second highter
+            elif cv2.contourArea(cnts) > maxi3 and\
+                 cv2.contourArea(cnts) < maxi2:
+                maxi3 = cv2.contourArea(cnts)#third highter
+
+
+        for cnts in contours:
+            if cv2.contourArea(cnts) == maxi1 or\
+               cv2.contourArea(cnts) == maxi2 or\
+               cv2.contourArea(cnts) == maxi3:
+                x, y, w, h = cv2.boundingRect(cnts)
+
+                positionX.append(x); positionY.append(y);
+                positionW.append(x+w); positionH.append(y+h);
+
+                cv2.drawContours(blanck, cnts, -1, (255, 255, 255), 1)
+                cv2.rectangle(blanck, (x, y), (x+w, y+h), (0, 0, 255), 1)
+
+
+        for i in range(len(positionX)):
+            print(positionX[i], positionY[i], positionW[i], positionH[i])
+
+
+
+
+
+
+
+        show_picture("blanck", blanck, 0, "")
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+#-------------------------------------------------------------------------- Part picture treatment
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 #-------------------------------------------------------------------------- Part Scrapping
 
 def our_dico_path_url():
@@ -461,7 +598,12 @@ def transform_category_to_object(category_found, dico_path):
 
 
 
-from download import main_download
+
+
+
+
+
+
 os.environ["PATH"] += os.pathsep + os.getcwd()
 #-------------------------------------------------------------------------- Part Download
 
@@ -477,7 +619,6 @@ def transform_i(word):
                 out_word += j
       
     return out_word
-
 
 
 
@@ -620,27 +761,31 @@ if __name__ == "__main__":
         return objects_to_search
 
     #4
-    def download_picture(object_to_download):  
-        download(object_to_download)
-        main([object_to_download], [200], [0], str(object_to_download) + "/")
+    def download_picture(object_to_download):
+
+        number_label, label = inventory_item()  #1
+        for i in label:
+            object_to_download = searching_on_internet(i)    #3
+
+            for objects in object_to_download:
+                objects = transform_i(objects)
+                main_download([objects], [200], [0], "dataset1/")    #4
+
+
+
 
     #5
+    def treatment_picture_download():
+        #objects_to_search = searching_on_internet(label)
+        objects_to_search = ["cuillere", "fourchette", "couteau", "verre"]
+        open_download_folder(objects_to_search)
+
+    #6
     def trainning_model():
         pass
 
-
-
-    number_label, label = inventory_item()  #1
-    for i in label:
-        object_to_download = searching_on_internet(i)    #3
-        download_picture(object_to_download)             #4
-
-
-
-
-
-
-
+    # mainici
+    treatment_picture_download()    #5
 
 
 
