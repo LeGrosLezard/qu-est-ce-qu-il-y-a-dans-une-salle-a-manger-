@@ -312,6 +312,7 @@ def treatment_list_category(liste, label):
 
 def searching_category(label, dico_path):
 
+    """We search category like plate for vaisselle"""
 
     print(label)
     print("time to search object catergory...")
@@ -346,6 +347,8 @@ def searching_category(label, dico_path):
 def other_element_from_category(object_category, label, dico_path):
 
 
+    """vaiselle give spoon"""
+
     print("\nother object from category where ", label, "is ", object_category)
 
     #BS4 function
@@ -361,11 +364,17 @@ def other_element_from_category(object_category, label, dico_path):
         if nb >= 10:
             break
 
-    print("We found :", liste, "\n")
     return liste
 
-    
+
+
 def search_no_object(content_html):
+
+    """If it's category again like couverts so google give some examples
+    BUT there are noises
+
+    else like assiette google doesn't give example
+    """
 
     liste = [str(i.get_text()) for i in content_html]
     liste_object = []
@@ -379,19 +388,25 @@ def search_no_object(content_html):
                 'Toutes les langues', 'Date indifférente'):
             pass
         else:
+            if i[-1] in (".", ",", ";"):
+                i = i[:-1]
             liste_object.append(i)
 
 
-    print(liste_object)
     return liste_object
 
 
 
 def transform_category_to_object(category_found, dico_path):
 
+    """There are two differents way:
+    the td and the li
+    """
 
+    objects_to_search = []
+    
     for objects in category_found:
-        print(objects)
+        print(objects, "in course...")
 
         #BS4 function
         content_html_td = bs4_function(dico_path["exemple_of"],
@@ -403,9 +418,21 @@ def transform_category_to_object(category_found, dico_path):
 
         liste_td = search_no_object(content_html_td)
         liste_li = search_no_object(content_html_li)
-        print("")
-        
 
+        if liste_td == [] and liste_li == []:
+            objects_to_search.append(objects)
+
+        else:
+
+            if liste_td not in []:
+                for i in liste_td:
+                    objects_to_search.append(i)
+ 
+            if liste_li not in []:
+                for i in liste_li:
+                    objects_to_search.append(i)
+        
+    print(objects_to_search)
 
 
 #-------------------------------------------------------------------------- Part Scrapping
