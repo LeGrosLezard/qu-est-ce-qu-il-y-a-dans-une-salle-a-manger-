@@ -458,6 +458,17 @@ def transform_category_to_object(category_found, dico_path):
 
 response = google_images_download.googleimagesdownload() 
 
+def transform_i(word):
+    out_word = ""
+    for i in word:
+        for j in i:
+            if j in ("é", "è"):
+               out_word += "e"
+            else:
+                out_word += j
+      
+    return out_word
+            
 
 def downloadimages(query): 
     # keywords is the search query 
@@ -473,7 +484,8 @@ def downloadimages(query):
                  "limit":200, 
                  "print_urls":True, 
                  "size": "medium", 
-                 "aspect_ratio": "panoramic"} 
+                 "aspect_ratio": "panoramic",
+                 "chromedriver":r"C:\Users\jeanbaptiste\Desktop\assiette\chromedriver"}
     try: 
         response.download(arguments) 
       
@@ -483,7 +495,8 @@ def downloadimages(query):
                      "format": "jpg", 
                      "limit":200, 
                      "print_urls":True,  
-                     "size": "medium"} 
+                     "size": "medium",
+                     "chromedriver":r"C:\Users\jeanbaptiste\Desktop\assiette\chromedriver"} 
                        
         # Providing arguments for the searched query 
         try: 
@@ -496,8 +509,10 @@ def downloadimages(query):
 
 
 def download(search_queries):
-  
-    for query in search_queries: 
+    
+    for query in search_queries:
+        print(query, "in downloading")
+        query = transform_i(query)
         downloadimages(query)  
 
 
@@ -551,7 +566,7 @@ if __name__ == "__main__":
         return objects_to_search
 
     #4
-    def download_picture(object_to_download):
+    def download_picture(object_to_download):  
         download(object_to_download)
 
 
@@ -565,3 +580,13 @@ if __name__ == "__main__":
     for i in label:
         object_to_download = searching_on_internet(i)    #3
         download_picture(object_to_download)            #4
+
+
+
+
+
+
+
+
+
+
