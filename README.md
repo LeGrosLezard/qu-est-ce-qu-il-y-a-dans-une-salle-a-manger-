@@ -12,13 +12,9 @@
 
   - Scrap
 
-    on demande a quoi sert une ...
-    
-    qu'est-ce qu'une ...
-    
-    de quoi s'accompagne ...
-  
-    de quoi est composé ... (csv a par)
+        -> réfléchir ca va etre super dur ca par contre ^^ 
+        
+     
   
     <strong>-> but </strong> trouvé verre, couteau, fourchette 
 
