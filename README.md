@@ -2,10 +2,7 @@
 
 #download from penseeartificielle/google-image-scrapping
 
-moi aussi jve que mes trucks marchent tout le tmeps
 
-
-  -> comprendre difference knn(100) x voisin / lieanarSVC / SVC -> hyperplan mais pas lieanarSVC et SVC et les math je comprend rien avec les symboles
 
  -   détecter une assiette
  
@@ -25,10 +22,7 @@ moi aussi jve que mes trucks marchent tout le tmeps
         -> avec les truk long comme marteau y'a le menu
         
         -> avec marteau -> on veut clou ou scie mais on a a la place marteau pillon
-        
-        -> voir si y'a un model qui s'enregistre image par image et si on lui presente un nouveau ca dit ok ou non
-        
-        -> faire contour si cuillerre penchée alors reposition
+
    
  - travail des images data
  
@@ -38,7 +32,11 @@ moi aussi jve que mes trucks marchent tout le tmeps
   
         -> on met le backrgound blanc
         
-        -> et d'autres trucks
+        -> voir si y'a un model qui s'enregistre image par image et si on lui presente un nouveau ca dit ok ou non
+        
+        -> faire contour si cuillerre penchée alors reposition
+
+
 
  -  filtrage des réponses + traitement
  
