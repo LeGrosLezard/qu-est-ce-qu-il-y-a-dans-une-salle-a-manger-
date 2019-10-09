@@ -1,5 +1,7 @@
 # qu-est-ce-qu-il-y-a-dans-une-salle-a-manger-
 
+#download from penseeartificielle/google-image-scrapping
+
 
   -> comprendre difference knn(100) x voisin / lieanarSVC / SVC -> hyperplan mais pas lieanarSVC et SVC et les math je comprend rien avec les symboles
 
@@ -23,7 +25,11 @@
         -> avec marteau -> on veut clou ou scie mais on a a la place marteau pillon
         
    
-     
+ - travail des images data
+ 
+        -> si l'image est rectangle w > h alors on la rotation
+        
+        -> on essais de récup des objects et d'en récup un ex: plsueiurs cuillere a coté
   
     
 
