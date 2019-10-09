@@ -12,11 +12,15 @@
 
   - Scrap
     
+        -> a améliorer: 
+    
         -> faire une meilleur fonction
         
         -> avec les truk long comme marteau y'a le menu
         
         -> avec marteau -> clou ou scie a la place marteau pillon
+        
+        -> y'a yolo et tout les autres truks c'est pas grave
      
   
     <strong>-> but </strong> trouvé verre, couteau, fourchette 
