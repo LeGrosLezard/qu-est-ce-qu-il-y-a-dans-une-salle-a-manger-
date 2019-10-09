@@ -62,5 +62,6 @@
              
              -> je ne sais pas encore ... tout a l'heure vous m'avre montré ca peut etre que c ca !
              
+             -> je peux enrichir ma salle a manger ect ...
              
  - montre moi une salle a manger/dessine moi une salle a manger
