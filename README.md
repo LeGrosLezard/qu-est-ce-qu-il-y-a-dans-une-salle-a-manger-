@@ -11,10 +11,12 @@
 
 
   - Scrap
-
-        -> réfléchir ca va etre super dur ca par contre ^^ 
+    
+        -> faire une meilleur fonction
         
-        -> assiette/vaisselle/ a couvert de table/ a couteau/fourchette <- c le moins long peut etre et le dico y'a 2 definitions pour assiette
+        -> avec les truk long comme marteau y'a le menu
+        
+        -> avec marteau -> clou ou scie a la place marteau pillon
      
   
     <strong>-> but </strong> trouvé verre, couteau, fourchette 
