@@ -16,7 +16,15 @@ import urllib.request
 from bs4 import *
 import datetime
 
-from google_images_download import google_images_download
+from selenium import webdriver
+from selenium.webdriver.common.keys import Keys
+import os
+import json
+import urllib
+import sys
+import time
+import urllib.request
+
 
 #-------------------------------------------------------------------------- Part model learning
 def element_to_detection(label, detection):
@@ -453,10 +461,11 @@ def transform_category_to_object(category_found, dico_path):
 
 
 
-
+from download import main_download
+os.environ["PATH"] += os.pathsep + os.getcwd()
 #-------------------------------------------------------------------------- Part Download
 
-response = google_images_download.googleimagesdownload() 
+
 
 def transform_i(word):
     out_word = ""
@@ -468,53 +477,98 @@ def transform_i(word):
                 out_word += j
       
     return out_word
-            
-
-def downloadimages(query): 
-    # keywords is the search query 
-    # format is the image file format 
-    # limit is the number of images to be downloaded 
-    # print urs is to print the image file url 
-    # size is the image size which can 
-    # be specified manually ("large, medium, icon") 
-    # aspect ratio denotes the height width ratio 
-    # of images to download. ("tall, square, wide, panoramic") 
-    arguments = {"keywords": query, 
-                 "format": "jpg", 
-                 "limit":200, 
-                 "print_urls":True, 
-                 "size": "medium", 
-                 "aspect_ratio": "panoramic",
-                 "chromedriver":r"C:\Users\jeanbaptiste\Desktop\assiette\chromedriver"}
-    try: 
-        response.download(arguments) 
-      
-    # Handling File NotFound Error     
-    except FileNotFoundError:  
-        arguments = {"keywords": query, 
-                     "format": "jpg", 
-                     "limit":200, 
-                     "print_urls":True,  
-                     "size": "medium",
-                     "chromedriver":r"C:\Users\jeanbaptiste\Desktop\assiette\chromedriver"} 
-                       
-        # Providing arguments for the searched query 
-        try: 
-            # Downloading the photos based 
-            # on the given arguments 
-            response.download(arguments)  
-        except: 
-            pass
 
 
 
-def download(search_queries):
+
+def main_download(words_to_search, nb_to_download,
+                  first_image_position, download_path):
     
-    for query in search_queries:
-        print(query, "in downloading")
-        query = transform_i(query)
-        downloadimages(query)  
+    if len(words_to_search) != len(nb_to_download) or\
+       len(nb_to_download) != len(first_image_position) :
+        raise ValueError('You may have forgotten to configure one of the lists (length is different)')
 
+    i= 0
+    # For each word in the list, we download the number of images requested
+    while i<len(words_to_search):
+        print("Words "+str(i)+" : "+ str(nb_to_download[i])+"x\""+words_to_search[i]+"\"")
+        if nb_to_download[i] > 0:
+            search_and_save(words_to_search[i],
+                            nb_to_download[i],
+                            first_image_position[i],
+                            download_path)
+        i+=1
+
+
+def search_and_save(text, number, first_position, download_path):
+    # Number_of_scrolls * 400 images will be opened in the browser
+    number_of_scrolls = int((number + first_position)/ 400 + 1) 
+    print("Search : "+text+" ; number : "+str(number)+"; first_position : "+\
+          str(first_position)+" ; scrolls : "+str(number_of_scrolls))
+
+    # Create directories to save images
+    if not os.path.exists(download_path + text.replace(" ", "_")):
+        os.makedirs(download_path + text.replace(" ", "_"))
+
+    # Connect to Google Image
+    url = "https://www.google.co.in/search?q="+text+"&source=lnms&tbm=isch"
+    driver = driver = webdriver.Chrome()
+    driver.get(url)
+    headers = {}
+    headers['User-Agent'] = "Mozilla/5.0 (Windows NT 6.1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/77.0.3865.90 Safari/537.36"
+    extensions = {"jpg", "jpeg", "png"}
+    
+    img_count = 0
+    downloaded_img_count = 0
+    img_skip = 0
+    
+    # Prepare Google Page
+    for _ in range(number_of_scrolls):
+        for __ in range(10):
+            # Multiple scrolls needed to show all 400 images
+            driver.execute_script("window.scrollBy(0, 1000000)")
+            time.sleep(0.2)
+        # to load next 400 images
+        time.sleep(2.5)
+        try:
+            driver.find_element_by_xpath("//input[@value='Show more results']").click()
+            time.sleep(2.5)
+        except Exception as e:
+            print("Less images found:"+ str(e))
+            break
+
+    # Process (download) images
+    imges = driver.find_elements_by_xpath('//div[contains(@class,"rg_meta")]')
+    print("Total images:"+ str(len(imges)) + "\n")
+    for img in imges:
+        if img_skip < first_position:
+            # Skip first images if asked to
+            img_skip += 1
+        else :
+            # Get image
+            img_count += 1
+            img_url = json.loads(img.get_attribute('innerHTML'))["ou"]
+            img_type = json.loads(img.get_attribute('innerHTML'))["ity"]
+            print("Downloading image "+ str(img_count) + ": "+ img_url)
+            try:
+                if img_type not in extensions:
+                    img_type = "jpg"
+                # Download image and save it
+                req = urllib.request.Request(img_url, headers=headers)
+                raw_img = urllib.request.urlopen(req).read()
+                f = open(download_path+text.replace(" ", "_")+"/"+str(img_skip+downloaded_img_count)+"."+img_type, "wb")
+                f.write(raw_img)
+                f.close
+                downloaded_img_count += 1
+            except Exception as e:
+                print("Download failed:"+ str(e))
+            finally:
+                print("")
+            if downloaded_img_count >= number:
+                break
+
+    print("Total skipped : "+str(img_skip)+"; Total downloaded : "+ str(downloaded_img_count)+ "/"+ str(img_count))
+    driver.quit()
 
 
 
@@ -568,7 +622,7 @@ if __name__ == "__main__":
     #4
     def download_picture(object_to_download):  
         download(object_to_download)
-
+        main([object_to_download], [200], [0], str(object_to_download) + "/")
 
     #5
     def trainning_model():
@@ -579,7 +633,7 @@ if __name__ == "__main__":
     number_label, label = inventory_item()  #1
     for i in label:
         object_to_download = searching_on_internet(i)    #3
-        download_picture(object_to_download)            #4
+        download_picture(object_to_download)             #4
 
 
 
