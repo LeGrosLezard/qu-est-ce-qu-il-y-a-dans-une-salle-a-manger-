@@ -20,12 +20,12 @@
         
         -> avec les truk long comme marteau y'a le menu
         
-        -> avec marteau -> clou ou scie a la place marteau pillon
+        -> avec marteau -> on veut clou ou scie mais on a a la place marteau pillon
         
-        -> y'a yolo et tout les autres truks c'est pas grave
+        
      
   
-    <strong>-> but </strong> trouvé verre, couteau, fourchette 
+    
 
  -  filtrage des réponses + traitement
  
