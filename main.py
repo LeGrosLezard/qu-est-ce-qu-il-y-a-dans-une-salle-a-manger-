@@ -16,7 +16,7 @@ import urllib.request
 from bs4 import *
 import datetime
 
-
+from google_images_download import google_images_download
 
 #-------------------------------------------------------------------------- Part model learning
 def element_to_detection(label, detection):
@@ -325,7 +325,7 @@ def searching_category(label, dico_path):
 
     liste = []
 
-    #BS4 function 1)search category of ... ->2) give wikipedia:categorie of...
+    #BS4 function 1)search category of ... -> 2) give wikipedia:categorie of...
     content_html = bs4_function(dico_path["google"], label, ("a", {"class":"mw-body"}))
 
     #pass for "" or \n
@@ -401,6 +401,10 @@ def search_no_object(content_html):
             #Sometimes there are in end words
             if i[-1] in (".", ",", ";"):
                 i = i[:-1]
+            parenthese = str(i).find("(")
+            if parenthese >= 0:
+                i = i[:parenthese-1]
+ 
             liste_object.append(i)
 
 
@@ -415,7 +419,7 @@ def transform_category_to_object(category_found, dico_path):
     """
 
     objects_to_search = []
-    
+
     for objects in category_found:
         print(objects, "in course...")
 
@@ -451,6 +455,51 @@ def transform_category_to_object(category_found, dico_path):
 
 
 #-------------------------------------------------------------------------- Part Download
+
+response = google_images_download.googleimagesdownload() 
+
+
+def downloadimages(query): 
+    # keywords is the search query 
+    # format is the image file format 
+    # limit is the number of images to be downloaded 
+    # print urs is to print the image file url 
+    # size is the image size which can 
+    # be specified manually ("large, medium, icon") 
+    # aspect ratio denotes the height width ratio 
+    # of images to download. ("tall, square, wide, panoramic") 
+    arguments = {"keywords": query, 
+                 "format": "jpg", 
+                 "limit":200, 
+                 "print_urls":True, 
+                 "size": "medium", 
+                 "aspect_ratio": "panoramic"} 
+    try: 
+        response.download(arguments) 
+      
+    # Handling File NotFound Error     
+    except FileNotFoundError:  
+        arguments = {"keywords": query, 
+                     "format": "jpg", 
+                     "limit":200, 
+                     "print_urls":True,  
+                     "size": "medium"} 
+                       
+        # Providing arguments for the searched query 
+        try: 
+            # Downloading the photos based 
+            # on the given arguments 
+            response.download(arguments)  
+        except: 
+            pass
+
+
+
+def download(search_queries):
+  
+    for query in search_queries: 
+        downloadimages(query)  
+
 
 
 
@@ -503,7 +552,7 @@ if __name__ == "__main__":
 
     #4
     def download_picture(object_to_download):
-        pass
+        download(object_to_download)
 
 
     #5
@@ -517,15 +566,5 @@ if __name__ == "__main__":
     number_label, label = inventory_item()  #1
     for i in label:
         objects_to_search = searching_on_internet(i)    #3
-        object_to_download.append(objects_to_search)    #4
-
-
-
-
-
-
-
-
-
-
-
+        object_to_download.append(objects_to_search)
+        download_picture(object_to_download)            #4
