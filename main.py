@@ -11,11 +11,45 @@ import joblib
 import imutils
 
 
+import requests
+import datetime
+import urllib.request
+from bs4 import *
+import datetime
+
 
 
 #-------------------------------------------------------------------------- Part model learning
+def element_to_detection(label, detection):
+    with open("label.py", "a") as file:
+        row = str(label) + "," + str(detection) + ";\n"
+        file.write(str(row))
+        
+def element_in_label_PY():
 
+    label = []
+    number_label = []
+    increment = ""
+ 
+    with open("label.py", "r") as file:
+        for i in file:
+            for j in i:
 
+                if j in (";"):
+                    label.append(increment)
+                    increment = ""
+
+                if j not in (",", " ", "\n"):
+                    try:
+                        j = int(j)
+                        if j == int(j):
+                            number_label.append(j)
+   
+                    except:
+                        increment += j
+
+    return number_label, label     
+                
 
 #-------------------------------------------------------------------------- Part model learning
 
@@ -125,10 +159,9 @@ def parcours_image(img, model):
                 if pred == 1:
                     cv2.rectangle(img_detection, (pts[2], pts[0]), (pts[3], pts[1]), (0, 0, 255), 2)
                     list_intersection.append([pts[2], pts[0], pts[3], pts[1]])
-
-
             except:
                 pass
+
 
 ##            cv2.rectangle(clone, (x, y), (x + size, y + size), (0, 255, 0), 2)
 ##            show_picture("clone", clone, 1, "")
@@ -228,7 +261,53 @@ def show_picture(name, image, mode, destroy):
 
 
 
+
+
+
+
 #-------------------------------------------------------------------------- Part Scrapping
+
+def our_dico_path_url():
+
+    dico_path = {"wikipedia":"https://fr.wikipedia.org/wiki/{}"}
+
+    return dico_path
+
+
+def searching(label, dico_path):
+
+
+    def bs4_function(path, label, element_search):
+
+        """Request, content, bs4, element"""
+
+        request = requests.get(path.format(label))
+        page = request.content
+        soup_html = BeautifulSoup(page, "html.parser")
+        content_html = soup_html.find_all(element_search)
+
+        return content_html
+
+
+    print(label)
+    print("")
+
+    for key, value in dico_path.items():
+        print(key)
+        print("")
+
+        content_html = bs4_function(value, label, ("a", {"class":"mw-body"}))
+
+        for i in content_html:
+            if i.get_text() in ("", "\n"):
+                pass
+            else:
+                if str(i) == '<a href="/wiki/Cat%C3%A9gorie:Accueil" title="Catégorie:Accueil">Catégorie</a>':
+                    break
+                print(i)
+                print("")
+            
+
 
 
 
@@ -240,22 +319,40 @@ def show_picture(name, image, mode, destroy):
 
 if __name__ == "__main__":
 
-    model = joblib.load("model/miammiamsvmImage")
 
-    img = open_picture("assiette1.jpg")
-    img_copy = img.copy()
+    def inventory_item():
+        #Writte a new lign in our inventory
+        #element_to_detection("1", "assiette")
+        #Recup item for our inventory
+        number_label, label = element_in_label_PY()
 
-    list_intersection = parcours_image(img, model)
+        return number_label, label
 
-    x, y, w, h = reconstruction(img, list_intersection)
-    liste = get_other_object(img)
+    def detection_picture():
+        #load model
+        model = joblib.load("model/miammiamsvmImage")
+        #open img and copy it
+        img = open_picture("assiette1.jpg")
+        img_copy = img.copy()
+        #recup all detection
+        list_intersection = parcours_image(img, model)
+        #take intersection detection
+        x, y, w, h = reconstruction(img, list_intersection)
+        #get other items on picture
+        liste = get_other_object(img)
 
-    croping_it_from_original(img_copy, liste, x, y, w, h)
+        """     IN COURSE    """    
+        croping_it_from_original(img_copy, liste, x, y, w, h)
 
 
+    def searching_on_wiki(label):
+        our_path = our_dico_path_url()
+        searching(label, our_path)
 
 
-
+    number_label, label = inventory_item()
+    for i in label:
+        searching_on_wiki(i)
 
 
 
