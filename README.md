@@ -2,6 +2,8 @@
 
 #download from penseeartificielle/google-image-scrapping
 
+moi aussi jve que mes trucks marchent tout le tmeps
+
 
   -> comprendre difference knn(100) x voisin / lieanarSVC / SVC -> hyperplan mais pas lieanarSVC et SVC et les math je comprend rien avec les symboles
 
@@ -31,7 +33,9 @@
         
         -> on essais de récup des objects et d'en récup un ex: plsueiurs cuillere a coté
   
-    
+        -> on met le backrgound blanc
+        
+        -> et d'autres trucks
 
  -  filtrage des réponses + traitement
  
