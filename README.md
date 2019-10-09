@@ -7,7 +7,7 @@
  
          -> a améliorer: 
  
-         -> si nape, on fait un mask et on efface la nape pour le blanc (par exemple recupere les contours fais un mask ou tu colles les            contours)
+         -> si nape, on fait un mask et on efface la nape pour le blanc (par exemple recupere les contours fais un mask ou tu colles les contours)
     
          -> faire des rotations de l'image (x y size * 5) par exemple si une cuillerre est de travers
 
