@@ -24,7 +24,8 @@
         -> avec marteau -> on veut clou ou scie mais on a a la place marteau pillon
         
         -> faire pour toutes les recherches
-
+        
+        -> chercher les dimensions/formes ex: cuillere != assiette
    
  - travail des images data 
  
@@ -38,7 +39,7 @@
         
         -> faire contour si cuillerre penchée alors reposition
 
-        -> la flemme de commenté bonne chance pour demain
+
 
  -  filtrage des réponses + traitement
  
