@@ -26,7 +26,7 @@ import time
 import urllib.request
 
 
-#-------------------------------------------------------------------------- Part model learning
+#-------------------------------------------------------------------------- Part1 model learning
 def element_to_detection(label, detection):
     with open("label.py", "a") as file:
         row = str(label) + "," + str(detection) + ";\n"
@@ -61,7 +61,7 @@ def element_in_label_PY():
 #-------------------------------------------------------------------------- Part model learning
 
 
-#-------------------------------------------------------------------------- Part picture
+#-------------------------------------------------------------------------- Part2 picture
 def open_picture(image):
 
     """We open picture"""
@@ -279,7 +279,7 @@ def show_picture(name, image, mode, destroy):
 
 
 
-#-------------------------------------------------------------------------- Part picture treatment
+#-------------------------------------------------------------------------- Part3 picture treatment
 
 
 
@@ -301,7 +301,7 @@ def take_features(liste_obj, category):
     
     for i in liste_obj:
 
-        print(i)
+        print("picture: ", i, "\n")
         img = open_picture(path.format(category, i))
         
 
@@ -318,11 +318,10 @@ def take_features(liste_obj, category):
         contours, _ = cv2.findContours(edged, cv2.RETR_TREE,
                                        cv2.CHAIN_APPROX_SIMPLE)
 
-        # ICI
+        
 
-        positionX = []; positionY = []; positionW = []; positionH = [];
+
         maxi1 = 0; maxi2 = 0; maxi3 = 0; 
-
 
         #3 highters detections
         for cnts in contours:
@@ -336,27 +335,149 @@ def take_features(liste_obj, category):
                 maxi3 = cv2.contourArea(cnts)#third highter
 
 
-        for cnts in contours:
-            if cv2.contourArea(cnts) == maxi1 or\
-               cv2.contourArea(cnts) == maxi2 or\
-               cv2.contourArea(cnts) == maxi3:
-                x, y, w, h = cv2.boundingRect(cnts)
+        def position_rotation(contours):
+            position_circleX = []
+            position_circleY = []
+            for cnts in contours:
+                if cv2.contourArea(cnts):
 
-                positionX.append(x); positionY.append(y);
-                positionW.append(x+w); positionH.append(y+h);
+                    cv2.drawContours(blanck, cnts, -1, (255, 255, 255), 1)
 
-                cv2.drawContours(blanck, cnts, -1, (255, 255, 255), 1)
-                cv2.rectangle(blanck, (x, y), (x+w, y+h), (0, 0, 255), 1)
+                    M = cv2.moments(cnts)
+                    cX = int(M["m10"] / M["m00"])
+                    cY = int(M["m01"] / M["m00"])
+
+                    position_circleX.append(cX)
+                    position_circleY.append(cY)
+
+                    cv2.circle(blanck, (cX, cY), 6, (0, 0, 255), 6)
+
+            listex = []
+            listey = []
+            listex2 = []
+            listey2 = []
+            for y in range(blanck.shape[1]):
+                for x in range(blanck.shape[0]):
+                    if blanck[y, x][0] == 0 and blanck[y, x][1] == 0 and blanck[y, x][2] == 255: 
+                        listex.append(x)
+                        listey.append(y)
+                    if blanck[x, y][0] == 0 and blanck[x, y][1] == 0 and blanck[x, y][2] == 255: 
+                        listex2.append(x)
+                        listey2.append(y)
 
 
-        for i in range(len(positionX)):
-            print(positionX[i], positionY[i], positionW[i], positionH[i])
+
+            X_min = min(listex)
+            index_min = listex.index(min(listex))
+            Xy_min = listey[index_min]
+
+            X_max = max(listex)
+            index_max = listex.index(max(listex))
+            Xy_max = listey[index_max]
+
+
+            X_min2 = min(listex2)
+            index_min2 = listex2.index(min(listex2))
+            Xy_min2 = listey2[index_min2]
+
+            X_max2 = max(listex2)
+            index_max2 = listex2.index(max(listex2))
+            Xy_max2 = listey2[index_max2]
+
+            cv2.circle(blanck, (X_min, Xy_min), 6, (255, 255, 255), 6)
+            cv2.circle(blanck, (X_max, Xy_max), 6, (255, 255, 255), 6)
+            
+            
+            cv2.circle(blanck, (Xy_min2, X_min2), 6, (255, 255, 0), 6)
+            cv2.circle(blanck, (Xy_max2, X_max2), 6, (255, 255, 0), 6)
+
+            print(X_min, Xy_min)
+            print(X_max, Xy_max)
+            print("")
+            print(X_min2, Xy_min2)
+            print(X_max2, Xy_max2)
+
+            print("")
+
+            if abs(Xy_min - Xy_max) < 5 and\
+               abs(Xy_min2 - Xy_max2) < 15:
+                print("normale")
+
+            elif abs(Xy_min - Xy_max) < 5:
+                print("aligné en horizontale")
+            
+            elif abs(X_min - X_max) > 80 and Xy_min > Xy_max:
+                print("elle est penchée de bas en haut")
+            elif abs(X_min - X_max) > 80 and Xy_min < Xy_max:
+                print("elle est penchée de haut en bas")
+                
+            elif abs(Xy_min2 - Xy_max2) < 15:
+                print("aligné en hauteur")
+
+
+            print("")
+            print("")
 
 
 
 
 
 
+
+
+
+##            #(x, y) min
+##            X_min = min(position_circleX)
+##            index_min = position_circleX.index(min(position_circleX))
+##            Xy_min = position_circleY[index_min]
+##            
+##
+##            #(x, y) max
+##            X_max = max(position_circleX)
+##            index_max = position_circleX.index(max(position_circleX))
+##            Xy_max = position_circleY[index_max]
+##            
+##            X_inter = 0
+##            Xy_inter = 0
+##            for i in range(len(position_circleY)):
+##                if i not in (index_min, index_max):
+##                    X_inter = position_circleX[i]; Xy_inter = position_circleY[i]
+##                    
+##
+##            print(X_min, Xy_min)
+##            print(X_inter, Xy_inter)
+##            print(X_max, Xy_max)
+##
+##            cv2.circle(blanck, (X_min, Xy_min), 5, (0, 0, 255), 3)#r
+##            cv2.circle(blanck, (X_inter, Xy_inter), 5, (0, 255, 0), 3)#g
+##            cv2.circle(blanck, (X_max, Xy_max), 5, (255, 0, 0), 3)#b
+                
+        position_rotation(contours)
+
+        def rectangle_more_one_object(contours):
+            positionX = []; positionY = []; positionW = []; positionH = [];
+            for cnts in contours:
+                if cv2.contourArea(cnts) == maxi1 or\
+                   cv2.contourArea(cnts) == maxi2 or\
+                   cv2.contourArea(cnts) == maxi3:
+                    x, y, w, h = cv2.boundingRect(cnts)
+
+                    positionX.append(x); positionY.append(y);
+                    positionW.append(x+w); positionH.append(y+h);
+
+                    x, y, w, h = cv2.boundingRect(cnts)
+                    cv2.drawContours(blanck, cnts, -1, (255, 255, 255), 1)
+                    cv2.rectangle(blanck, (x, y), (x+w, y+h), (0, 0, 255), 3)
+                    
+
+            for i in range(len(positionX)):
+                print(positionX[i], positionY[i], positionW[i], positionH[i])
+
+
+        
+
+
+        # ICI
 
         show_picture("blanck", blanck, 0, "")
     
@@ -369,7 +490,8 @@ def take_features(liste_obj, category):
 
 
 
-
+def background_download():
+    pass
 
 
 
@@ -407,7 +529,7 @@ def take_features(liste_obj, category):
 
 
 
-#-------------------------------------------------------------------------- Part Scrapping
+#-------------------------------------------------------------------------- Part4 Scrapping
 
 def our_dico_path_url():
     """Google for category of our label,
@@ -605,7 +727,7 @@ def transform_category_to_object(category_found, dico_path):
 
 
 os.environ["PATH"] += os.pathsep + os.getcwd()
-#-------------------------------------------------------------------------- Part Download
+#-------------------------------------------------------------------------- Part6 Download
 
 
 
@@ -784,8 +906,16 @@ if __name__ == "__main__":
     def trainning_model():
         pass
 
-    # mainici
+    # main1
     treatment_picture_download()    #5
+
+
+
+
+
+
+
+
 
 
 
