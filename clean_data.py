@@ -33,7 +33,7 @@ from PIL import Image
 #------------------------------------------------------------------------------------ backa
 def treatment_background(img):
 
-    liste = ["18.jpg", "163.jpg", "1.jpg"]
+    liste = ["18.jpg", "1.jpg", '163.jpg', "115.jpg"]
 
     for i in liste:
         img = cv2.imread(i)
@@ -61,7 +61,7 @@ def treatment_background(img):
 
             copy_img = img.copy()
             copy_img1 = img.copy()
-
+            show_picture("copy_img1", copy_img1, 0, "y")
             gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
 
             blanck = blanck_picture(img)
@@ -120,9 +120,9 @@ def treatment_background(img):
             print(color)
             for i in range(img.shape[0]):
                 for j in range(img.shape[1]):
-                    if img[i, j][0] > color[0] - 50 and img[i, j][0] < color[0] + 70 and\
-                       img[i, j][1] > color[1] - 50 and img[i, j][1] < color[1] + 70 and\
-                       img[i, j][2] > color[1] - 50 and img[i, j][2] < color[2] + 70:
+                    if img[i, j][0] > color[0] - 70 and img[i, j][0] < color[0] + 70 and\
+                       img[i, j][1] > color[1] - 70 and img[i, j][1] < color[1] + 70 and\
+                       img[i, j][2] > color[1] - 70 and img[i, j][2] < color[2] + 70:
                         img[i, j] = 255, 255, 255
 
             show_picture("img", img, 0, "")
@@ -139,8 +139,10 @@ def treatment_background(img):
 
 
             edged = cv2.Canny(img, 100, 200)
-            
+
             show_picture("edged", edged, 0, "")
+
+
 
 
 
