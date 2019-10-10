@@ -39,7 +39,7 @@
         
         -> faire contour si cuillerre penchée alors reposition
 
-
+        -> chercher si sur le pts1 a pts2 y'a du rouge si non ca fait pas parti du meme object mais ca chai pas
 
  -  filtrage des réponses + traitement
  
