@@ -33,6 +33,12 @@ from PIL import Image
 #------------------------------------------------------------------------------------ backa
 
 def main_color_background(img):
+
+    """
+        We verify white is the current background
+        Indeed, we recup the main color of picture.
+    """
+    
     dico = {}
 
     im = Image.fromarray(img)
@@ -51,7 +57,15 @@ def main_color_background(img):
 
     return color
 
+
 def make_cnts(img):
+
+    """
+        We copy the picture,
+        apply adaptativ threshold,
+        make contour,
+        and draw it into white image
+    """
 
     copy_img = img.copy()
     copy_img1 = img.copy()
@@ -80,6 +94,14 @@ def make_cnts(img):
 
 
 def find_contour_else_white(img, blanck, copy_img):
+
+    """
+        We drawing a big contour on the copy of image.
+        On the picture we detect contour from copy
+        It give us the object in a big area of the picture
+        Indeed if on the copy != green we put only white
+    """
+
     gray_blanck = cv2.cvtColor(blanck, cv2.COLOR_BGR2GRAY)
     contours, _ = cv2.findContours(gray_blanck, cv2.RETR_TREE,
                                    cv2.CHAIN_APPROX_SIMPLE)
@@ -97,6 +119,12 @@ def find_contour_else_white(img, blanck, copy_img):
 
 
 def finish_to_clean_background(img):
+
+    """
+        We recup the main color now
+        because we have object + background
+    """
+    
     dico = {}
 
     im = Image.fromarray(img)
@@ -117,6 +145,9 @@ def finish_to_clean_background(img):
 
 
 def masking_to_black(img, color):
+
+    """We delete the rest of bakcground"""
+    
     for i in range(img.shape[0]):
         for j in range(img.shape[1]):
             if img[i, j][0] > color[0] - 70 and img[i, j][0] < color[0] + 70 and\
@@ -144,12 +175,15 @@ def treatment_background(img):
     img = cv2.resize(img, (200, 200))
     color = main_color_background(img)
 
-
+    #if background black
     if color[0] < 200 and color[1] < 200 and color[2] < 200:
-
+        #make a blanck, a copy and make contour
         blanck, copy_img, copy_img1 = make_cnts(img)
+        #We take contours of object and delete the background for a white bg
         img = find_contour_else_white(img, blanck, copy_img)
+        #we delete the rest of bg
         color = finish_to_clean_background(img)
+        #it'so ok now
         img = masking_to_black(img, color)
 
 
