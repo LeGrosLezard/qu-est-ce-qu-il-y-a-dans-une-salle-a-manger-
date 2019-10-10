@@ -33,51 +33,131 @@ from PIL import Image
 #------------------------------------------------------------------------------------ backa
 def treatment_background(img):
 
+    liste = ["18.jpg", "163.jpg", "1.jpg"]
 
-    img = cv2.imread("163.jpg")
-    img = cv2.resize(img, (200, 200))
-
-    copy_img = img.copy()
-
-    gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
-
-    blanck = blanck_picture(img)
-
-    th3 = cv2.adaptiveThreshold(gray, 255, cv2.ADAPTIVE_THRESH_GAUSSIAN_C,\
-                                cv2.THRESH_BINARY,11,10)
-
-    #show_picture("thresh", th3, 0, "y")
+    for i in liste:
+        img = cv2.imread(i)
+        img = cv2.resize(img, (200, 200))
 
 
-    contours, _ = cv2.findContours(th3, cv2.RETR_TREE,
-                                   cv2.CHAIN_APPROX_SIMPLE)
-    
-    for cnts in contours:
-        if 50 < cv2.contourArea(cnts) < 30000:
-            print(cv2.contourArea(cnts))
+        dico = {}
+
+        im = Image.fromarray(img)
+        for value in im.getdata():
+            if value in dico.keys():
+                dico[value] += 1
+            else:
+                dico[value] = 1
+
+        max_value = 0
+        color = []
+        for key, value in dico.items():
+            if value > max_value:
+                max_value = value
+                color = key
+
+        if color[0] < 200 and color[1] < 200 and color[2] < 200:
+
+
+            copy_img = img.copy()
+            copy_img1 = img.copy()
+
+            gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
+
+            blanck = blanck_picture(img)
+
+            th3 = cv2.adaptiveThreshold(gray, 255, cv2.ADAPTIVE_THRESH_GAUSSIAN_C,\
+                                        cv2.THRESH_BINARY,11,10)
+
+            show_picture("thresh", th3, 0, "y")
+
+
+            contours, _ = cv2.findContours(th3, cv2.RETR_TREE,
+                                           cv2.CHAIN_APPROX_SIMPLE)
             
-            cv2.drawContours(blanck, cnts, -1, (255, 255, 255), 1)
+            for cnts in contours:
+                if 50 < cv2.contourArea(cnts) < 30000:
+                    print(cv2.contourArea(cnts))
+                    
+                    cv2.drawContours(blanck, cnts, -1, (255, 255, 255), 1)
 
 
 
-    gray_blanck = cv2.cvtColor(blanck, cv2.COLOR_BGR2GRAY)
-    contours, _ = cv2.findContours(gray_blanck, cv2.RETR_TREE,
-                                   cv2.CHAIN_APPROX_SIMPLE)
+            gray_blanck = cv2.cvtColor(blanck, cv2.COLOR_BGR2GRAY)
+            contours, _ = cv2.findContours(gray_blanck, cv2.RETR_TREE,
+                                           cv2.CHAIN_APPROX_SIMPLE)
 
 
-    cv2.drawContours(copy_img, contours, -1, (0, 255, 0), 21)
-
-    for i in range(img.shape[0]):
-        for j in range(img.shape[1]):
-            if copy_img[i, j][0] != 0 and\
-               copy_img[i, j][1] != 255 and\
-               copy_img[i, j][2] != 0:
-                img[i, j] = 255, 255, 255
+            cv2.drawContours(copy_img, contours, -1, (0, 255, 0), 26)
 
 
-    #show_picture("blanck", blanck, 0, "")
-    show_picture("img", img, 0, "")
-    
+            for i in range(img.shape[0]):
+                for j in range(img.shape[1]):
+                    if copy_img[i, j][0] != 0 and\
+                       copy_img[i, j][1] != 255 and\
+                       copy_img[i, j][2] != 0:
+                        img[i, j] = 255, 255, 255
+
+
+
+            
+            dico = {}
+
+            im = Image.fromarray(img)
+            for value in im.getdata():
+                if value in dico.keys():
+                    dico[value] += 1
+                else:
+                    dico[value] = 1
+
+            max_value = 0
+            color = []
+            for key, value in dico.items():
+                if value > max_value and key != (255, 255, 255):
+                    max_value = value
+                    color = key
+
+            print(color)
+            for i in range(img.shape[0]):
+                for j in range(img.shape[1]):
+                    if img[i, j][0] > color[0] - 50 and img[i, j][0] < color[0] + 70 and\
+                       img[i, j][1] > color[1] - 50 and img[i, j][1] < color[1] + 70 and\
+                       img[i, j][2] > color[1] - 50 and img[i, j][2] < color[2] + 70:
+                        img[i, j] = 255, 255, 255
+
+            show_picture("img", img, 0, "")
+
+            for i in range(img.shape[0]):
+                for j in range(img.shape[1]):
+                    if img[i, j][0] < 50 and\
+                       img[i, j][1] < 50 and\
+                       img[i, j][2] < 50:
+                        img[i, j] = 255
+                       
+
+            show_picture("img", img, 0, "")
+
+
+            edged = cv2.Canny(img, 100, 200)
+            
+            show_picture("edged", edged, 0, "")
+
+
+
+            
+
+            
+
+        else:
+            pass
+##            gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
+##            th3 = cv2.adaptiveThreshold(gray, 255, cv2.ADAPTIVE_THRESH_GAUSSIAN_C,\
+##                                        cv2.THRESH_BINARY,11,4)
+##            edged = cv2.Canny(img, 20, 140)
+##            show_picture("edged", edged, 0, "y")
+##            show_picture("th3", th3, 0, "y")
+            
+        
 
 
 #------------------------------------------------------------------------------------ backa
