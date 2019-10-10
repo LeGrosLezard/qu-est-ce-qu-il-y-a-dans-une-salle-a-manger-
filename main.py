@@ -336,6 +336,8 @@ def take_features(liste_obj, category):
 
 
         def position_rotation(contours):
+
+            #recup center of detection and draw it in red
             position_circleX = []
             position_circleY = []
             for cnts in contours:
@@ -352,6 +354,7 @@ def take_features(liste_obj, category):
 
                     cv2.circle(blanck, (cX, cY), 6, (0, 0, 255), 6)
 
+            #recup red picture
             listex = []
             listey = []
             listex2 = []
@@ -366,7 +369,8 @@ def take_features(liste_obj, category):
                         listey2.append(y)
 
 
-
+            #take max (x, y) and min (x, y) on l and L
+            
             X_min = min(listex)
             index_min = listex.index(min(listex))
             Xy_min = listey[index_min]
@@ -384,6 +388,8 @@ def take_features(liste_obj, category):
             index_max2 = listex2.index(max(listex2))
             Xy_max2 = listey2[index_max2]
 
+
+            #draw circle
             cv2.circle(blanck, (X_min, Xy_min), 6, (255, 255, 255), 6)
             cv2.circle(blanck, (X_max, Xy_max), 6, (255, 255, 255), 6)
             
@@ -399,6 +405,8 @@ def take_features(liste_obj, category):
 
             print("")
 
+
+            #if there are length min or max it give the sens
             if abs(Xy_min - Xy_max) < 5 and\
                abs(Xy_min2 - Xy_max2) < 15:
                 print("normale")
@@ -420,12 +428,7 @@ def take_features(liste_obj, category):
 
 
 
-
-
-
-
-
-
+#chai plus
 ##            #(x, y) min
 ##            X_min = min(position_circleX)
 ##            index_min = position_circleX.index(min(position_circleX))
@@ -451,10 +454,15 @@ def take_features(liste_obj, category):
 ##            cv2.circle(blanck, (X_min, Xy_min), 5, (0, 0, 255), 3)#r
 ##            cv2.circle(blanck, (X_inter, Xy_inter), 5, (0, 255, 0), 3)#g
 ##            cv2.circle(blanck, (X_max, Xy_max), 5, (255, 0, 0), 3)#b
-                
+
+
+
+ 
         position_rotation(contours)
 
         def rectangle_more_one_object(contours):
+            """Here we want separate in case multiple objects by area detection"""
+
             positionX = []; positionY = []; positionW = []; positionH = [];
             for cnts in contours:
                 if cv2.contourArea(cnts) == maxi1 or\
