@@ -38,7 +38,7 @@
         
         -> faire contour si cuillerre penchée alors reposition
 
-
+        -> la flemme de commenté bonne chance pour demain
 
  -  filtrage des réponses + traitement
  
