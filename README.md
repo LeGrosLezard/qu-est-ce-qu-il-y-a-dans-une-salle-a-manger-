@@ -41,6 +41,9 @@
 
         -> chercher si sur le pts1 a pts2 y'a du rouge si non ca fait pas parti du meme object mais ca chai pas
 
+        -> hog et tous les truks d'un certain degres...
+
+
  -  filtrage des réponses + traitement
  
 
