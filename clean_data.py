@@ -29,10 +29,64 @@ def show_picture(name, image, mode, destroy):
         cv2.destroyAllWindows()
 
 
+from PIL import Image
+#------------------------------------------------------------------------------------ backa
+def treatment_background(img):
 
 
-def background_download():
-    pass
+    img = cv2.imread("163.jpg")
+    img = cv2.resize(img, (200, 200))
+
+    copy_img = img.copy()
+
+    gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
+
+    blanck = blanck_picture(img)
+
+    th3 = cv2.adaptiveThreshold(gray, 255, cv2.ADAPTIVE_THRESH_GAUSSIAN_C,\
+                                cv2.THRESH_BINARY,11,10)
+
+    #show_picture("thresh", th3, 0, "y")
+
+
+    contours, _ = cv2.findContours(th3, cv2.RETR_TREE,
+                                   cv2.CHAIN_APPROX_SIMPLE)
+    
+    for cnts in contours:
+        if 50 < cv2.contourArea(cnts) < 30000:
+            print(cv2.contourArea(cnts))
+            
+            cv2.drawContours(blanck, cnts, -1, (255, 255, 255), 1)
+
+
+
+    gray_blanck = cv2.cvtColor(blanck, cv2.COLOR_BGR2GRAY)
+    contours, _ = cv2.findContours(gray_blanck, cv2.RETR_TREE,
+                                   cv2.CHAIN_APPROX_SIMPLE)
+
+
+    cv2.drawContours(copy_img, contours, -1, (0, 255, 0), 21)
+
+    for i in range(img.shape[0]):
+        for j in range(img.shape[1]):
+            if copy_img[i, j][0] != 0 and\
+               copy_img[i, j][1] != 255 and\
+               copy_img[i, j][2] != 0:
+                img[i, j] = 255, 255, 255
+
+
+    #show_picture("blanck", blanck, 0, "")
+    show_picture("img", img, 0, "")
+    
+
+
+#------------------------------------------------------------------------------------ backa
+
+
+
+
+
+
 
 
 
@@ -212,7 +266,7 @@ def rotation_on_current_picture(position, img):
     show_picture("image", img, 0, "")
     print(position)
 
-
+    """ROTATION"""
 
 
 
@@ -274,11 +328,11 @@ def take_features(liste_obj, category):
                                        cv2.CHAIN_APPROX_SIMPLE)
 
 
-        position_rotation(contours, blanck, img) #rotation
+        #position_rotation(contours, blanck, img) #rotation
+        treatment_background("163.jpg")                 #background
 
 
-
-
+        break
 
 def open_download_folder(objects_to_search):
 
