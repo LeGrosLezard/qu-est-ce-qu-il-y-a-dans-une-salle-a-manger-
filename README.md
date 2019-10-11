@@ -43,6 +43,7 @@
 
         -> hog et tous les truks d'un certain degres... ben justement c ca qu'on fait apres!!! faut pas le edge okkkkk
 
+        -> t'as essayé tous les truk qui commencent par arc tous les sens cos et sin que dal
 
  -  filtrage des réponses + traitement
  
