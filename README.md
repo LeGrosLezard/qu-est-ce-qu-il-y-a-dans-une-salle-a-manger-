@@ -64,11 +64,7 @@
         
         detection partie objet -> déduction
  
-        aller de fourchette vers couteau
- 
-        de haut en bas de gauche a droite -> ex
- 
-        tien il y a un manche, mais c de forme carré ca ! c un marteau !
+        de haut en bas de gauche a droite -> ex tien il y a un manche, mais c de forme carré ca ! c un marteau !
         
  
  
