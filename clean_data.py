@@ -318,7 +318,6 @@ def points_for_define_inclinaison(listex, listey, listex2, listey2, blanck):
     Xy_max2 = listey2[index_max2]
 
 
-    #draw circle
     #width
     cv2.circle(blanck, (X_min, Xy_min), 6, (0, 255, 0), 6)
     cv2.circle(blanck, (X_max, Xy_max), 6, (50, 255, 50), 6)
@@ -327,14 +326,9 @@ def points_for_define_inclinaison(listex, listey, listex2, listey2, blanck):
     cv2.circle(blanck, (Xy_min2, X_min2), 6, (255, 0, 255), 6)
     cv2.circle(blanck, (Xy_max2, X_max2), 6, (255, 255, 0), 6)
 
-    
 
-    print(X_min, Xy_min)
-    print(X_max, Xy_max)
-    print(X_min2, Xy_min2)
-    print(X_max2, Xy_max2)
-##
     show_picture("blanck", blanck, 0, "")
+
 
 
     return X_min, Xy_min, X_max, Xy_max,\
@@ -367,167 +361,122 @@ def treatment_inclinaison(X_min, Xy_min, X_max, Xy_max,
     elif abs(Xy_min2 - Xy_max2) < 15:
         out = 0
 
-    print("ouuuuuuuuuut", out)
     return out
 
 
 
 
-import math
+def rotation_bot_top(blanck, img):
+    angle = 0
+    continuer = True
+    while continuer:
+
+        rotated = imutils.rotate_bound(blanck, angle)
+
+        aX = 0; aY = 0;
+        bX = 0; bY = 0;
+
+        for x in range(rotated.shape[0]):
+            for y in range(rotated.shape[1]):
+                if rotated[x, y][0] == 50 and\
+                   rotated[x, y][1] == 255 and\
+                   rotated[x, y][2] == 50:
+                   aX = x; aY = y
+
+                if rotated[x, y][0] == 0 and\
+                   rotated[x, y][1] == 255 and\
+                   rotated[x, y][2] == 0:
+                   bX = x; bY = y
+
+
+        if aY - bY < 8:
+            continuer = False
+
+        angle -= 2
+
+    rotated = imutils.rotate_bound(img, angle)
+    show_picture("rotated", rotated, 0, "y")
+
+
+def rotation_top_bot(blanck, img):
+    angle = 0
+    continuer = True
+    while continuer:
+
+        rotated = imutils.rotate_bound(blanck, angle)
+
+        aX = 0; aY = 0;
+        bX = 0; bY = 0;
+
+        for x in range(rotated.shape[0]):
+            for y in range(rotated.shape[1]):
+                if rotated[x, y][0] == 50 and\
+                   rotated[x, y][1] == 255 and\
+                   rotated[x, y][2] == 50:
+                   aX = x; aY = y
+
+                if rotated[x, y][0] == 0 and\
+                   rotated[x, y][1] == 255 and\
+                   rotated[x, y][2] == 0:
+                   bX = x; bY = y
+
+        if aY - bY < 30:
+            continuer = False
+        angle += 2
+
+    rotated = imutils.rotate_bound(img, angle)
+    show_picture("rotated", rotated, 0, "y")
+
+
+
 def precise_angle(img, X_min, Xy_min, X_max, Xy_max,
                   X_min2, Xy_min2, X_max2, Xy_max2,
                   position, blanck):
 
-    #0)ok 1)horrizontal 2)bot/top 3)top/bot 
 
 
-    show_picture("img", img, 0, "y")
 
-    
     if position == 2:
         print("Search coordinates")
+        #rotation_bot_top(blanck, img)
 
-        show_picture("img", img, 0, "")
-
-        angle = 0
-        continuer = True
-        while continuer:
-
-            
-            rotated = imutils.rotate_bound(blanck, angle)
-            copy = img.copy()
-            copy = imutils.rotate_bound(copy, angle)
-            
-
-            aX = 0; aY = 0;
-            bX = 0; bY = 0;
-
-            for x in range(rotated.shape[0]):
-                for y in range(rotated.shape[1]):
-                    if rotated[x, y][0] == 50 and\
-                       rotated[x, y][1] == 255 and\
-                       rotated[x, y][2] == 50:
-                       aX = x; aY = y
-
-                    if rotated[x, y][0] == 0 and\
-                       rotated[x, y][1] == 255 and\
-                       rotated[x, y][2] == 0:
-                       bX = x; bY = y
-     
-
-            cv2.circle(copy, (aY, aX), 3, (0, 0, 255), 3)
-            cv2.circle(copy, (bY, bX), 3, (0, 0, 255), 3)
-            show_picture("copy", copy, 0, "")
-            show_picture("blanck", rotated, 0, "")
-
-            print(aX, aY, bX, bY)
-
-            if aY - bY < 8:
-                continuer = False
-                print(aX, aY, bX, bY)
-            angle -= 2
+        print(X_min2, Xy_min2)
+        b = 200 - X_min2
+        print(b)
+        a = math.atan(b/200)
+        print(a)
+        c = math.degrees(a)
+        print(c)
+        d = 90 - c
 
 
-
-        print(angle)
-        show_picture("copy", copy, 0, "")
-        show_picture("blanck", rotated, 0, "y")
-
-            
-
-
-
-
+        rotated = imutils.rotate_bound(img, -d)
+        show_picture("img", rotated, 0, "y")
 
     if position == 3:
         print("Search coordinates")
-        angle = 0
-        continuer = True
-        while continuer:
+        #rotation_top_bot(blanck, img)
 
-            
-            rotated = imutils.rotate_bound(blanck, angle)
-            copy = img.copy()
-            copy = imutils.rotate_bound(copy, angle)
-            
-
-            aX = 0; aY = 0;
-            bX = 0; bY = 0;
-
-            for x in range(rotated.shape[0]):
-                for y in range(rotated.shape[1]):
-                    if rotated[x, y][0] == 50 and\
-                       rotated[x, y][1] == 255 and\
-                       rotated[x, y][2] == 50:
-                       aX = x; aY = y
-
-                    if rotated[x, y][0] == 0 and\
-                       rotated[x, y][1] == 255 and\
-                       rotated[x, y][2] == 0:
-                       bX = x; bY = y
-     
-##
-##            cv2.circle(copy, (aY, aX), 3, (0, 0, 255), 3)
-##            cv2.circle(copy, (bY, bX), 3, (0, 0, 255), 3)
-##            show_picture("copy", copy, 0, "")
-##            show_picture("blanck", rotated, 0, "")
-
-            print(aX, aY, bX, bY)
-
-            if aY - bY < 30:
-                continuer = False
-                print(aX, aY, bX, bY)
-            angle += 2
+        print(X_min2, Xy_min2)
+        b = 200 - X_min2
+        print(b)
+        a = math.atan(b/200)
+        print(a)
+        c = math.degrees(a)
+        print(c)
+        d = 90 - c
 
 
-
-        print(angle)
-        show_picture("copy", copy, 0, "")
-        show_picture("blanck", rotated, 0, "y")
-
-
+        rotated = imutils.rotate_bound(img, d)
+        show_picture("img", rotated, 0, "y")
 
 
     if position == 1:
         print("seaching coordinates")
-
         rotated = imutils.rotate_bound(blanck, 90)
- 
-        show_picture("blanck", rotated, 0, "y")
 
 
 
-
-
-    else:
-        show_picture("image", img, 0, "y")
-
-
-
-
-
-def rotation_on_current_picture(position, img):
-    #0) ok 1) horrizontal 2)bot/top 3)top/bot
-
-
-    if position == 2:
-        print("2")
-        rotated = imutils.rotate(img, 55)
-        show_picture("rotated", rotated, 0, "y")
-
-
-    elif position == 3:
-        print("3")
-        rotated = imutils.rotate(img, -45)
-        show_picture("rotated", rotated, 0, "y")
-
-    elif position == 1:
-        print("1")
-        rotated = imutils.rotate(img, -90)
-        show_picture("rotated", rotated, 0, "y")
-
-    else:
-        show_picture("image", img, 0, "y")
 
 
 
@@ -542,18 +491,17 @@ def position_rotation(contours, blanck, img):
 
     listex, listey, listex2, listey2 = recup_red_points(blanck)
 
-##    X_min, Xy_min, X_max, Xy_max,\
-##    X_min2, Xy_min2, X_max2, Xy_max2, blanck\
-##    = points_for_define_inclinaison(listex, listey, listex2, listey2, blanck)
+    X_min, Xy_min, X_max, Xy_max,\
+    X_min2, Xy_min2, X_max2, Xy_max2, blanck\
+    = points_for_define_inclinaison(listex, listey, listex2, listey2, blanck)
 
-##    position = treatment_inclinaison(X_min, Xy_min, X_max, Xy_max,
-##                                     X_min2, Xy_min2, X_max2, Xy_max2)
-##
-##    precise_angle(img, X_min, Xy_min, X_max, Xy_max,
-##                  X_min2, Xy_min2, X_max2, Xy_max2,
-##                  position, blanck)
+    position = treatment_inclinaison(X_min, Xy_min, X_max, Xy_max,
+                                     X_min2, Xy_min2, X_max2, Xy_max2)
 
-    #rotation_on_current_picture(position, img)
+    precise_angle(img, X_min, Xy_min, X_max, Xy_max,
+                  X_min2, Xy_min2, X_max2, Xy_max2,
+                  position, blanck)
+
 
 
 
@@ -596,7 +544,7 @@ def take_features(liste_obj, category):
 
     path = "dataset1/{}/{}"
     
-    for i in liste_obj[20:]:
+    for i in liste_obj:
 
         print("picture: ", i, "\n")
         img = open_picture(path.format(category, i))
@@ -615,9 +563,9 @@ def take_features(liste_obj, category):
                                        cv2.CHAIN_APPROX_SIMPLE)
 
 
-        multiple_objects(contours, blanck, img)
+        #multiple_objects(contours, blanck, img)
         #treatment_background(img)                 #background
-        #position_rotation(contours, blanck, img) #rotation
+        position_rotation(contours, blanck, img) #rotation
         
 
 
