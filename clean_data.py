@@ -318,9 +318,11 @@ def points_for_define_inclinaison(listex, listey, listex2, listey2, blanck):
 
 
     #draw circle
-    cv2.circle(blanck, (X_min, Xy_min), 6, (255, 255, 255), 6)
-    cv2.circle(blanck, (X_max, Xy_max), 6, (255, 255, 255), 6)
+    #width
+    cv2.circle(blanck, (X_min, Xy_min), 6, (0, 255, 0), 6)
+    cv2.circle(blanck, (X_max, Xy_max), 6, (50, 255, 50), 6)
 
+    #height
     cv2.circle(blanck, (Xy_min2, X_min2), 6, (255, 0, 255), 6)
     cv2.circle(blanck, (Xy_max2, X_max2), 6, (255, 255, 0), 6)
 
@@ -381,37 +383,51 @@ def precise_angle(img, X_min, Xy_min, X_max, Xy_max,
     
     if position == 2:
 
-        
-        
-        show_picture("img", img, 0, "")
-        angle = 0
-        stop = True
-        stp = False
-        while stop:
 
-            rotated = imutils.rotate(blanck, angle)
-            rotated[10, 100] = 255, 255, 255
-            #rotate_bound
+        show_picture("img", img, 0, "")
+
+        angle = 0
+        continuer = True
+        while continuer:
+
+            
+            rotated = imutils.rotate_bound(blanck, angle)
+            copy = img.copy()
+            copy = imutils.rotate_bound(copy, angle)
+            
+
+            aX = 0; aY = 0;
+            bX = 0; bY = 0;
+
             for x in range(rotated.shape[0]):
                 for y in range(rotated.shape[1]):
-                    if rotated[x, y][0] == 255 and\
+                    if rotated[x, y][0] == 50 and\
+                       rotated[x, y][1] == 255 and\
+                       rotated[x, y][2] == 50:
+                       aX = x; aY = y
+
+                    if rotated[x, y][0] == 0 and\
                        rotated[x, y][1] == 255 and\
                        rotated[x, y][2] == 0:
-                        if y > 101:
-                            stp = True
-                            break
+                       bX = x; bY = y
+     
+##
+##            cv2.circle(copy, (aY, aX), 3, (0, 0, 255), 3)
+##            cv2.circle(copy, (bY, bX), 3, (0, 0, 255), 3)
+##            show_picture("copy", copy, 0, "")
+##            show_picture("blanck", rotated, 0, "")
 
-                    if stp is True:
-                        break
-                if stp is True:
-                    stop = False
+            #print(aX, aY, bX, bY)
 
-
-            angle += 20
+            if aY - bY < 8:
+                continuer = False
+                print(aX, aY, bX, bY)
+            angle -= 2
 
 
 
         print(angle)
+        show_picture("copy", copy, 0, "")
         show_picture("blanck", rotated, 0, "y")
 
             
