@@ -2,7 +2,6 @@
 
 #download from penseeartificielle/google-image-scrapping
 
-- tout refaire apres ca et refaire pour la mise en model, faut effacer les elements qui sont pas en phase avec les dimensions des objects donc faire le scrap du truk et ensuite yolo bon ya encore le temps du genre 4/5 mois avant de savoir donc essaie de le faire nickel ca entraine pour 
 
  -   détecter une assiette
  
