@@ -242,6 +242,7 @@ def rectangle_more_one_object(contours):
     4 - define position inclinaison
 """
 
+
 def draw_contours(contours, blanck):
 
     #recup center of detection and draw it in red
@@ -541,22 +542,50 @@ def position_rotation(contours, blanck, img):
 
     listex, listey, listex2, listey2 = recup_red_points(blanck)
 
-    X_min, Xy_min, X_max, Xy_max,\
-    X_min2, Xy_min2, X_max2, Xy_max2, blanck\
-    = points_for_define_inclinaison(listex, listey, listex2, listey2, blanck)
+##    X_min, Xy_min, X_max, Xy_max,\
+##    X_min2, Xy_min2, X_max2, Xy_max2, blanck\
+##    = points_for_define_inclinaison(listex, listey, listex2, listey2, blanck)
 
-    position = treatment_inclinaison(X_min, Xy_min, X_max, Xy_max,
-                                     X_min2, Xy_min2, X_max2, Xy_max2)
-
-    precise_angle(img, X_min, Xy_min, X_max, Xy_max,
-                  X_min2, Xy_min2, X_max2, Xy_max2,
-                  position, blanck)
+##    position = treatment_inclinaison(X_min, Xy_min, X_max, Xy_max,
+##                                     X_min2, Xy_min2, X_max2, Xy_max2)
+##
+##    precise_angle(img, X_min, Xy_min, X_max, Xy_max,
+##                  X_min2, Xy_min2, X_max2, Xy_max2,
+##                  position, blanck)
 
     #rotation_on_current_picture(position, img)
 
 
 
 #----------------------------------------------------------------------------------- rotation
+
+
+#multi
+def multiple_objects(contours, blanck, img):
+
+    show_picture("image", img, 0, "y")
+    
+
+    detection = 0
+    stop = True
+
+    last_w_object = 0
+    
+    for cnts in contours:
+        if cv2.contourArea(cnts) > 1:
+            
+            x, y, w, h = cv2.boundingRect(cnts)
+            if h > 20 and w > 5:
+            
+                if last_w_object > x+w and last_w_object != 0:
+                    cv2.rectangle(blanck, (x, y), (x+w, y+h), (0, 0, 255), 1)
+                    detection += 1
+
+                last_w_object = x+w
+
+    if detection >= 4:
+        print("multiple objects")
+    show_picture("blanck", blanck, 0, "y")
 
 
 
@@ -567,7 +596,7 @@ def take_features(liste_obj, category):
 
     path = "dataset1/{}/{}"
     
-    for i in liste_obj:
+    for i in liste_obj[20:]:
 
         print("picture: ", i, "\n")
         img = open_picture(path.format(category, i))
@@ -585,8 +614,10 @@ def take_features(liste_obj, category):
         contours, _ = cv2.findContours(edged, cv2.RETR_TREE,
                                        cv2.CHAIN_APPROX_SIMPLE)
 
+
+        multiple_objects(contours, blanck, img)
         #treatment_background(img)                 #background
-        position_rotation(contours, blanck, img) #rotation
+        #position_rotation(contours, blanck, img) #rotation
         
 
 
