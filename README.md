@@ -33,7 +33,8 @@
         
         -> multiple object
         
-        -> rotation
+        -> rotation ou faire actan(200 - 139 / 200) - 90 mais ca me donne pas bien le truk quavec rotata...
+        
         
         
 
