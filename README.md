@@ -3,6 +3,8 @@
 #download from penseeartificielle/google-image-scrapping
 
 
+
+
  -   détecter une assiette
  
          -> faire des rotations de l'image (x y size * 5) par exemple si une cuillerre est de travers
@@ -37,9 +39,6 @@
         -> ok les arc = angle, cos et tout longueur, trigo = QUE rectangle triangle soh cah toa
         
         
- 
-
-
  -  entrainement model
  
         -> on récupere toutes les parties des objets
@@ -48,6 +47,8 @@
 
         -> entrainer un model de forme (ou le faire sous opencv)
  
+
+
  - on remplis le csv avec le nouveau label
   
         vérifier si a deja alors b si z deja alors aa et dire [1:] -> {[2:] ect
