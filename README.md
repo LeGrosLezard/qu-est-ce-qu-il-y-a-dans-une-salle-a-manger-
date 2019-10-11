@@ -2,9 +2,10 @@
 
 #download from penseeartificielle/google-image-scrapping
 
-
+- tout refaire apres ca et refaire pour la mise en model, faut effacer les elements qui sont pas en phase avec les dimensions des objects donc faire le scrap du truk et ensuite yolo
 
  -   détecter une assiette
+ 
          -> faire des rotations de l'image (x y size * 5) par exemple si une cuillerre est de travers
 
 
