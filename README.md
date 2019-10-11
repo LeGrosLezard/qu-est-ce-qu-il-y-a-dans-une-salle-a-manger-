@@ -2,7 +2,9 @@
 
 #download from penseeartificielle/google-image-scrapping
 
+-   Attention
 
+         - faudrait que ca fasse une boucle et que ca se renouvelle a chaque fois marteau peut etre un pillon inversement que ca se remette a jour quoi par contre STOP pcque la deja ca va etre une vrai galere
 
 
  -   détecter une assiette
