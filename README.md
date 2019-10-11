@@ -67,8 +67,8 @@
         de haut en bas de gauche a droite -> ex tien il y a un manche, mais c de forme carré ca ! c un marteau !
         
  
+ - BUT
  
- 
- - quelle est stobjet ? (c rond, c a coté d'une cuillere -> bol !!!!) (y'a un manche, c carré et gris -> marteau !!!)
+        - quelle est stobjet ? (c rond, c a coté d'une cuillere -> bol !!!!) (y'a un manche, c carré et gris -> marteau !!!)
              
- - montre moi une salle a manger/dessine moi une salle a manger
+        - montre moi une salle a manger/dessine moi une salle a manger
