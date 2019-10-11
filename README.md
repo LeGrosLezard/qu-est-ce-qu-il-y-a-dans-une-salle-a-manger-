@@ -33,19 +33,15 @@
         
         -> on essais de récup des objects et d'en récup un ex: plsueiurs cuillere a coté
   
-        -> on met le backrgound blanc
         
         -> voir si y'a un model qui s'enregistre image par image et si on lui presente un nouveau ca dit ok ou non
         
-        -> faire contour si cuillerre penchée alors reposition
-
-        -> chercher si sur le pts1 a pts2 y'a du rouge si non ca fait pas parti du meme object mais ca chai pas
-
         -> hog et tous les truks d'un certain degres... ben justement c ca qu'on fait apres!!! faut pas le edge okkkkk
 
-        -> t'as essayé tous les truk qui commencent par arc tous les sens cos et sin que dal
-  
-        -> faut trouvé 55 58 33 10
+       -> apprendre la trigonométrie et comprendre une fois pour toute le x et le y, et haut-droite = 0 bas gauche = pas 0 
+       ce soir prendre le temps pcque la c plus possible jcomprenais pas cercle avec des pts ok la terre est ronde ca doit etre pour ca mais non enfete c pour tout
+       
+       
 
 
  -  filtrage des réponses + traitement
