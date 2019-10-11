@@ -34,9 +34,10 @@
         
         -> mettre les crop dans de nouvelles images
         
-        -> enregistrer les images
+        -> enregistrer les images dans un nouveau dossier
         
         -> ok les arc = angle, cos et tout longueur, trigo = QUE rectangle triangle soh cah toa
+        
         
         
  -  entrainement model
@@ -46,7 +47,8 @@
         -> on les mets dans un model
 
         -> entrainer un model de forme (ou le faire sous opencv)
- 
+       
+        -> supprimer image
 
 
  - on remplis le csv avec le nouveau label
