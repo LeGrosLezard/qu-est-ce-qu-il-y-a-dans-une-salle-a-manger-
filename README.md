@@ -51,7 +51,7 @@
 
  - on remplis le csv avec le nouveau label
   
-        vérifier si a deja alors b si z deja alors aa et dire [1:] -> {[2:] ect
+        faire plusieurs csv si y'a plus de 26 + 9
  
         effacer images ou les transferer vers google drive
  
