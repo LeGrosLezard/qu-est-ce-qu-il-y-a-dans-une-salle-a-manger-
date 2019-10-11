@@ -16,6 +16,12 @@
 
         -> chercher les dimensions/formes ex: cuillere != assiette
    
+        -> detection des couleurs comme bobo (truk gris -> marteau)
+      
+        -> forme
+   
+   
+   
    
  - travail des images data 
  
@@ -29,24 +35,19 @@
         
         -> enregistrer les images
         
-        -> background
-        
-        -> multiple object
-        
-        -> rotation ou faire actan(200 - 139 / 200) - 90 mais ca me donne pas bien le truk quavec rotata...
+        -> ok les arc = angle, cos et tout longueur, trigo = QUE rectangle triangle soh cah toa
         
         
-        
-
-
- -  filtrage des réponses + traitement
  
 
-        on les compare avec les autres air détecter 
 
-        <strong>-> but </strong> trouvé verre, couteau, fourchette 
+ -  entrainement model
  
- 
+        -> on récupere toutes les parties des objets
+        
+        -> on les mets dans un model
+
+        -> entrainer un model de forme (ou le faire sous opencv)
  
  - on remplis le csv avec le nouveau label
   
@@ -55,23 +56,21 @@
         effacer images ou les transferer vers google drive
  
  
- - aller de fourchette vers couteau
+ - nouvelle detection
+ 
+        scrapping web collect info qui manque ex: manche + truk carré gris
+        
+        detection partie objet -> déduction
+ 
+        aller de fourchette vers couteau
+ 
+        de haut en bas de gauche a droite -> ex
+ 
+        tien il y a un manche, mais c de forme carré ca ! c un marteau !
+        
  
  
- <br><br><br>
  
- V2
- 
- 
-  
-             -> dire comment télécharger webdriver et comment connaitre sa version
-             
-             -> tout refaire (et réflchri pcque detecter un objet et se taper tout ca merci (thread ? et on rempli un liste et ca se      rempli petit a petit du genre je ne peux pas vous dire mtn.... .... ... j'ai trouvé cela ressemble a une cuillère))
-             
-             -> je n'ai pas encore appris 2 sec 
-             
-             -> je ne sais pas encore ... tout a l'heure vous m'avre montré ca peut etre que c ca !
-             
-             -> je peux enrichir ma salle a manger ect ...
+ - quelle est stobjet ? (c rond, c a coté d'une cuillere -> bol !!!!) (y'a un manche, c carré et gris -> marteau !!!)
              
  - montre moi une salle a manger/dessine moi une salle a manger
