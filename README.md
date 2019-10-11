@@ -5,51 +5,43 @@
 
 
  -   détecter une assiette
- 
-         -> a améliorer: 
- 
-         -> si nape, on fait un mask et on efface la nape pour le blanc (par exemple recupere les contours fais un mask ou tu colles les contours)
-    
          -> faire des rotations de l'image (x y size * 5) par exemple si une cuillerre est de travers
 
 
   - Scrap
-    
-        -> a améliorer: 
-    
-        -> faire une meilleur fonction
-        
         -> avec les truk long comme marteau y'a le menu
         
         -> avec marteau -> on veut clou ou scie mais on a a la place marteau pillon
-        
-        -> faire pour toutes les recherches
-        
+
         -> chercher les dimensions/formes ex: cuillere != assiette
+   
    
  - travail des images data 
  
-        -> si l'image est rectangle w > h alors on la rotation
-        
-        -> on essais de récup des objects et d'en récup un ex: plsueiurs cuillere a coté
-  
-        
+        -> essayer avec une nape
+    
         -> voir si y'a un model qui s'enregistre image par image et si on lui presente un nouveau ca dit ok ou non
         
-        -> hog et tous les truks d'un certain degres... ben justement c ca qu'on fait apres!!! faut pas le edge okkkkk
-
-       -> apprendre la trigonométrie et comprendre une fois pour toute le x et le y, et haut-droite = 0 bas gauche = pas 0 
-       ce soir prendre le temps pcque la c plus possible jcomprenais pas cercle avec des pts ok la terre est ronde ca doit etre pour ca mais non enfete c pour tout
-       
-       
+        -> essayer avec verre mais ca marche qu'avec ce type d'objet jcrois
+        
+        -> mettre les crop dans de nouvelles images
+        
+        -> enregistrer les images
+        
+        -> background
+        
+        -> multiple object
+        
+        -> rotation
+        
+        
 
 
  -  filtrage des réponses + traitement
  
 
         on les compare avec les autres air détecter 
-        
- 
+
         <strong>-> but </strong> trouvé verre, couteau, fourchette 
  
  
