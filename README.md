@@ -24,7 +24,7 @@
    
         -> detection des couleurs comme bobo (truk gris -> marteau)
       
-        -> forme
+        -> vérifier que tous les objet wiki avec td ont la balise salid 
    
    
    
