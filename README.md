@@ -31,9 +31,9 @@
             
    - scrap v2
    
-           -> liste de mot
+           -> liste de mot du genre: lame, manche, tine, cuilléré qu'on rempli
            
-           -> truk lstm 
+          
    
    
  - travail des images data 
@@ -86,3 +86,12 @@
         - quelle est stobjet ? (c rond, c a coté d'une cuillere -> bol !!!!) (y'a un manche, c carré et gris -> marteau !!!)
              
         - montre moi une salle a manger/dessine moi une salle a manger
+        
+        
+        
+       
+ - faire un truk lstm apres yolo
+        
+        
+        
+        
