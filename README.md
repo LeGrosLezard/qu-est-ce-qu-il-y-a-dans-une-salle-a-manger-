@@ -9,48 +9,33 @@
 
  -   détecter une assiette
 
-         -> scrap dimension obj
-         
-         -> et crop chaque objet en donnant manche par exemple
-         
-         -> mettre assiette (comme yolo rectangle rouge)
 
   - Scrap
   
-  
-         -> avec les truk long comme marteau y'a le menu
-        
-        -> avec marteau -> on veut clou ou scie mais on a a la place marteau pillon
-       
-        -> detection des couleurs comme bobo (truk gris -> marteau)
-      
-        -> vérifier que tous les objet wiki avec td ont la balise salid 
-        
-        -> chercher les dimensions/formes ex: cuillere != assiette
-
-            
+ 
+           
    - scrap v2
    
            -> liste de mot du genre: lame, manche, tine, cuilléré qu'on rempli
            
           
    
-   
+ 
  - travail des images data 
  
-        -> essayer avec une nape
-    
-        -> voir si y'a un model qui s'enregistre image par image et si on lui presente un nouveau ca dit ok ou non
-        
-        -> essayer avec verre mais ca marche qu'avec ce type d'objet jcrois
-        
         -> mettre les crop dans de nouvelles images
         
         -> enregistrer les images dans un nouveau dossier
         
         -> selon le scrappage identifier les parties -> manche + rond => cuillere avec les contours
         
+
         
+ - on remplis le csv avec le nouveau label
+  
+       - partie de l'objet (1 csv manche / 1 csv cuilleré 1 csv objet complet)
+        
+        ss phrase = constitué .... ET ...
         
  -  entrainement model
  
@@ -65,33 +50,24 @@
         -> supprimer image
 
 
- - on remplis le csv avec le nouveau label
-  
-        faire plusieurs csv si y'a plus de 26 + 9
- 
-        effacer images ou les transferer vers google drive
- 
- 
- - nouvelle detection
- 
-        scrapping web collect info qui manque ex: manche + truk carré gris
-        
-        detection partie objet -> déduction
- 
-        de haut en bas de gauche a droite -> ex tien il y a un manche, mais c de forme carré ca ! c un marteau !
+
+
         
  
  - BUT
  
-        - quelle est stobjet ? (c rond, c a coté d'une cuillere -> bol !!!!) (y'a un manche, c carré et gris -> marteau !!!)
-             
-        - montre moi une salle a manger/dessine moi une salle a manger
+        - detection cuillere, fourchette, couteau
+        
+        - que ca dise detection de manche, detection cuileré et detection objet cuillere
+
         
         
         
        
  - faire un truk lstm apres yolo
-        
+     
+     
+
         
         
         
