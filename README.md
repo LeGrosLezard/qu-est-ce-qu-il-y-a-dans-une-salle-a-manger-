@@ -4,7 +4,7 @@
 
 -   Attention
 
-         - faudrait que ca fasse une boucle et que ca se renouvelle a chaque fois marteau peut etre un pillon inversement que ca se remette a jour quoi par contre STOP pcque la deja ca va etre une vrai galere
+         - tout bien faire pour y reveninr plus tard
 
 
  -   détecter une assiette
