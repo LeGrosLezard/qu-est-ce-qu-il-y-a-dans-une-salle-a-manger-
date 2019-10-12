@@ -57,6 +57,7 @@ def bs4_function(path, label, element_search):
     """Request, content, bs4, element"""
 
     request = requests.get(path.format(label))
+    print(path.format(label))
     page = request.content
     soup_html = BeautifulSoup(page, "html.parser")
     content_html = soup_html.find_all(element_search)
@@ -264,16 +265,27 @@ def transform_category_to_object(category_found, dico_path):
 
 
 
-
+import time
 def properies_object(objects_to_search):
+
+    key = ["constitué", "constituée", "{} est un", "{} est une"]
 
     dico_path = our_dico_path_url()
     dico_path["wikipedia"]
     
     for i in objects_to_search:
-        content = bs4_function(dico_path["wikipedia"], i, p)
-        print(content)
+        content = bs4_function(dico_path["wikipedia"], i, "p")
 
+        c = 0
+        liste = [i.get_text() for i in content]
+        for i in liste:
+            print(i)
+            if c == 5:
+                break
+            c += 1
+
+        print("")
+        print("")
 
 
 
@@ -289,15 +301,12 @@ def searching_on_internet(label):
 ##    #We recup other object from this last category
 ##    category_found = other_element_from_category(category, label, our_path)
 ##    #We filter this object because we can have category of the last category
+##    objects_to_search = transform_category_to_object(category_found, our_path)
 
 
-    category_found = ["aliments"]
-    objects_to_search = transform_category_to_object(category_found, our_path)
-    print(objects_to_search)
 
-
-    #objects_to_search = ['Catégories', 'Exemples potentiels', 'Aliments de base', 'Fruits, légumes, lin, poissons gras', 'Aliments transformés', "Céréales de son d'avoine", 'Aliments transformés avec ingrédients ajoutés', 'Jus de fruits enrichi de calcium', 'assiettes', 'Baguettes', 'Couteau', 'Cuillère', 'Cure-dent', 'Fourchette', 'Paille', 'Pincettes', 'verres', 'bols', 'tasses']
-    #properies_object(objects_to_search)
+    objects_to_search = ["Fruits", "légumes", "lin", 'poissons gras', "Céréales de son d'avoine", 'Jus de fruits enrichi de calcium', 'assiettes', 'Baguettes', 'Couteau', 'Cuillère', 'Cure-dent', 'Fourchette', 'Paille', 'Pincettes', 'verres', 'bols', 'tasses']
+    properies_object(objects_to_search)
     
 
 
