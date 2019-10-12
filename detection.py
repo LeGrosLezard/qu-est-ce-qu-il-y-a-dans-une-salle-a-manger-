@@ -71,13 +71,26 @@ def blanck_picture(img):
 
     return blank_image
 
-
-
 """
     Resumé:
     A améliorer:
 """
 
+
+#
+def blanck_picture_white(img):
+
+    """Create a black background picture same dimension of original picture"""
+
+    blank_image = np.zeros((img.shape[0],img.shape[1],3), np.uint8)
+    blank_image[0:img.shape[0], 0:img.shape[1]] = 255, 255, 255
+
+    return blank_image
+
+"""
+    Resumé:
+    A améliorer:
+"""
 
 
 
@@ -138,8 +151,8 @@ def croping_it_from_original(img, liste):
            i[2] < img.shape[0] and i[3] < img.shape[1]:
             liste_area += [i]
 
-    one_detection_for_one_picture(liste_area, img)
-
+    copy2, liste_area = one_detection_for_one_picture(liste_area, img)
+    objects_to_picture(copy2, liste_area, img)
 
 """
     Resumé: On supprime les petits rectangles.
@@ -151,6 +164,7 @@ def croping_it_from_original(img, liste):
 
 
 def one_detection_for_one_picture(liste_area, img):
+    """ on supprimre les detections dans les detections"""
 
 
     for _ in range(2):
@@ -169,17 +183,12 @@ def one_detection_for_one_picture(liste_area, img):
                     liste_area.remove(j)
 
 
-    show_picture("copy2", copy, 0, "")
-
-
-
     copy2 = img.copy()
     for i in liste_area:
         cv2.rectangle(copy2, (i[0], i[1]), (i[0] + i[2], i[1] + i[3]),
                       (0, 0, 255), 1)
 
-        show_picture("copy2", copy2, 0, "")
-
+    return copy2, liste_area
 
 """
     Resumé: On supprime les petits rectangles.
@@ -189,9 +198,46 @@ def one_detection_for_one_picture(liste_area, img):
 """
 
 
+def part_of_object(crop):
 
-def objects_to_picture():
-    pass
+    size = [10, 25, 50]
+
+    print("scanning...")
+
+    for i in size:
+        for y in range(0, crop.shape[0], i):
+            for x in range(0, crop.shape[1], 50):
+
+                clone_draw = crop.copy()
+                crop_clone = crop[y:y+ i, x:x+50]
+
+                cv2.rectangle(clone_draw, (x, y), (x+50, y+i), (0, 0, 255), 2)
+
+                show_picture("clone", clone_draw, 1, "")
+                time.sleep(0.3)
+                #show_picture("crop", crop_clone, 0, "")
+
+
+def objects_to_picture(copy2, liste_area, img):
+
+    for i in liste_area:
+
+        crop = img[i[1]:i[1] + i[3], i[0]:i[0]+i[2]]
+
+        copy_crop = crop.copy()
+        part_of_object(copy_crop)
+
+
+
+        crop = cv2.copyMakeBorder(crop, 50, 50, 50, 50,
+                                  cv2.BORDER_CONSTANT, value=(255, 255, 255))
+
+
+
+        show_picture("crop", crop, 0, "")
+
+
+
 
 """
     Resumé: On supprime les petits rectangles.
