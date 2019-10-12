@@ -50,8 +50,11 @@ def open_picture(image):
 def show_picture(name, image, mode, destroy):
     cv2.imshow(name, image)
     cv2.waitKey(mode)
+    if mode == 1:
+        time.sleep(0.3)
     if destroy == "y":
         cv2.destroyAllWindows()
+    
 
 """
     Resumé:
@@ -214,7 +217,6 @@ def part_of_object(crop):
                 cv2.rectangle(clone_draw, (x, y), (x+50, y+i), (0, 0, 255), 2)
 
                 show_picture("clone", clone_draw, 1, "")
-                time.sleep(0.3)
                 #show_picture("crop", crop_clone, 0, "")
 
 
@@ -228,14 +230,13 @@ def objects_to_picture(copy2, liste_area, img):
         part_of_object(copy_crop)
 
 
-
         crop = cv2.copyMakeBorder(crop, 50, 50, 50, 50,
                                   cv2.BORDER_CONSTANT, value=(255, 255, 255))
 
 
 
-        show_picture("crop", crop, 0, "")
-
+        show_picture("crop", crop, 1, "y")
+        time.sleep(0.3)
 
 
 
