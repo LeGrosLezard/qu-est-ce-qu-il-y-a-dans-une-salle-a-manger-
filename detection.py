@@ -148,43 +148,12 @@ def croping_it_from_original(img, liste):
 
 def one_detection_for_one_picture(liste_area, img):
 
-    points = []
 
-    ptsx = []; ptsy = []; ptsw = []; ptsh = []
-    
+    counter = 0
     for i in liste_area:
         copy = img.copy()
 
         for j in liste_area:
-            if j[0] > i[0] + 2 and j[0] + j[2] < i[0] + i[2] or\
-               j[0] + j[2] - 2 > i[0] and j[0] + j[2] < i[0] + i[2]:
-                ptsx.append(i[0]); ptsx.append(j[0])
-                ptsy.append(i[1]); ptsy.append(j[1])
-                ptsw.append(i[0] + i[2]); ptsw.append(j[0] + i[2])
-                ptsh.append(i[1] + i[3]); ptsh.append(j[1] + i[3])
-                
-                #liste_area.remove(j)
-
-        if len(ptsx) != 0:
-            a = int(sum(ptsx) / len(ptsx))
-            b = int(sum(ptsy) / len(ptsy))
-            c = int(sum(ptsw) / len(ptsw))
-            d = int(sum(ptsh) / len(ptsh))
-
-            cv2.rectangle(copy, (a, b), (c, d),
-                         (0, 0, 255), 2)
-
-            points.append()
-            show_picture("copy", copy, 0, "")
-
-        ptsx = []; ptsy = []; ptsw = []; ptsh = []
-
-
-
-    for i in liste_area:
-        copy = img.copy()
-        for j in liste_area:
-
             if j[0] > i[0] + 2 and j[0] + j[2] < i[0] + i[2] or\
                j[0] + j[2] - 2 > i[0] and j[0] + j[2] < i[0] + i[2]:
 
@@ -194,8 +163,8 @@ def one_detection_for_one_picture(liste_area, img):
                 cv2.rectangle(copy, (j[0], j[1]), (j[0] + j[2], j[1] + j[3]),
                               (255, 0, 0), 1)
 
-                liste_area.remove(j)
-
+        
+        show_picture("copy2", copy, 0, "")
 
 
     copy2 = img.copy()
