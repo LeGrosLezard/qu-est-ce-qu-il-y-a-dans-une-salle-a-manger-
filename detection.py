@@ -1,3 +1,19 @@
+
+"""
+    12/10/19: On a ajouter le systeme de rotation.
+              Mais aussi on a deplacé le systeme de séparation des objects.
+"""
+
+
+
+    # Il faut: faire la séparation des objets dans une image a part.
+    #          Faire la detection dedans
+
+
+
+
+
+
 import cv2
 import os
 import csv
