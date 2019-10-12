@@ -16,16 +16,23 @@
          -> mettre assiette (comme yolo rectangle rouge)
 
   - Scrap
-        -> avec les truk long comme marteau y'a le menu
+  
+  
+         -> avec les truk long comme marteau y'a le menu
         
         -> avec marteau -> on veut clou ou scie mais on a a la place marteau pillon
-
-        -> chercher les dimensions/formes ex: cuillere != assiette
-   
+       
         -> detection des couleurs comme bobo (truk gris -> marteau)
       
         -> vérifier que tous les objet wiki avec td ont la balise salid 
-   
+        
+        -> chercher les dimensions/formes ex: cuillere != assiette
+        
+                       -> fourchette = manche + lame / cuillere et tout aussi donc c'est ok
+                       
+                       -> fruit = ex : magnésium 
+
+                       -> faut filtrer
    
    
    
