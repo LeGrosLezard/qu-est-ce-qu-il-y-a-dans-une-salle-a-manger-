@@ -182,6 +182,7 @@ def search_no_object(content_html, mode):
                 i = i[:parenthese-1]
 
             if mode == "td":
+
                 increment = ""
                 for el_tag in liste_tag[counter]:
                     if el_tag == " ":
@@ -190,12 +191,34 @@ def search_no_object(content_html, mode):
                         increment = ""
                     increment += el_tag
 
+
             elif mode == "li":
                 liste_object.append(i)
 
         counter +=1
 
 
+    if mode is "td":
+
+        def td_cleaning_list(liste_object):
+            liste = []
+            increment = ""
+            for i in liste_object:
+                for j in i:
+                    if j == ",":
+                        if increment[0] == " ":
+                            increment = increment[1:]
+                        liste.append(increment)
+                        increment = ""
+                    else:
+                        increment += j
+                if increment != "":
+                    liste.append(increment)
+                    increment = ""
+   
+            return liste
+
+        liste_object = td_cleaning_list(liste_object)
 
     return liste_object
 
