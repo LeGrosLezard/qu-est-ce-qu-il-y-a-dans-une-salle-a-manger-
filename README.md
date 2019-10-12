@@ -27,13 +27,13 @@
         -> vérifier que tous les objet wiki avec td ont la balise salid 
         
         -> chercher les dimensions/formes ex: cuillere != assiette
-        
-                       -> fourchette = manche + lame / cuillere et tout aussi donc c'est ok
-                       
-                       -> fruit = ex : magnésium 
 
-                       -> faut filtrer
+            
+   - scrap v2
    
+           -> liste de mot
+           
+           -> truk lstm 
    
    
  - travail des images data 
