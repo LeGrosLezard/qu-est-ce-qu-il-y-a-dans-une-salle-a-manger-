@@ -9,11 +9,17 @@
 
  -   détecter une assiette
 
-         -> faut mette chaque crop dans une nouvelle image
+         -> faut mette chaque crop dans une nouvelle image de plus grande proportion
          
-         -> les double liste c une galere
+         -> bon c pas grave
          
-         -> les detection une dans l'autre j'y arrive pas
+         -> faire le slider sur chaque nouvelle image recup les positions
+         
+         -> scrap dimension obj
+         
+         -> et crop chaque objet en donnant manche par exemple
+         
+         -> mettre assiette (comme yolo rectangle rouge)
 
   - Scrap
         -> avec les truk long comme marteau y'a le menu
