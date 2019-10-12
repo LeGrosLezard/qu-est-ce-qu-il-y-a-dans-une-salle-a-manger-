@@ -1,4 +1,3 @@
-
 import requests
 import datetime
 import urllib.request
@@ -150,7 +149,7 @@ def other_element_from_category(object_category, label, dico_path):
 
 
 
-def search_no_object(content_html):
+def search_no_object(content_html, mode):
 
     """If it's category again like couverts so google give some examples
     BUT there are noises
@@ -159,8 +158,10 @@ def search_no_object(content_html):
     """
 
     #tag to str
+    liste_tag = [str(i) for i in content_html]
     liste = [str(i.get_text()) for i in content_html]
     liste_object = []
+    counter = 0
     #filter search
     for i in liste:
         if i in ("Toutes les langues", "Rechercher les pages en Français",
@@ -179,8 +180,21 @@ def search_no_object(content_html):
             parenthese = str(i).find("(")
             if parenthese >= 0:
                 i = i[:parenthese-1]
- 
-            liste_object.append(i)
+
+            if mode == "td":
+                increment = ""
+                for el_tag in liste_tag[counter]:
+                    if el_tag == " ":
+                        if increment == " s5aIid":  
+                             liste_object.append(i)
+                        increment = ""
+                    increment += el_tag
+
+            elif mode == "li":
+                liste_object.append(i)
+
+        counter +=1
+
 
 
     return liste_object
@@ -206,8 +220,8 @@ def transform_category_to_object(category_found, dico_path):
         content_html_li = bs4_function(dico_path["exemple_of"],
                                         objects, ("li", {"class":"mod"}))
 
-        liste_td = search_no_object(content_html_td)
-        liste_li = search_no_object(content_html_li)
+        liste_td = search_no_object(content_html_td, "td")
+        liste_li = search_no_object(content_html_li, "li")
 
         if liste_td == [] and liste_li == []:
             objects_to_search.append(objects)
@@ -228,16 +242,43 @@ def transform_category_to_object(category_found, dico_path):
 
 
 
+def properies_object(objects_to_search):
+
+    dico_path = our_dico_path_url()
+    dico_path["wikipedia"]
+    
+    for i in objects_to_search:
+        content = bs4_function(dico_path["wikipedia"], i, p)
+        print(content)
+
+
+
+
+
+
+
+
 def searching_on_internet(label):
     #It's our path ex: wikipedia question url
     our_path = our_dico_path_url()
-    #We search category of our first label
-    category = searching_category(label, our_path)
-    #We recup other object from this last category
-    category_found = other_element_from_category(category, label, our_path)
-    #We filter this object because we can have category of the last category
-    objects_to_search = transform_category_to_object(category_found, our_path)
+##    #We search category of our first label
+##    category = searching_category(label, our_path)
+##    #We recup other object from this last category
+##    category_found = other_element_from_category(category, label, our_path)
+##    #We filter this object because we can have category of the last category
 
+
+    category_found = ["aliments"]
+    objects_to_search = transform_category_to_object(category_found, our_path)
+    print(objects_to_search)
+
+
+    #objects_to_search = ['Catégories', 'Exemples potentiels', 'Aliments de base', 'Fruits, légumes, lin, poissons gras', 'Aliments transformés', "Céréales de son d'avoine", 'Aliments transformés avec ingrédients ajoutés', 'Jus de fruits enrichi de calcium', 'assiettes', 'Baguettes', 'Couteau', 'Cuillère', 'Cure-dent', 'Fourchette', 'Paille', 'Pincettes', 'verres', 'bols', 'tasses']
+    #properies_object(objects_to_search)
+    
+
+
+    
     return objects_to_search
 
 
@@ -252,5 +293,22 @@ def inventory_item():
     return number_label, label
 
 
-#number_label, label = inventory_item()
-#searching_on_internet(label)
+number_label, label = inventory_item()
+objects_to_search = searching_on_internet(label)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
