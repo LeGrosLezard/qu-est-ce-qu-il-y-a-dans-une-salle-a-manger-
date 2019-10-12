@@ -47,7 +47,7 @@
  
         -> normalement faut faire direct chui perdu la
         
-        -> faut faire: slider hog mais on veut le manche donc on fait pas partie objet hog + detection svm
+        -> faut faire: slider hog mais on veut le manche donc on fait pas directe mais partie objet hog + detection svm
  
  
         -> on récupere toutes les parties des objets
