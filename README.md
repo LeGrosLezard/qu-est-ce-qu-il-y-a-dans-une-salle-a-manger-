@@ -9,12 +9,6 @@
 
  -   détecter une assiette
 
-         -> faut mette chaque crop dans une nouvelle image de plus grande proportion
-         
-         -> bon c pas grave
-         
-         -> faire le slider sur chaque nouvelle image recup les positions
-         
          -> scrap dimension obj
          
          -> et crop chaque objet en donnant manche par exemple
