@@ -97,8 +97,10 @@ def get_other_object(img):
 
     gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
     edged = cv2.Canny(img, 0, 160)
+    th3 = cv2.adaptiveThreshold(gray,255,cv2.ADAPTIVE_THRESH_GAUSSIAN_C,\
+            cv2.THRESH_BINARY,11,2)
 
-    contours, _ = cv2.findContours(edged, cv2.RETR_TREE,
+    contours, _ = cv2.findContours(th3, cv2.RETR_TREE,
                                    cv2.CHAIN_APPROX_SIMPLE)
 
     liste = []
@@ -107,6 +109,7 @@ def get_other_object(img):
         cv2.drawContours(blanck, cnts, -1, (255, 255, 255), 1)
 
     show_picture("blanck", blanck, 0, "y")
+
     return liste
 
 
@@ -131,7 +134,8 @@ def croping_it_from_original(img, liste):
 
     liste_area = []
     for i in liste:
-        if i[2] > 15 and i[3] > 15:
+        if i[2] > 10 and i[3] > 10 and\
+           i[2] < img.shape[0] and i[3] < img.shape[1]:
             liste_area += [i]
 
     one_detection_for_one_picture(liste_area, img)
@@ -149,22 +153,24 @@ def croping_it_from_original(img, liste):
 def one_detection_for_one_picture(liste_area, img):
 
 
-    counter = 0
-    for i in liste_area:
-        copy = img.copy()
+    for _ in range(2):
+        for i in liste_area:
+            copy = img.copy()
+            for j in liste_area:
+                if j[0] > i[0] + 2 and j[0] + j[2] < i[0] + i[2] or\
+                   j[0] + j[2] - 2 > i[0] and j[0] + j[2] < i[0] + i[2]:
 
-        for j in liste_area:
-            if j[0] > i[0] + 2 and j[0] + j[2] < i[0] + i[2] or\
-               j[0] + j[2] - 2 > i[0] and j[0] + j[2] < i[0] + i[2]:
+                    cv2.rectangle(copy, (i[0], i[1]), (i[0] + i[2], i[1] + i[3]),
+                                  (0, 0, 255), 2)
 
-                cv2.rectangle(copy, (i[0], i[1]), (i[0] + i[2], i[1] + i[3]),
-                              (0, 0, 255), 2)
+                    cv2.rectangle(copy, (j[0], j[1]), (j[0] + j[2], j[1] + j[3]),
+                                  (255, 0, 0), 1)
 
-                cv2.rectangle(copy, (j[0], j[1]), (j[0] + j[2], j[1] + j[3]),
-                              (255, 0, 0), 1)
+                    liste_area.remove(j)
 
-        
-        show_picture("copy2", copy, 0, "")
+
+    show_picture("copy2", copy, 0, "")
+
 
 
     copy2 = img.copy()
@@ -178,12 +184,7 @@ def one_detection_for_one_picture(liste_area, img):
 """
     Resumé: On supprime les petits rectangles.
 
-    A améliorer: - la fonction en elle meme
-                 - le for i in range(2)
-                 - je sais pas trop essayer avec de tout petit element
-                     -> FAIT (enlever if i[2] > 15 and i[3] > 15:)
-                     -> reste petit redidu
-                 - inspire pas confiance
+    A améliorer: 
                  
 """
 
