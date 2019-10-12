@@ -41,14 +41,13 @@
         
         -> enregistrer les images dans un nouveau dossier
         
+        -> selon le scrappage identifier les parties -> manche + rond => cuillere avec les contours
+        
         
         
  -  entrainement model
  
-        -> normalement faut faire direct chui perdu la
-        
-        -> faut faire: slider hog mais on veut le manche donc on fait pas directe mais partie objet hog + detection svm
- 
+        -> faut faire: slider hog mais on veut le manche donc on fait partie objet hog + detection svm
  
         -> on récupere toutes les parties des objets
         
