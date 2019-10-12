@@ -28,6 +28,8 @@ import imutils
 
 
 #--------------------------------------------------------------------------------- picture treatment
+
+#
 def open_picture(image):
 
     """We open picture"""
@@ -38,7 +40,6 @@ def open_picture(image):
 
 """
     Resumé:
-    En gros ici on a :
     A améliorer:
 """
 
@@ -54,9 +55,9 @@ def show_picture(name, image, mode, destroy):
 
 """
     Resumé:
-    En gros ici on a :
     A améliorer:
 """
+
 
 
 
@@ -74,12 +75,8 @@ def blanck_picture(img):
 
 """
     Resumé:
-    En gros ici on a :
     A améliorer:
 """
-
-
-
 
 
 
@@ -106,23 +103,26 @@ def get_other_object(img):
 
     liste = []
     for cnts in contours:
-        x, y, w, h = cv2.boundingRect(cnts)
-        liste.append([x, y, w, h])
+        pts = [x, y, w, h] = cv2.boundingRect(cnts); liste.append(pts)
         cv2.drawContours(blanck, cnts, -1, (255, 255, 255), 1)
 
     show_picture("blanck", blanck, 0, "y")
     return liste
 
+
 """
-    Resumé:
-    En gros ici on a :
+    Resumé:  - déssine les edges dans une blanck
+             - recup rectangle detection
+   
     A améliorer:
 """
 
 
 
 
+
 #
+
 def croping_it_from_original(img, liste):
 
     """Now we must fusion the multiples detections from
@@ -131,24 +131,103 @@ def croping_it_from_original(img, liste):
 
     liste_area = []
     for i in liste:
-        if i[2] > 10 and i[3] > 10:
+        if i[2] > 15 and i[3] > 15:
             liste_area += [i]
 
-    for i in liste_area:
-        cv2.rectangle(img, (i[0], i[1]), (i[0] + i[2], i[1] + i[3]), (0, 0, 255), 1)
-
-    show_picture("img", img, 0, "")
+    one_detection_for_one_picture(liste_area, img)
 
 
 """
-    Resumé:
-    En gros ici on a :
+    Resumé: On supprime les petits rectangles.
+            one_detection supprime rectangle en trop
+
+    A améliorer: #if i[2] > 15 and i[3] > 15:
+                    risque de perdre un objet
+"""
+
+
+def one_detection_for_one_picture(liste_area, img):
+
+    points = []
+
+    ptsx = []; ptsy = []; ptsw = []; ptsh = []
+    
+    for i in liste_area:
+        copy = img.copy()
+
+        for j in liste_area:
+            if j[0] > i[0] + 2 and j[0] + j[2] < i[0] + i[2] or\
+               j[0] + j[2] - 2 > i[0] and j[0] + j[2] < i[0] + i[2]:
+                ptsx.append(i[0]); ptsx.append(j[0])
+                ptsy.append(i[1]); ptsy.append(j[1])
+                ptsw.append(i[0] + i[2]); ptsw.append(j[0] + i[2])
+                ptsh.append(i[1] + i[3]); ptsh.append(j[1] + i[3])
+                
+                #liste_area.remove(j)
+
+        if len(ptsx) != 0:
+            a = int(sum(ptsx) / len(ptsx))
+            b = int(sum(ptsy) / len(ptsy))
+            c = int(sum(ptsw) / len(ptsw))
+            d = int(sum(ptsh) / len(ptsh))
+
+            cv2.rectangle(copy, (a, b), (c, d),
+                         (0, 0, 255), 2)
+
+            points.append()
+            show_picture("copy", copy, 0, "")
+
+        ptsx = []; ptsy = []; ptsw = []; ptsh = []
+
+
+
+    for i in liste_area:
+        copy = img.copy()
+        for j in liste_area:
+
+            if j[0] > i[0] + 2 and j[0] + j[2] < i[0] + i[2] or\
+               j[0] + j[2] - 2 > i[0] and j[0] + j[2] < i[0] + i[2]:
+
+                cv2.rectangle(copy, (i[0], i[1]), (i[0] + i[2], i[1] + i[3]),
+                              (0, 0, 255), 2)
+
+                cv2.rectangle(copy, (j[0], j[1]), (j[0] + j[2], j[1] + j[3]),
+                              (255, 0, 0), 1)
+
+                liste_area.remove(j)
+
+
+
+    copy2 = img.copy()
+    for i in liste_area:
+        cv2.rectangle(copy2, (i[0], i[1]), (i[0] + i[2], i[1] + i[3]),
+                      (0, 0, 255), 1)
+
+        show_picture("copy2", copy2, 0, "")
+
+
+"""
+    Resumé: On supprime les petits rectangles.
+
+    A améliorer: - la fonction en elle meme
+                 - le for i in range(2)
+                 - je sais pas trop essayer avec de tout petit element
+                     -> FAIT (enlever if i[2] > 15 and i[3] > 15:)
+                     -> reste petit redidu
+                 - inspire pas confiance
+                 
+"""
+
+
+
+def objects_to_picture():
+    pass
+
+"""
+    Resumé: On supprime les petits rectangles.
+
     A améliorer:
 """
-
-
-
-
 
 
 
@@ -315,7 +394,10 @@ def reconstruction(image, liste):
 
     e = len(liste)
 
-    cv2.rectangle(image, (int(a/e), int(b/e)), (int(c/e), int(d/e)), (0, 0, 255), 1)
+    cv2.rectangle(image, (int(a/e), int(b/e)),
+                  (int(c/e), int(d/e)),
+                  (0, 0, 255), 1)
+
     show_picture("image", image, 0, "y")
 
     return int(a/e), int(b/e), int(c/e), int(d/e)
