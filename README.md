@@ -8,9 +8,6 @@
 
 
  -   détecter une assiette
- 
-         -> faire des rotations de l'image (x y size * 5) par exemple si une cuillerre est de travers
-
 
   - Scrap
         -> avec les truk long comme marteau y'a le menu
