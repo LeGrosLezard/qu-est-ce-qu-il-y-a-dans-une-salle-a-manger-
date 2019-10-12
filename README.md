@@ -9,6 +9,12 @@
 
  -   détecter une assiette
 
+         -> faut mette chaque crop dans une nouvelle image
+         
+         -> les double liste c une galere
+         
+         -> les detection une dans l'autre j'y arrive pas
+
   - Scrap
         -> avec les truk long comme marteau y'a le menu
         
