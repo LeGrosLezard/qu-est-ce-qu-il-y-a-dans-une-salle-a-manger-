@@ -22,6 +22,7 @@ def show_picture(name, image, mode, destroy):
         cv2.destroyAllWindows()
 
 
+
 def blanck_picture(img):
 
     """Create a black background picture same dimension of original picture"""
@@ -30,6 +31,7 @@ def blanck_picture(img):
     blank_image[0:img.shape[0], 0:img.shape[1]] = 0, 0, 0
 
     return blank_image
+
 
 
 def main_color_background(img):
@@ -172,7 +174,7 @@ def masking_to_black(img, color):
                 img[i, j] = 255
                
 
-    show_picture("img", img, 0, "")
+    #show_picture("img", img, 0, "")
     
 
     return img
