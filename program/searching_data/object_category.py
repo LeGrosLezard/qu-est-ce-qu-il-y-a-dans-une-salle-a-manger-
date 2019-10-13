@@ -123,7 +123,6 @@ def searching_category(label, dico_path):
 
 
 
-
 def other_element_from_category(object_category, label, dico_path):
 
 
@@ -265,25 +264,7 @@ def transform_category_to_object(category_found, dico_path):
 
 
 
-import time
-def properies_object(objects_to_search):
 
-    key = ["constitué", "constituée", "{} est un", "{} est une"]
-
-    dico_path = our_dico_path_url()
-    dico_path["wikipedia"]
-    
-    for i in objects_to_search:
-        content = bs4_function(dico_path["wikipedia"], i, ("tr"))
-
-        c = 0
-        for cnt in content:
-            if c == 1:
-                if str(cnt.get_text())[:10] == "Composé de":
-                    print(str(cnt.get_text())[10:])
-            c+=1
-
-        print("")
 
 
 
@@ -300,15 +281,6 @@ def searching_on_internet(label):
 ##    objects_to_search = transform_category_to_object(category_found, our_path)
 
 
-
-    objects_to_search = ["Fruits", "légumes", "lin", 'poissons gras', "Céréales de son d'avoine", 'Jus de fruits enrichi de calcium', 'assiettes', 'Baguettes', 'Couteau', 'Cuillère', 'Cure-dent', 'Fourchette', 'Paille', 'Pincettes', 'verres', 'bols', 'tasses']
-    #objects_to_search = ["couteau", "cuillere"]
-
-    properies_object(objects_to_search)
-    
-
-
-    
     return objects_to_search
 
 
