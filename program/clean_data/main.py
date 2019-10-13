@@ -94,7 +94,26 @@ def take_features(objects_to_search):
 
 
     for objects in objects_to_search:
+
+        def transform_i(objects):
+            out_word = ""
+            for i in word:
+                for j in i:
+                    if j in ("é", "è"):
+                       out_word += "e"
+                    else:
+                        out_word += j
+              
+            return out_word
+
+        objects = transform_i(objects)
+        
         os.makedirs(path_picture.format("clean", objects))
+
+
+
+
+        
         liste_obj = os.listdir(path_folder.format(objects))
         for image in liste_obj:
 
