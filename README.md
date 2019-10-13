@@ -6,20 +6,30 @@
 
 -   Attention
 
-           si plusieurs fois meme composant
-           
-           et que plusieurs fois meme detection
-           
-           alors ce composant est la detection
-           
-           on récupere les points
-           
-           on retourne dans les images
-           
-           on crop via les mesures (ca fait 25 % de la cuillere)
-          
-           on rajoute au csv le nouvel objet 
 
+            plusieurs fois manche (scrap)
+
+            ex : cuillere + fourchette + couteau a detection a stendroit
+            
+            on dit c le manche
+            
+            on récupere le plus haut cadre et le plus bas (y et y+h)
+            
+            on retourne dans les images de tout
+            
+            on fait pourcentage
+            
+            on rajoute une ligne au csv
+            
+            on efface model
+            
+            on recré model
+            
+            si csv + 26 + 9 label
+            
+            on réécrit directement dans le programme 
+            
+            via un fichier ou y'a écrit ligne tant ou ca dit fonction with open + model = load
 
  -   détecter une assiette
 
