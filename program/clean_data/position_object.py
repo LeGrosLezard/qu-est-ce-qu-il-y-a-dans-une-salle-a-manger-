@@ -1,9 +1,9 @@
-"""
-    1 - contour to red
-    2 - recup red points
-    3 - take min max contour width and height
-    4 - define position inclinaison
-"""
+import numpy as np
+import cv2
+import os
+import imutils
+import math
+from PIL import Image
 
 
 
@@ -13,6 +13,7 @@ def open_picture(image):
 
     img = cv2.imread(image)
     return img
+
 
 def show_picture(name, image, mode, destroy):
     cv2.imshow(name, image)
@@ -36,8 +37,6 @@ def draw_contours(contours, blanck):
     #recup center of detection and draw it in red
     position_circleX = []
     position_circleY = []
-
-
 
     for cnts in contours:
         if cv2.contourArea(cnts):
@@ -156,54 +155,121 @@ def treatment_inclinaison(X_min, Xy_min, X_max, Xy_max,
 
 def precise_angle(img, X_min, Xy_min, X_max, Xy_max,
                   X_min2, Xy_min2, X_max2, Xy_max2,
-                  position, blanck):
-
-
-
+                  position, blanck,
+                  path_clean, category, image):
 
     if position == 2:
         print("Search coordinates")
 
-        print(X_min2, Xy_min2)
         b = 200 - X_min2
-        print(b)
         a = math.atan(b/200)
-        print(a)
         c = math.degrees(a)
-        print(c)
         d = 90 - c
 
         rotated = imutils.rotate_bound(img, -d)
-        cv2.imwrite(path_clean.format(category,  str(img)), rotated)
         #show_picture("img", rotated, 0, "y")
+        cv2.imwrite(path_clean.format(category, image), rotated)
 
     if position == 3:
         print("Search coordinates")
 
-        print(X_min2, Xy_min2)
         b = 200 - X_min2
-        print(b)
         a = math.atan(b/200)
-        print(a)
         c = math.degrees(a)
-        print(c)
         d = 90 - c
 
         rotated = imutils.rotate_bound(img, d)
         #show_picture("img", rotated, 0, "y")
-        cv2.imwrite(path_clean.format(category,  str(img)), rotated)
+        cv2.imwrite(path_clean.format(category, image), rotated)
 
     if position == 1:
         print("seaching coordinates")
-        #rotated = imutils.rotate_bound(blanck, 90)
-        cv2.imwrite(path_clean.format(category,  str(img)), rotated)
-
-    else:
-        cv2.imwrite(path_clean.format(category,  str(img)), img)
+        rotated = imutils.rotate_bound(img, 90)
+        #show_picture("img", rotated, 0, "y")
+        cv2.imwrite(path_clean.format(category, image), rotated)
 
 
 
 
+def position_rotation(contours, blanck, img,
+                      path_clean, category, image):
 
 
+    position_circleX, position_circleY = draw_contours(contours, blanck)
+
+    listex, listey, listex2, listey2 = recup_red_points(blanck)
+
+    X_min, Xy_min, X_max, Xy_max,\
+    X_min2, Xy_min2, X_max2, Xy_max2, blanck\
+    = points_for_define_inclinaison(listex, listey, listex2, listey2, blanck)
+
+    position = treatment_inclinaison(X_min, Xy_min, X_max, Xy_max,
+                                     X_min2, Xy_min2, X_max2, Xy_max2)
+
+    precise_angle(img, X_min, Xy_min, X_max, Xy_max,
+                  X_min2, Xy_min2, X_max2, Xy_max2,
+                  position, blanck, path_clean,
+                  category, image)
+
+
+
+def transform_i(objects):
+    out_objects = ""
+    for i in objects:
+        for j in i:
+            if j in ("é", "è"):
+               out_objects += "e"
+            else:
+                out_objects += j
+      
+    return out_objects
+
+
+
+def pre_treatment(path_picture, objects, image):
+    img = open_picture(path_picture.format(objects, image))
+
+    height, width, channel = img.shape
+    if height > 200 and width > 200:
+        img = cv2.resize(img, (200, 200))
+
+    blanck = blanck_picture(img)
+
+    gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
+    edged = cv2.Canny(img, 100, 200)
+
+    contours, _ = cv2.findContours(edged, cv2.RETR_TREE,
+                                   cv2.CHAIN_APPROX_SIMPLE)
+
+
+
+    return img, objects, contours, blanck
+
+
+
+
+def take_features_position(objects_to_search):
+
+
+    folder_clean = "dataset/clean/{}"
+    path_clean = "dataset/clean/{}/{}"
+
+    for objects in objects_to_search:
+
+        objects = transform_i(objects)
+
+        liste_obj = os.listdir(folder_clean.format(objects))
+
+        for image in liste_obj:
+            print(image)
+
+            try:
+                img, objects, contours, blanck =\
+                pre_treatment(path_clean, objects, image)
+
+                position_rotation(contours, blanck, img,
+                                  path_clean, objects, image)
+    
+            except:
+                pass
 
