@@ -136,46 +136,49 @@ def one_detection_for_one_picture(liste_area, img):
 
 
 
-def part_of_object(crop):
+def part_of_object(crop, picture):
 
     size = [25, 50]
 
     print("scanning...")
-
     save = 0
     for i in size:
         for y in range(0, crop.shape[0], i):
             for x in range(0, crop.shape[1], i):
-
+                
                 clone_draw = crop.copy()
                 crop_clone = crop[y:y+i, x:x+i]
 
                 cv2.rectangle(clone_draw, (x, y), (x+i, y+i), (0, 0, 255), 2)
 
-                #show_picture("clone", clone_draw, 1, "")
+                show_picture("clone", clone_draw, 1, "")
                 #show_picture("crop", crop_clone, 0, "")
 
-                #save_picture("crop_learning/" + str(i) + str(save) + ".jpg", crop_clone)
-                
+                savegarde_name = "dataset/data_analysing/crop_learning/" + str(picture) + "/" + str(save) + ".jpg"
+
+                cv2.imwrite(savegarde_name, crop_clone)
+
                 save += 1
 
 
+
 def objects_to_picture(copy2, liste_area, img):
+
 
     for i in liste_area:
         crop = img[i[1]:i[1] + i[3], i[0]:i[0]+i[2]]
         save_picture(str(i) + ".jpg", crop)
 
+        os.makedirs("dataset/data_analysing/crop_learning/" + str(i) + "/")
+        part_of_object(crop, i)
+
 
         copy_crop = crop.copy()
-
         crop = cv2.copyMakeBorder(crop, 50, 50, 50, 50,
                                   cv2.BORDER_CONSTANT, value=(255, 255, 255))
 
-        part_of_object(crop)
+        
 
-
-    #save_picture(str("analysing") + ".jpg", img)
 
 
 def detection_picture(model, image):
