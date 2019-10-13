@@ -274,20 +274,16 @@ def properies_object(objects_to_search):
     dico_path["wikipedia"]
     
     for i in objects_to_search:
-        content = bs4_function(dico_path["wikipedia"], i, "p")
+        content = bs4_function(dico_path["wikipedia"], i, ("tr"))
 
         c = 0
-        liste = [i.get_text() for i in content]
-        for i in liste:
-            print(i)
-            if c == 5:
-                break
-            c += 1
+        for cnt in content:
+            if c == 1:
+                if str(cnt.get_text())[:10] == "Composé de":
+                    print(str(cnt.get_text())[10:])
+            c+=1
 
         print("")
-        print("")
-
-
 
 
 
@@ -306,6 +302,8 @@ def searching_on_internet(label):
 
 
     objects_to_search = ["Fruits", "légumes", "lin", 'poissons gras', "Céréales de son d'avoine", 'Jus de fruits enrichi de calcium', 'assiettes', 'Baguettes', 'Couteau', 'Cuillère', 'Cure-dent', 'Fourchette', 'Paille', 'Pincettes', 'verres', 'bols', 'tasses']
+    #objects_to_search = ["couteau", "cuillere"]
+
     properies_object(objects_to_search)
     
 
