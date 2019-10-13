@@ -20,7 +20,6 @@ def open_picture(image):
     return img
 
 
-
 def show_picture(name, image, mode, destroy):
     cv2.imshow(name, image)
     cv2.waitKey(mode)
@@ -92,8 +91,10 @@ def rotation_crop(crop):
                         
 def parcours_image(img, model):
 
-    """We put picture into model. We try to match
-    The last crop with picture on model"""
+    """
+        On veut juste les parties pour detecter ex un manche
+        le crop pour vrai apprentissage => recup_data.py 
+    """
 
     size = 15; list_intersection = [];prediction = [];
     img_detection = img.copy()
@@ -137,7 +138,7 @@ def parcours_image(img, model):
 
 
 
-def reconstruction(image, liste, prediction, number_label, label, show):
+def reconstruction(image, liste, prediction, number_label, label):
 
     """We can have multiple detection so
     We make an average of this and recup the final detection
@@ -145,8 +146,9 @@ def reconstruction(image, liste, prediction, number_label, label, show):
 
     a = 0; b = 0; c = 0; d = 0
     font = cv2.FONT_HERSHEY_SIMPLEX
+    image_copy = image.copy()
 
-    print(liste, prediction, number_label, label, show)
+    print(liste, prediction, number_label, label)
 
     if liste == []:
         return None
@@ -166,23 +168,24 @@ def reconstruction(image, liste, prediction, number_label, label, show):
         e = len(liste)
 
         #on dessine le "include"
-
         cv2.rectangle(image, (int(a/e), int(b/e)),
                       (int(c/e), int(d/e)),
                       (0, 0, 255), 1)
 
         show_picture("image", image, 0, "")
 
-        show = open_picture(show)
-        cv2.putText(show ,str(predicted), (int(a/e), int(b/e)), font, 1, (200,0,0), 1, cv2.LINE_AA)
-        show_picture("show", show, 0, "y")
-
-        return (int(a/e), int(b/e), int(c/e), int(d/e))
+        image_copy = cv2.copyMakeBorder(image_copy, 50, 50, 50, 50,
+                                  cv2.BORDER_CONSTANT, value=(255, 255, 255))
 
 
+        cv2.putText(image_copy ,str(predicted), (int(a/e), int(b/e)), font, 1, (200,0,0), 1, cv2.LINE_AA)
+        show_picture("image_copy", image_copy, 0, "y")
+
+        return str(predicted)
 
 
-def detection_picture_hog(number_label, label, model, image, show):
+
+def detection_picture_hog(number_label, label, model, image):
 
     #load model
     model = joblib.load(model)
@@ -191,24 +194,14 @@ def detection_picture_hog(number_label, label, model, image, show):
     img = open_picture(image)
     img_copy = img.copy()
 
-
     list_intersection, prediction = parcours_image(img, model)
 
-
-
-    
     detection = reconstruction(img, list_intersection,
                                prediction, number_label,
-                               label, show)
-
-    if detection is None:
-        pass
-    else:
-        pass
-
+                               label)
 
     print(detection)
-
+    return detection
 
 
 
