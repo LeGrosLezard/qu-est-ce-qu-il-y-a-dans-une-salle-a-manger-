@@ -6,15 +6,33 @@
 
 -   Attention
 
-         - le but c de detecter un objet par un objet via un crop MAIS
-         
-         - on doit faire un hog pour detecter le manche et les extrémités pointues par exemple !
-         
-         - on veut que ce machin se dise a lui meme manche en bas lame en haut via cuillere
-         
-         - et en plus d'une phase de scrap 
+            y'a un truk qui cloche
 
-          
+           - on lui fait apprendre une assiette
+           
+           - on lui montre une image d'assiette + ect
+           
+           - ca cherche la vaisselle
+           
+           - ca donne des objets
+  
+           - ca va chercher ses objets
+           
+           - ca apprend c objet
+           
+           - on a les parties de l'objet OU quelques parties vu quy'a un mec qui a décidé que la page cuillere était la sienne ^^
+           
+           - et mtn ca doit redire l'image avec les parties de l'objet 
+           
+           - mais du coup faut faire un model cuillere composé de plusieurs truk ?
+           
+           - ici ca bloque
+           
+           - et ca doit dire manche bas tete haut
+           
+           - oh l'objet ci a un manche et est a coté d'une fourchette
+         
+          sauf que bonjour les images, et j'ai fais en sorte que ce soit pour fouchette et couteau et cuillere faudrait faire un enorme scrap enfete ou que ca apprenne a scrap pcque c'est chiant d'une et que y'a trop de mot et y'a un truk qui cloche
 
 
  -   détecter une assiette
