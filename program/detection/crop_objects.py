@@ -173,15 +173,6 @@ def objects_to_picture(copy2, liste_area, img):
         part_of_object(crop, i)
 
 
-        copy_crop = crop.copy()
-        crop = cv2.copyMakeBorder(crop, 50, 50, 50, 50,
-                                  cv2.BORDER_CONSTANT, value=(255, 255, 255))
-
-
-        os.makedirs("dataset/data_analysing/show/" + str(i) + "/")
-        savegarde_name = "dataset/data_analysing/show/" + str(i) +  ".jpg"
-        cv2.imwrite(savegarde_name, crop)
-
 def detection_picture(model, image):
 
     #load model
