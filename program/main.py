@@ -82,9 +82,9 @@ def search_objet(objects, objects_detected, OBJECT_SEARCHING):
 
             objects_to_search = transform_category_to_object(category_found, our_path)
 
-    
     return objects_to_search 
     
+
 
 from download_data.download_data import transform_i
 from download_data.download_data import main_download
@@ -95,12 +95,15 @@ def download_picture(objects_to_search):
         main_download([objects], [200], [0], "dataset/")
 
 
-from clean_data.main import take_features
+
+from clean_data.background import take_features_background
+from clean_data.multiple_object import take_features_multi_obj
 def cleanning_dataset(objects_to_search):
 
     #['Couteau', 'Cuillère', 'Fourchette']
-    take_features(objects_to_search)
-            
+    #take_features_background(objects_to_search)
+
+    take_features_multi_obj(objects_to_search)
 
 
 if __name__ == "__main__":
@@ -122,7 +125,7 @@ if __name__ == "__main__":
     """detection.crop_objects"""
     #detect_objects(model, image)
 
-    """detection.detection"""
+    """detecion.detection"""
     #objects, objects_detected\
     #= detection_object(model, image, number_label, label,
     #                   path_to_analysis)
@@ -138,25 +141,5 @@ if __name__ == "__main__":
     """clean_data.main"""
     objects_to_search = ['Couteau', 'Cuillère', 'Fourchette']
     cleanning_dataset(objects_to_search)
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
