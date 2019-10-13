@@ -25,10 +25,6 @@ une bouché a la fois
  
  - travail des images data 
  
-        -> mettre les crop dans de nouvelles images
-        
-        -> enregistrer les images dans un nouveau dossier
-        
         -> selon le scrappage identifier les parties -> manche + rond => cuillere avec les contours
         
 
@@ -62,7 +58,11 @@ une bouché a la fois
         
         - que ca dise detection de manche, detection cuileré et detection objet cuillere
 
+        - que ca dise soit meme manche ne bas autre truk en haut
         
+        - que le scrap soit bon
+        
+        - tant que c pas comme jlimagine
         
         
        
