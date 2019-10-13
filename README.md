@@ -13,9 +13,7 @@
          
          - on veut que ce machin se dise a lui meme manche en bas lame en haut via cuillere
          
-         - et en plus d'une phase de scrap mais ca... j'en ai eu ma dose avec bobo ^^
-         
-         - jdeteste ca mtn jcrois en plus ca donne la gerbe (comprendre pk ca donne jamais la classe et l'id qu'il me faut ca me donne toute la page a chaque fois pfffffffff)
+         - et en plus d'une phase de scrap 
 
           
 
@@ -36,15 +34,14 @@
  
  - travail des images data 
  
-        -> selon le scrappage identifier les parties -> manche + rond => cuillere avec les contours
-        
 
+        
         
  - on remplis le csv avec le nouveau label
   
        - partie de l'objet (1 csv manche / 1 csv cuilleré 1 csv objet complet)
         
-        ss phrase = constitué .... ET ...
+
         
  -  entrainement model
  
@@ -59,9 +56,6 @@
         -> supprimer image
 
 
-
-
-        
  
  - BUT
  
@@ -77,7 +71,7 @@
         
         
        
- - faire un truk lstm apres yolo
+
      
      
 
