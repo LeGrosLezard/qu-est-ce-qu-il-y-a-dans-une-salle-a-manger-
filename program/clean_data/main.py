@@ -84,7 +84,17 @@ def position_rotation(contours, blanck, img, path_clean, category):
                   position, blanck, path_clean, category)
 
 
-
+def transform_i(objects):
+    out_objects = ""
+    for i in objects:
+        for j in i:
+            if j in ("é", "è"):
+               out_objects += "e"
+            else:
+                out_objects += j
+      
+    return out_objects
+        
 def take_features(objects_to_search):
 
 
@@ -95,55 +105,43 @@ def take_features(objects_to_search):
 
     for objects in objects_to_search:
 
-        def transform_i(objects):
-            out_word = ""
-            for i in objects:
-                for j in i:
-                    if j in ("é", "è"):
-                       out_word += "e"
-                    else:
-                        out_word += j
-              
-            return out_word
-
         objects = transform_i(objects)
-        
         os.makedirs(path_picture.format("clean", objects))
 
-
-
-
-        
         liste_obj = os.listdir(path_folder.format(objects))
+
         for image in liste_obj:
 
-            print("picture: ", image, "\n")
+            print("picture: ", image)
 
-            img = open_picture(path_picture.format(objects, image))
+            try:
 
-            height, width, channel = img.shape
-            if height > 200 and width > 200:
-                img = cv2.resize(img, (200, 200))
+                img = open_picture(path_picture.format(objects, image))
 
-            blanck = blanck_picture(img)
+                height, width, channel = img.shape
+                if height > 200 and width > 200:
+                    img = cv2.resize(img, (200, 200))
 
-            gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
-            edged = cv2.Canny(img, 100, 200)
+                blanck = blanck_picture(img)
 
-            contours, _ = cv2.findContours(edged, cv2.RETR_TREE,
-                                           cv2.CHAIN_APPROX_SIMPLE)
+                gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
+                edged = cv2.Canny(img, 100, 200)
 
-            img = treatment_background(img, objects)  #background
-            print(path_clean.format(objects, image))
-            cv2.imwrite(path_clean.format(objects, image), img)
+                contours, _ = cv2.findContours(edged, cv2.RETR_TREE,
+                                               cv2.CHAIN_APPROX_SIMPLE)
 
-
-##            multiple_objects(contours, blanck, img, path_clean, category)
-##            position_rotation(contours, blanck, img, path_clean, category) #rotation
-##            
-##            break
+                img = treatment_background(img, objects)  #background
+                print(path_clean.format(objects, image), "\n")
+                cv2.imwrite(path_clean.format(objects, image), img)
 
 
+    ##            multiple_objects(contours, blanck, img, path_clean, category)
+    ##            position_rotation(contours, blanck, img, path_clean, category) #rotation
+    ##            
+    ##            break
 
+
+            except:
+                pass
 
 
