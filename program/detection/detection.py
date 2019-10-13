@@ -109,10 +109,10 @@ def parcours_image(img, model):
                 crop = cv2.resize(crop, (50, 50))
                 gray = cv2.cvtColor(crop, cv2.COLOR_BGR2GRAY)
 
-                show_picture("gray", gray, 1, "")
+                #show_picture("gray", gray, 1, "")
 
                 H, hogImage = HOG_detection(gray)
-                show_picture("hogImage", hogImage, 1, "")
+                #show_picture("hogImage", hogImage, 1, "")
 
                 rotation_crop(hogImage)
 
@@ -128,16 +128,16 @@ def parcours_image(img, model):
                 pass
 
 
-            cv2.rectangle(clone, (x, y), (x + size, y + size), (0, 255, 0), 2)
-            show_picture("clone", clone, 1, "")
-            show_picture("img_detection", img_detection, 1, "")
+##            cv2.rectangle(clone, (x, y), (x + size, y + size), (0, 255, 0), 2)
+##            show_picture("clone", clone, 1, "")
+##            show_picture("img_detection", img_detection, 1, "")
 
 
     return list_intersection, prediction
 
 
 
-def reconstruction(image, liste, prediction, number_label, label):
+def reconstruction(image, liste, prediction, number_label, label, show):
 
     """We can have multiple detection so
     We make an average of this and recup the final detection
@@ -146,36 +146,43 @@ def reconstruction(image, liste, prediction, number_label, label):
     a = 0; b = 0; c = 0; d = 0
     font = cv2.FONT_HERSHEY_SIMPLEX
 
+    print(liste, prediction, number_label, label, show)
 
-##    if prediction == 1:
-##        pred = "assiette"
+    if liste == []:
+        return None
+    else:
 
-    for i in liste:
-        a += i[0]; b += i[1]
-        c += i[2]; d += i[3]
+        #on regarde le label
+        predicted = ""
+        for i in range(len(number_label)):
+            if number_label[i] == prediction[0]:
+                predicted = label[i]
 
+        #on fait un "include" de detection
+        for i in liste:
+            a += i[0]; b += i[1]
+            c += i[2]; d += i[3]
 
+        e = len(liste)
 
-    e = len(liste)
+        #on dessine le "include"
 
-    if e != 0:
         cv2.rectangle(image, (int(a/e), int(b/e)),
                       (int(c/e), int(d/e)),
                       (0, 0, 255), 1)
-    else:
-        e = 1
 
-    #print(label)
-    #cv2.putText(image ,str(pred), (int(a/e), int(b/e)), font, 1, (200,0,0), 1, cv2.LINE_AA)
+        show_picture("image", image, 0, "")
 
-    show_picture("image", image, 0, "y")
+        show = open_picture(show)
+        cv2.putText(show ,str(predicted), (int(a/e), int(b/e)), font, 1, (200,0,0), 1, cv2.LINE_AA)
+        show_picture("show", show, 0, "y")
 
-    return int(a/e), int(b/e), int(c/e), int(d/e)
-
+        return (int(a/e), int(b/e), int(c/e), int(d/e))
 
 
 
-def detection_picture_hog(number_label, label, model, image):
+
+def detection_picture_hog(number_label, label, model, image, show):
 
     #load model
     model = joblib.load(model)
@@ -187,14 +194,20 @@ def detection_picture_hog(number_label, label, model, image):
 
     list_intersection, prediction = parcours_image(img, model)
 
-    x, y, w, h\
-       = reconstruction(img, list_intersection,
-                        prediction, number_label, label)
 
 
+    
+    detection = reconstruction(img, list_intersection,
+                               prediction, number_label,
+                               label, show)
+
+    if detection is None:
+        pass
+    else:
+        pass
 
 
-
+    print(detection)
 
 
 
