@@ -6,33 +6,19 @@
 
 -   Attention
 
-            y'a un truk qui cloche
-
-           - on lui fait apprendre une assiette
+           si plusieurs fois meme composant
            
-           - on lui montre une image d'assiette + ect
+           et que plusieurs fois meme detection
            
-           - ca cherche la vaisselle
+           alors ce composant est la detection
            
-           - ca donne des objets
-  
-           - ca va chercher ses objets
+           on récupere les points
            
-           - ca apprend c objet
+           on retourne dans les images
            
-           - on a les parties de l'objet OU quelques parties vu quy'a un mec qui a décidé que la page cuillere était la sienne ^^
-           
-           - et mtn ca doit redire l'image avec les parties de l'objet 
-           
-           - mais du coup faut faire un model cuillere composé de plusieurs truk ?
-           
-           - ici ca bloque
-           
-           - et ca doit dire manche bas tete haut
-           
-           - oh l'objet ci a un manche et est a coté d'une fourchette
-         
-          sauf que bonjour les images, et j'ai fais en sorte que ce soit pour fouchette et couteau et cuillere faudrait faire un enorme scrap enfete ou que ca apprenne a scrap pcque c'est chiant d'une et que y'a trop de mot et y'a un truk qui cloche
+           on crop via les mesures (ca fait 25 % de la cuillere)
+          
+           on rajoute au csv le nouvel objet 
 
 
  -   détecter une assiette
