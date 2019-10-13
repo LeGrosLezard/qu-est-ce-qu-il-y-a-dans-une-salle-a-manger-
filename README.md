@@ -2,7 +2,7 @@
 
 #download from penseeartificielle/google-image-scrapping
 
-
+soit ca s'enregistre pas soit y'a un mec qui campe la page cuillere de wikipédia j'y suis h24 sur mon ordi connard
 
 
 -   Attention
