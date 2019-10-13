@@ -13,7 +13,7 @@
          
          - on veut que ce machin se dise a lui meme manche en bas lame en haut via cuillere
          
-         - et en plus d'une phase de scrap mais ca... j'en ai eu ma dose avec bobo ^^
+         - et en plus d'une phase de scrap mais ca... j'en ai eu ma dose avec bobo ^^ jdeteste ca mtn jcrois en plus ca donne la gerbe
 
 
  -   détecter une assiette
