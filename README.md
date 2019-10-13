@@ -2,11 +2,18 @@
 
 #download from penseeartificielle/google-image-scrapping
 
-une bouché a la fois
+
+
 
 -   Attention
 
-         - tout bien faire pour y reveninr plus tard
+         - le but c de detecter un objet par un objet via un crop MAIS
+         
+         - on doit faire un hog pour detecter le manche et les extrémités pointues par exemple !
+         
+         - on veut que ce machin se dise a lui meme manche en bas lame en haut via cuillere
+         
+         - et en plus d'une phase de scrap mais ca... j'en ai eu ma dose avec bobo ^^
 
 
  -   détecter une assiette
