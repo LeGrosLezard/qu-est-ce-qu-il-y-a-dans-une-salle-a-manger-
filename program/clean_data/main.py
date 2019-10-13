@@ -97,7 +97,7 @@ def take_features(objects_to_search):
 
         def transform_i(objects):
             out_word = ""
-            for i in word:
+            for i in objects:
                 for j in i:
                     if j in ("é", "è"):
                        out_word += "e"
