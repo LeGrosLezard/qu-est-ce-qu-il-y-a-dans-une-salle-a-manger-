@@ -178,12 +178,12 @@ def masking_to_black(img, color):
                
 
     show_picture("img", img, 0, "")
-
+    
 
     return img
 
 
-def treatment_background(img):
+def treatment_background(img, path_clean, category):
 
     img = cv2.resize(img, (200, 200))
     color = main_color_background(img)
@@ -202,7 +202,9 @@ def treatment_background(img):
 
         #it'so ok now
         img = masking_to_black(img, color)
-
+        cv2.imwrite(path_clean.format(category), img)
+    else:
+        cv2.imwrite(path_clean.format(category), img)
 
 #------------------------------------------------------------------------------------ backa
 
@@ -400,7 +402,8 @@ def precise_angle(img, X_min, Xy_min, X_max, Xy_max,
         d = 90 - c
 
         rotated = imutils.rotate_bound(img, -d)
-        show_picture("img", rotated, 0, "y")
+        cv2.imwrite(path_clean.format(category), rotated)
+        #show_picture("img", rotated, 0, "y")
 
     if position == 3:
         print("Search coordinates")
@@ -415,19 +418,20 @@ def precise_angle(img, X_min, Xy_min, X_max, Xy_max,
         d = 90 - c
 
         rotated = imutils.rotate_bound(img, d)
-        show_picture("img", rotated, 0, "y")
-
+        #show_picture("img", rotated, 0, "y")
+        cv2.imwrite(path_clean.format(category), rotated)
 
     if position == 1:
         print("seaching coordinates")
-        rotated = imutils.rotate_bound(blanck, 90)
+        #rotated = imutils.rotate_bound(blanck, 90)
+        cv2.imwrite(path_clean.format(category), rotated)
+
+    else:
+        cv2.imwrite(path_clean.format(category), img)
 
 
 
-
-
-
-def position_rotation(contours, blanck, img):
+def position_rotation(contours, blanck, img, path_clean, category):
 
 
     position_circleX, position_circleY = draw_contours(contours, blanck)
@@ -443,7 +447,7 @@ def position_rotation(contours, blanck, img):
 
     precise_angle(img, X_min, Xy_min, X_max, Xy_max,
                   X_min2, Xy_min2, X_max2, Xy_max2,
-                  position, blanck)
+                  position, blanck, path_clean, category)
 
 
 
@@ -452,7 +456,7 @@ def position_rotation(contours, blanck, img):
 
 
 #multi
-def multiple_objects(contours, blanck, img):
+def multiple_objects(contours, blanck, img, path_clean, category):
 
     show_picture("image", img, 0, "y")
     
@@ -476,6 +480,8 @@ def multiple_objects(contours, blanck, img):
 
     if detection >= 4:
         print("multiple objects")
+    else:
+        cv2.imwrite(path_clean.format(str(category)), img)
     show_picture("blanck", blanck, 0, "y")
 
 
@@ -486,8 +492,8 @@ def multiple_objects(contours, blanck, img):
 def take_features(liste_obj, category):
 
     path = "dataset1/{}/{}"
-    
-    for i in liste_obj:
+    path_clean = "dataset1/clean/{}"
+    for i in liste_obj[23:]:
 
         print("picture: ", i, "\n")
         img = open_picture(path.format(category, i))
@@ -506,9 +512,9 @@ def take_features(liste_obj, category):
                                        cv2.CHAIN_APPROX_SIMPLE)
 
 
-        #multiple_objects(contours, blanck, img)
-        #treatment_background(img)                 #background
-        position_rotation(contours, blanck, img) #rotation
+        multiple_objects(contours, blanck, img, path_clean, category)
+        treatment_background(img, path_clean, category)  #background
+        position_rotation(contours, blanck, img, path_clean, category) #rotation
         
 
 
