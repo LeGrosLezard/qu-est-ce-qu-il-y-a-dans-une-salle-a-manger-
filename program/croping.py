@@ -91,8 +91,16 @@ def get_other_object(img):
     for cnts in contours:
         pts = [x, y, w, h] = cv2.boundingRect(cnts); liste.append(pts)
         cv2.drawContours(img, cnts, -1, (0, 255, 0), 1)
-        
-        show_picture("img", img, 0, "y")
+
+
+        rows = img.shape[0]
+        cols = img.shape[1]
+        img_center = (cols / 2, rows / 2)
+        M = cv2.getRotationMatrix2D(img_center, 45, 1)
+        rotated = cv2.warpAffine(img, M, (cols, rows), borderValue=(255,255,255))
+
+
+        show_picture("rotated", rotated, 0, "y")
 
     return liste
 
@@ -183,7 +191,7 @@ def detection_picture0():
 
     #open img and copy it
 
-    img = open_picture("dataset/clean/Couteau/11.jpg")
+    img = open_picture("dataset/clean/cuillere/11.jpg")
 
     img = cv2.copyMakeBorder(img, 50, 50, 50, 50,
                               cv2.BORDER_CONSTANT, value=(255, 255, 255))
