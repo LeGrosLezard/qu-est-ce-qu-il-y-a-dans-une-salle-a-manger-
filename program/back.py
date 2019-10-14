@@ -86,7 +86,7 @@ def contours_square(img):
             M = cv2.moments(cnt)
             cX = int(M["m10"] / M["m00"])
             cY = int(M["m01"] / M["m00"])
-            cv2.drawContours(img,[cnt],-1,(0,255,0),2)
+            cv2.drawContours(img,[cnt],-1,(0,255,0),1)
         except:
             pass
 
@@ -146,10 +146,11 @@ def contours_square(img):
     print(len(contours))
 
     for cnt in contours:
-        blanck1 = blanck_picture(img)
-        cv2.drawContours(blanck1,[cnt],-1,(0,255,0),2)
+        if cv2.contourArea(cnt) > 10:
+            blanck1 = blanck_picture(img)
+            cv2.drawContours(blanck1,[cnt],-1,(0,255,0),1)
 
-        show_picture("blanck1", blanck1, 0, "y")
+            show_picture("blanck1", blanck1, 0, "y")
 
 
 
