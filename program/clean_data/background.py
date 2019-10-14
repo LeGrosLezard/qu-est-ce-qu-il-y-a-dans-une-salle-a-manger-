@@ -264,12 +264,15 @@ def take_features_background(objects_to_search):
 
             print("picture: ", image)
 
+            try:
+                #contours, blanck
+                img, objects, contours, blanck =\
+                pre_treatment(path_picture, objects, image)
 
-            #contours, blanck
-            img, objects, contours, blanck =\
-            pre_treatment(path_picture, objects, image)
+                #background
+                img = treatment_background(img, objects)
+                cv2.imwrite(path_clean.format(objects, image), img)
 
-            #background
-            img = treatment_background(img, objects)
-            cv2.imwrite(path_clean.format(objects, image), img)
+            except:
+                pass
 
