@@ -111,14 +111,20 @@ def contours_square(img):
         print(color)
         for i in range(crop.shape[0]):
             for j in range(crop.shape[1]):
-                if crop[i, j][0] > color[0] - 40 and\
-                   crop[i, j][0] < color[0] + 40 and\
-                   crop[i, j][1] > color[1] - 40 and\
-                   crop[i, j][1] < color[1] + 40 and\
-                   crop[i, j][2] > color[1] - 40 and\
-                   crop[i, j][2] < color[2] + 40:
+                if crop[i, j][0] > color[0] - 70 and\
+                   crop[i, j][0] < color[0] + 70 and\
+                   crop[i, j][1] > color[1] - 70 and\
+                   crop[i, j][1] < color[1] + 70 and\
+                   crop[i, j][2] > color[1] - 70 and\
+                   crop[i, j][2] < color[2] + 70:
                     crop[i, j] = 255, 255, 255
 
+        for i in range(crop.shape[0]):
+            for j in range(crop.shape[1]):
+                if crop[i, j][0] == 0  and\
+                   crop[i, j][1] == 255 and\
+                   crop[i, j][2] == 0:
+                    crop[i, j] = 255, 255, 255
 
         show_picture("crop", crop, 0, "y")
 
