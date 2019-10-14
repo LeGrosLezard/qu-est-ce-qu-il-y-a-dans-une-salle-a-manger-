@@ -6,7 +6,11 @@
 
 -   Attention
 
-            faut lancer rotate si ca marche pas c pas grave, avant c'était des match sift ^^ et de la creation de dossier^^ et un truk de dico mtn ca s'en rapproche ! et c'est l'essentielle !
+           finir les seconds traitements ou le faire direct
+           
+           comprendre le truk des carrées
+
+           rotation 
 
             croping c pour une image un objet mais crop c pour pleins d'objet comprendre pk
 
