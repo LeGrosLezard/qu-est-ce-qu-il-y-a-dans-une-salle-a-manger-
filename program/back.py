@@ -71,6 +71,7 @@ def contours_square(img):
     gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
 
     _,thresh = cv2.threshold(gray,250,255,cv2.THRESH_BINARY_INV)
+
     show_picture("thresh", thresh, 0, "y")
 
 
@@ -101,7 +102,7 @@ def contours_square(img):
 
         print(shape)
 
-    
+
         show_picture("img", img, 0, "y")
         
         crop = img[y:y+h, x:x+w]
@@ -127,6 +128,37 @@ def contours_square(img):
                     crop[i, j] = 255, 255, 255
 
         show_picture("crop", crop, 0, "y")
+        img = crop
+
+
+
+
+    gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
+    _,thresh = cv2.threshold(gray,250,255,cv2.THRESH_BINARY_INV)
+
+    show_picture("thresh", thresh, 0, "y")
+
+
+    contours,h=cv2.findContours(thresh,cv2.RETR_EXTERNAL,cv2.CHAIN_APPROX_SIMPLE)
+
+    blanck1 = blanck_picture(img)
+
+    print(len(contours))
+
+    for cnt in contours:
+        blanck1 = blanck_picture(img)
+        cv2.drawContours(blanck1,[cnt],-1,(0,255,0),2)
+
+        show_picture("blanck1", blanck1, 0, "y")
+
+
+
+
+
+
+
+
+
 
 
 
