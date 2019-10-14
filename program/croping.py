@@ -92,7 +92,7 @@ def get_other_object(img):
         pts = [x, y, w, h] = cv2.boundingRect(cnts); liste.append(pts)
         cv2.drawContours(img, cnts, -1, (0, 255, 0), 1)
         
-    show_picture("img", img, 0, "y")
+        show_picture("img", img, 0, "y")
 
     return liste
 
@@ -183,7 +183,10 @@ def detection_picture0():
 
     #open img and copy it
 
-    img = open_picture("dataset/clean/Cuillere/10.jpg")
+    img = open_picture("dataset/clean/Couteau/11.jpg")
+
+    img = cv2.copyMakeBorder(img, 50, 50, 50, 50,
+                              cv2.BORDER_CONSTANT, value=(255, 255, 255))
     img_copy = img.copy()
 
     liste = get_other_object(img)
