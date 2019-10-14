@@ -178,7 +178,9 @@ def reconstruction(image, liste, prediction, number_label, label):
                                   cv2.BORDER_CONSTANT, value=(255, 255, 255))
 
 
-        cv2.putText(image_copy ,str(predicted), (int(a/e), int(b/e)), font, 1, (200,0,0), 1, cv2.LINE_AA)
+        cv2.putText(image_copy ,str(predicted), (int(a/e), int(b/e)),
+                    font, 1, (200,0,0), 1, cv2.LINE_AA)
+
         show_picture("image_copy", image_copy, 0, "y")
 
         return str(predicted)
@@ -193,6 +195,7 @@ def detection_picture_hog(number_label, label, model, image):
     #open img and copy it
     img = open_picture(image)
     img_copy = img.copy()
+    
 
     list_intersection, prediction = parcours_image(img, model)
 
