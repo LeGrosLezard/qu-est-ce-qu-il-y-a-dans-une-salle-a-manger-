@@ -7,6 +7,8 @@
 -   Attention
 
 
+            croping c pour une image un objet mais crop c pour pleins d'objet comprendre pk
+
             plusieurs fois manche (scrap)
 
             ex : cuillere + fourchette + couteau a detection a stendroit
