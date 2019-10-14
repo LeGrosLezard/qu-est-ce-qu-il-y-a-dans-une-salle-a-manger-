@@ -166,9 +166,14 @@ def precise_angle(img, X_min, Xy_min, X_max, Xy_max,
         c = math.degrees(a)
         d = 90 - c
 
-        rotated = imutils.rotate_bound(img, -d, borderValue=(255,255,255))
-        #show_picture("img", rotated, 0, "y")
-        cv2.imwrite(path_clean.format(category, image), rotated)
+        rows = img.shape[0]
+        cols = img.shape[1]
+        img_center = (cols / 2, rows / 2)
+        M = cv2.getRotationMatrix2D(img_center, d, 1)
+        rotated = cv2.warpAffine(img, M, (cols, rows), borderValue=(255,255,255))
+        show_picture("img", rotated, 0, "y")
+
+        #cv2.imwrite(path_clean.format(category, image), rotated)
 
     if position == 3:
         print("Search coordinates")
@@ -178,15 +183,28 @@ def precise_angle(img, X_min, Xy_min, X_max, Xy_max,
         c = math.degrees(a)
         d = 90 - c
 
-        rotated = imutils.rotate_bound(img, d, borderValue=(255,255,255))
-        #show_picture("img", rotated, 0, "y")
-        cv2.imwrite(path_clean.format(category, image), rotated)
+        rows = img.shape[0]
+        cols = img.shape[1]
+        img_center = (cols / 2, rows / 2)
+        M = cv2.getRotationMatrix2D(img_center, -d, 1)
+        rotated = cv2.warpAffine(img, M, (cols, rows), borderValue=(255,255,255))
+        show_picture("img", rotated, 0, "y")
+
+        show_picture("img", rotated, 0, "y")
+        #cv2.imwrite(path_clean.format(category, image), rotated)
 
     if position == 1:
         print("seaching coordinates")
-        rotated = imutils.rotate_bound(img, 90, borderValue=(255,255,255))
-        #show_picture("img", rotated, 0, "y")
-        cv2.imwrite(path_clean.format(category, image), rotated)
+
+        rows = img.shape[0]
+        cols = img.shape[1]
+        img_center = (cols / 2, rows / 2)
+        M = cv2.getRotationMatrix2D(img_center, -90, 1)
+        rotated = cv2.warpAffine(img, M, (cols, rows), borderValue=(255,255,255))
+        show_picture("img", rotated, 0, "y")
+        
+
+        #cv2.imwrite(path_clean.format(category, image), rotated)
 
 
 
@@ -266,6 +284,10 @@ def take_features_position(objects_to_search):
             try:
                 img, objects, contours, blanck =\
                 pre_treatment(path_clean, objects, image)
+
+                img = cv2.copyMakeBorder(img, 50, 50, 50, 50,
+                              cv2.BORDER_CONSTANT, value=(255, 255, 255))
+
 
                 position_rotation(contours, blanck, img,
                                   path_clean, objects, image)
