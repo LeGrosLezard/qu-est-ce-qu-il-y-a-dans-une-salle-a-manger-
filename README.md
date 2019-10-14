@@ -58,6 +58,8 @@
         
  -  entrainement model
  
+        -> faut crop pour ne plus qu'avoir l'image
+ 
         -> faut faire: slider hog mais on veut le manche donc on fait partie objet hog + detection svm
  
         -> on récupere toutes les parties des objets
