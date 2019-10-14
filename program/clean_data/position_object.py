@@ -166,7 +166,7 @@ def precise_angle(img, X_min, Xy_min, X_max, Xy_max,
         c = math.degrees(a)
         d = 90 - c
 
-        rotated = imutils.rotate_bound(img, -d)
+        rotated = imutils.rotate_bound(img, -d, borderValue=(255,255,255))
         #show_picture("img", rotated, 0, "y")
         cv2.imwrite(path_clean.format(category, image), rotated)
 
@@ -178,13 +178,13 @@ def precise_angle(img, X_min, Xy_min, X_max, Xy_max,
         c = math.degrees(a)
         d = 90 - c
 
-        rotated = imutils.rotate_bound(img, d)
+        rotated = imutils.rotate_bound(img, d, borderValue=(255,255,255))
         #show_picture("img", rotated, 0, "y")
         cv2.imwrite(path_clean.format(category, image), rotated)
 
     if position == 1:
         print("seaching coordinates")
-        rotated = imutils.rotate_bound(img, 90)
+        rotated = imutils.rotate_bound(img, 90, borderValue=(255,255,255))
         #show_picture("img", rotated, 0, "y")
         cv2.imwrite(path_clean.format(category, image), rotated)
 
