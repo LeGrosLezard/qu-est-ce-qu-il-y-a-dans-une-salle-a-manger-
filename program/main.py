@@ -98,12 +98,21 @@ def download_picture(objects_to_search):
 
 from clean_data.background import take_features_background
 from clean_data.multiple_object import take_features_multi_obj
+from clean_data.position_object import take_features_position
 def cleanning_dataset(objects_to_search):
 
-    #['Couteau', 'Cuillère', 'Fourchette']
-    #take_features_background(objects_to_search)
+    pass
 
-    take_features_multi_obj(objects_to_search)
+    #['Couteau', 'Cuillère', 'Fourchette']
+##    take_features_background(objects_to_search)
+##    take_features_multi_obj(objects_to_search)
+    take_features_position(objects_to_search)
+
+
+def croping_data(objects_to_search):
+    pass    
+
+
 
 
 if __name__ == "__main__":
@@ -138,8 +147,8 @@ if __name__ == "__main__":
     #download_picture(objects_to_search)
 
 
-    """clean_data.main"""
+##    """clean_data.main"""
     objects_to_search = ['Couteau', 'Cuillère', 'Fourchette']
+##    #objects_to_search = ['Cuillere']
     cleanning_dataset(objects_to_search)
-
 
