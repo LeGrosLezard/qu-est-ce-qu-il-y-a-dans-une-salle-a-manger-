@@ -6,12 +6,18 @@ import math
 from PIL import Image
 
 
+
+
+
+
 def open_picture(image):
 
     """We open picture"""
 
     img = cv2.imread(image)
     return img
+
+
 
 def show_picture(name, image, mode, destroy):
     cv2.imshow(name, image)
@@ -31,120 +37,92 @@ def blanck_picture(img):
 
 
 
-def multiple_objects(contours, blanck, img,
-                     path_clean, category, image):
-
-    #show_picture("image", img, 0, "y")
-
-    detection = 0
-    stop = True
-
-    last_w_object = 0
-    
-    for cnts in contours:
-        if cv2.contourArea(cnts) > 1:
-            
-            x, y, w, h = cv2.boundingRect(cnts)
-            if h > 20 and w > 5:
-            
-                if last_w_object > x+w and last_w_object != 0:
-                    cv2.rectangle(blanck, (x, y), (x+w, y+h), (0, 0, 255), 1)
-                    detection += 1
-
-                last_w_object = x+w
-
-    if detection >= 4:
-        os.remove(path_clean.format(category, image))
-    else:
-        pass
-    #show_picture("blanck", blanck, 0, "y")
 
 
 
-def rectangle_more_one_object(contours):
-    """Here we want separate in case multiple objects by area detection"""
-
-    positionX = []; positionY = []; positionW = []; positionH = [];
-    for cnts in contours:
-        if cv2.contourArea(cnts) == maxi1 or\
-           cv2.contourArea(cnts) == maxi2 or\
-           cv2.contourArea(cnts) == maxi3:
-            x, y, w, h = cv2.boundingRect(cnts)
-
-            positionX.append(x); positionY.append(y);
-            positionW.append(x+w); positionH.append(y+h);
-
-            x, y, w, h = cv2.boundingRect(cnts)
-            cv2.drawContours(blanck, cnts, -1, (255, 255, 255), 1)
-            cv2.rectangle(blanck, (x, y), (x+w, y+h), (0, 0, 255), 3)
-            
-
-    for i in range(len(positionX)):
-        print(positionX[i], positionY[i], positionW[i], positionH[i])
-
-
-
-
-
-def pre_treatment(path_picture, objects, image):
-
-    img = open_picture(path_picture.format(objects, image))
-
-    height, width, channel = img.shape
-    if height > 200 and width > 200:
-        img = cv2.resize(img, (200, 200))
-
-    blanck = blanck_picture(img)
+def find_contour(img):
 
     gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
-    edged = cv2.Canny(img, 100, 200)
+    _,thresh = cv2.threshold(gray,250,255,cv2.THRESH_BINARY_INV)
 
-    contours, _ = cv2.findContours(edged, cv2.RETR_TREE,
-                                   cv2.CHAIN_APPROX_SIMPLE)
+    #show_picture("thresh", thresh, 0, "y")
 
+    contours,h=cv2.findContours(thresh,cv2.RETR_EXTERNAL,
+                                cv2.CHAIN_APPROX_SIMPLE)
 
+    blanck1 = blanck_picture(img)
 
-    return img, objects, contours, blanck
-
-
-
-def transform_i(objects):
-    out_objects = ""
-    for i in objects:
-        for j in i:
-            if j in ("é", "è"):
-               out_objects += "e"
-            else:
-                out_objects += j
-      
-    return out_objects
+    return blanck1, contours
 
 
+def recup_object(img, blanck1, contours,
+                 name):
+    c = 0
+    for cnt in contours:
+        if cv2.contourArea(cnt) > 500:
 
+            blanck1 = blanck_picture(img)
+            copy = img.copy()
 
-def take_features_multi_obj(objects_to_search):
+            cv2.drawContours(blanck1,[cnt],-1,(0,255,0),1)
+            cv2.fillPoly(blanck1, pts =[cnt], color=(0,255,0))
 
-    folder_clean = "dataset/clean/{}"
-    path_clean = "dataset/clean/{}/{}"
+            for i in range(blanck1.shape[0]):
+                for j in range(blanck1.shape[1]):
+                    if blanck1[i, j][0] == 0 and\
+                       blanck1[i, j][1] == 255 and\
+                       blanck1[i, j][2] == 0:
+                        pass
+                    else:
+                        copy[i, j] = 255, 255, 255
 
-    for objects in objects_to_search:
-        objects = transform_i(objects)
-        liste_obj = os.listdir(folder_clean.format(objects))
-        before = len(liste_obj)
-        for image in liste_obj:
-            #print("picture: ", image)
+            save_or_delete(copy, name, c)
 
-            img, objects, contours, blanck =\
-            pre_treatment(path_clean, objects, image)
+            c+=1
 
-            multiple_objects(contours, blanck, img,
-                             path_clean, objects, image)
-
-
-  
-        liste_obj = os.listdir(folder_clean.format(objects))
-        print(before - len(liste_obj))
+    return copy
 
 
 
+def save_or_delete(copy, name, counter):
+
+    gray = cv2.cvtColor(copy, cv2.COLOR_BGR2GRAY)
+    _,thresh = cv2.threshold(gray,250,255,cv2.THRESH_BINARY_INV)
+
+    #show_picture("thresh", thresh, 0, "y")
+
+    contours,h=cv2.findContours(thresh,cv2.RETR_EXTERNAL,cv2.CHAIN_APPROX_SIMPLE)
+
+
+    for cnts in contours:
+        if cv2.contourArea(cnts) > 9000:
+            #os.remove(name)
+            pass
+        else:
+            #show_picture("copy", copy, 0, "y")
+            return copy
+
+
+
+
+
+def take_features_multi_obj(img):
+
+
+    try:
+        name = str(img)
+
+        img = open_picture(img)
+        img = cv2.resize(img, (200, 200))
+
+        show_picture("img", img, 0, "y")
+
+        blanck1, contours = find_contour(img)
+        copy = recup_object(img, blanck1, contours,
+                            name)
+
+        show_picture("copy", copy, 0, "y")
+        cv2.imwrite(name, copy)
+    except:
+        pass
 
