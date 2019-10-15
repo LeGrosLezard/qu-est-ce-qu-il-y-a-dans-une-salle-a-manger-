@@ -6,11 +6,17 @@
 
 -   Attention
 
+
+           enfaite c pas grave tete en l'air tete en bas on va ensuite tout mettre dans cuillere puis compa fourchette travaillé le csv jcrois si ca marche au pire nique
+
            dans MAIN les PATH
 
            tout factoriser
            
            faire des programmes séparer et c dans main qu'on fait les connexions comme ca c plus facile a refaire
+
+           
+
 
             plusieurs fois manche (scrap)
 
