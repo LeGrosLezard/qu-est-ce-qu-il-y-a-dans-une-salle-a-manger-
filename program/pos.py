@@ -4,7 +4,7 @@ import os
 import imutils
 import math
 from PIL import Image
-
+import time
 
 def open_picture(image):
 
@@ -18,6 +18,8 @@ def open_picture(image):
 def show_picture(name, image, mode, destroy):
     cv2.imshow(name, image)
     cv2.waitKey(mode)
+    if mode == 1:
+        time.sleep(0.1)
     if destroy == "y":
         cv2.destroyAllWindows()
 
@@ -41,12 +43,14 @@ def blanck_picture(img):
 
 
 
-liste = os.listdir(r"C:\Users\jeanbaptiste\Desktop\assiette\program\dataset\cuillere")
+liste = os.listdir(r"C:\Users\jeanbaptiste\Desktop\assiette\program\test")
 for i in liste:
-    i = str(r"C:\Users\jeanbaptiste\Desktop\assiette\program\dataset\cuillere/") + str(i)
+    i = str(r"C:\Users\jeanbaptiste\Desktop\assiette\program\test/") + str(i)
     print(i)
+
+
     img = open_picture(i)
-    img = cv2.resize(img, (200, 200))
+    img = cv2.resize(img, (500, 500))
 
     copy = img.copy()
 
@@ -55,21 +59,19 @@ for i in liste:
 
     show_picture("thresh", thresh, 0, "y")
 
-    contours,h=cv2.findContours(thresh,cv2.RETR_EXTERNAL,
-                                cv2.CHAIN_APPROX_SIMPLE)
+    contours,h=cv2.findContours(thresh,cv2.RETR_TREE,
+                                cv2.CHAIN_APPROX_NONE)
+
+    maxi = 0
+    for cnts in contours:
+        if cv2.contourArea(cnts) > maxi:
+            maxi = cv2.contourArea(cnts)
+
 
 
     for cnts in contours:
-        if cv2.contourArea(cnts) > 5:
+        if cv2.contourArea(cnts) == maxi:
             cv2.drawContours(copy, cnts, -1, (0, 0, 255), 2)
-
-            M = cv2.moments(cnts)
-            cX = int(M["m10"] / M["m00"])
-            cY = int(M["m01"] / M["m00"])
-
-
-    cv2.circle(copy, (cX, cY), 3, (0,255,0), 3)
-    show_picture("copy", copy, 0, "y")
 
 
 
@@ -77,116 +79,58 @@ for i in liste:
     listex = []
     listey = []
 
-    listex2 = []
-    listey2 = []
-
-
-    for x in range(thresh.shape[0]):
-        for y in range(thresh.shape[1]):
-            if thresh[x, y] == 255:
+    for y in range(copy.shape[1]):
+        for x in range(copy.shape[0]):
+            if copy[y, x][0] == 0 and\
+               copy[y, x][1] == 0 and\
+               copy[y, x][2] == 255: 
                 listex.append(x)
                 listey.append(y)
-   
-            if thresh[y, x] == 255:
-                listex2.append(x)
-                listey2.append(y)
-
-
-    bas1 = min(listey)
-    bas2 = listex[listey.index(min(listey))]
-
-    haut1 = max(listey)
-    haut2 = listex[listey.index(max(listey))]
-
-
-    print(bas1, bas2)
-    print(haut1, haut2)
 
 
 
-    cv2.circle(copy, (bas1, bas2), 6, (0, 255, 0), 6)
-    cv2.circle(copy, (haut1, haut2), 6, (255, 0, 0), 6)
+    #take max (x, y) and min (x, y) on l and L
+    X_min = min(listex)
+    index_min = listex.index(min(listex))
+    Xy_min = listey[index_min]
+
+    X_max = max(listex)
+    index_max = listex.index(max(listex))
+    Xy_max = listey[index_max]
+
+    print(X_min, Xy_min)
+    print(X_max, Xy_max)
 
 
+    #402 - 98 456 - 21/ 484-8 451-64 -> mettre a 90 -< puis 90
+
+
+
+
+
+    
+    #width
+    cv2.circle(copy, (X_max, Xy_max), 6, (0, 255, 0), 6)
+    cv2.circle(copy, (X_min, Xy_min), 6, (255, 255, 0), 6)
 
 
 
     show_picture("copy", copy, 0, "y")
 
-    c = 0
-    if bas1 + 50 < haut1 and\
-       bas2 > haut2 + 25:
-        print("un")
+    b = 500 - X_min
+    a = math.atan(b/500 - Xy_min)
+    c = math.degrees(a)
+    c = c + 45
 
-        while True:
-            print(cX - c)
-            cv2.circle(copy, (cX - c, cY), 3, (0,255,0), 3)
-            rows = img.shape[0]
-            cols = img.shape[1]
-            img_center = (cols / 2, rows / 2)
-            M = cv2.getRotationMatrix2D(img_center, c, 1)
-            rotated = cv2.warpAffine(copy, M, (cols, rows), borderValue=(255,255,255))
-            show_picture("img", rotated, 0, "y")
+    rows = img.shape[0]
+    cols = img.shape[1]
+    img_center = (cols / 2, rows / 2)
+    M = cv2.getRotationMatrix2D(img_center, - c, 1)
+    rotated = cv2.warpAffine(copy, M, (cols, rows), borderValue=(255,255,255))
 
+    c+=1
 
-            c+=1
-
-
-
-
-    elif abs(bas2 - haut2) < 25 and\
-         bas1 + 100 < haut1:
-        print("90")
-
-
-        rows = img.shape[0]
-        cols = img.shape[1]
-        img_center = (cols / 2, rows / 2)
-        M = cv2.getRotationMatrix2D(img_center, 90, 1)
-        rotated = cv2.warpAffine(img, M, (cols, rows), borderValue=(255,255,255))
-
-        show_picture("img", rotated, 0, "y")
-        
-
-
-
-
-    elif bas2 + 30 < haut2 and\
-       bas1 + 20 < haut1:
-        print("deux")
-
-
-        b = 200 - bas1
-        a = math.atan(b/200)
-        c = math.degrees(a)
-        print(c)
-
-        rows = img.shape[0]
-        cols = img.shape[1]
-        img_center = (cols / 2, rows / 2)
-        M = cv2.getRotationMatrix2D(img_center, -c, 1)
-        rotated = cv2.warpAffine(img, M, (cols, rows), borderValue=(255,255,255))
-        show_picture("img", rotated, 0, "y")
-
-
-
-    else:
-        print("normal")
-        b = 200 - bas1
-        a = math.atan(b/200)
-        c = math.degrees(a)
-        d = 90 - c
-        print(d)
-
-
-
-
-
-
-
-
-
-
+    show_picture("rotated", rotated, 0, "y")
 
 
 
