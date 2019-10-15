@@ -51,6 +51,9 @@ for i in liste:
 
     img = open_picture(i)
     img = cv2.resize(img, (200, 200))
+    img = cv2.copyMakeBorder(img, 50, 50, 50, 50,
+                                      cv2.BORDER_CONSTANT, value=(255, 255, 255))
+
 
     copy = img.copy()
 
@@ -99,8 +102,218 @@ for i in liste:
     index_max = listex.index(max(listex))
     X_max = listey[index_max]
 
-    try:
+    print(Xy_min, X_min)
+    print(Xy_max, X_max)
 
+
+    print("lalalal")
+    if abs(X_min - X_max) < 10 and abs(Xy_min - Xy_max) < 100:
+        print("noramle")
+
+
+
+
+
+    elif abs(X_min - X_max) < 15:
+        print("90000")
+        cv2.circle(copy, (Xy_min, X_min), 6, (0, 255, 0), 6)
+        cv2.circle(copy, (Xy_max, X_max), 6, (255, 255, 0), 6)
+
+
+        show_picture("copy", copy, 0, "y")
+
+
+        rows = img.shape[0]
+        cols = img.shape[1]
+        img_center = (cols / 2, rows / 2)
+
+
+        M = cv2.getRotationMatrix2D(img_center, -90, 1)
+        rotated = cv2.warpAffine(copy, M, (cols, rows), borderValue=(255,255,255))
+
+        show_picture("rotated", rotated, 0, "y")
+
+
+
+
+    elif Xy_min + 50 < Xy_max and abs(Xy_min - Xy_max) > 50 and X_min > X_max:
+        
+        print("unnnnnnnnnnnnnn")
+
+        if Xy_min > 0 and X_min > 0:
+            print("yooo")
+            c = math.atan(X_min/Xy_min)
+            c = math.degrees(c)
+
+
+            d = math.atan(X_max/Xy_max)
+            d = math.degrees(d)
+            print(d)
+
+            
+            c =  45- c - math.degrees(math.atan(X_max/Xy_max))
+            print(c, "ANGLE")
+            angle = c
+            
+            #402 - 98 456 - 21/ 484-8 451-64 -> mettre a 90 -< puis 90
+
+
+
+
+        else:
+
+            print("ici")
+            copy = cv2.copyMakeBorder(copy, 50, 50, 50, 50,
+                                      cv2.BORDER_CONSTANT, value=(255, 255, 255))
+
+
+
+            listex = []
+            listey = []
+
+            for y in range(copy.shape[1]):
+                for x in range(copy.shape[0]):
+                    if copy[y, x][0] == 0 and\
+                       copy[y, x][1] == 0 and\
+                       copy[y, x][2] == 255: 
+                        listex.append(x)
+                        listey.append(y)
+
+
+
+            Xy_min = min(listex)
+
+            index_min = listex.index(min(listex))
+            X_min = listey[index_min]
+
+            Xy_max = max(listex)
+            index_max = listex.index(max(listex))
+            X_max = listey[index_max]
+
+
+
+
+
+            show_picture("copy", copy, 0, "y")
+
+            c = math.atan(X_min/Xy_min)
+            c = math.degrees(c)
+
+
+            d = math.atan(X_max/Xy_max)
+            d = math.degrees(d)
+            print(d)
+
+            
+            c =  45- c - math.degrees(math.atan(X_max/Xy_max))
+            print(c, "ANGLE")
+            angle = c
+
+
+
+
+
+
+
+        #width
+        cv2.circle(copy, (Xy_min, X_min), 6, (0, 255, 0), 6)
+        cv2.circle(copy, (Xy_max, X_max), 6, (255, 255, 0), 6)
+
+        print(X_min, Xy_min)
+        print(X_max, Xy_max)
+
+        show_picture("copy", copy, 0, "y")
+
+
+        rows = img.shape[0]
+        cols = img.shape[1]
+        img_center = (cols / 2, rows / 2)
+
+
+        M = cv2.getRotationMatrix2D(img_center, abs(c), 1)
+        rotated = cv2.warpAffine(copy, M, (cols, rows), borderValue=(255,255,255))
+
+        show_picture("rotated", rotated, 0, "y")
+
+        print(angle)
+        print("annnnnnnnnnnnnnnnnnnnnnnnnnnnnngle")
+        if abs(angle) < 35 or abs(angle) > 45:
+
+            c = 0
+            go = True
+            while go:
+
+
+                listex = []
+                listey = []
+
+                for x in range(rotated.shape[0]):
+                    for y in range(rotated.shape[1]):
+                        if rotated[x, y][0] == 0 and\
+                           rotated[x, y][1] == 255 and\
+                           rotated[x, y][2] == 0: 
+                            x1 = x
+                            y1 = y
+
+                            break
+
+                        if rotated[x, y][0] == 255 and\
+                           rotated[x, y][1] == 255 and\
+                           rotated[x, y][2] == 0:
+                            x2 = x
+                            y2 = y
+                            break
+
+
+
+                print("current data")
+                print(x1, y1)
+                print(x2, y2)
+                print(abs(angle), "annnnnnngle°")
+          
+
+                print("oui")
+                if abs(angle) < 35:
+                    M = cv2.getRotationMatrix2D(img_center, -c, 1)
+                    rotated = cv2.warpAffine(rotated, M, (cols, rows), borderValue=(255,255,255))
+
+                    if abs(y1 - y2) < 10:
+                        go = False
+
+
+                elif abs(angle) > 45:
+                    M = cv2.getRotationMatrix2D(img_center, c, 1)
+                    rotated = cv2.warpAffine(rotated, M, (cols, rows), borderValue=(255,255,255))
+
+                    if abs(y1 - y2) < 30:
+                        go = False
+
+                show_picture("rotated", rotated, 0, "y")
+                print(c)
+                c+=1
+
+
+
+
+                
+
+            show_picture("rotated", rotated, 0, "y")
+
+
+
+
+
+
+
+
+
+
+
+
+
+    elif abs(Xy_min - Xy_max) > 80 and X_min < X_max:
+
+        print("laaaaaaaaaaaaa")
         c = math.atan(X_min/Xy_min)
         c = math.degrees(c)
 
@@ -110,62 +323,94 @@ for i in liste:
         print(d)
 
         
-        c =  45- c - math.degrees(math.atan(X_max/Xy_max))
+        c =  45- c - d
         print(c)
+        angle = c
         
-        #402 - 98 456 - 21/ 484-8 451-64 -> mettre a 90 -< puis 90
-
-    except:
-        c = 1
-    
-    cv2.line(copy, (0, 0), (200, 0), (0, 255, 0), 6)
-    cv2.line(copy, (Xy_max, X_max), (0, 200), (0, 255, 0), 6)
-    cv2.line(copy, (0, 0), (0, 200), (0, 255, 0), 6)
-
-    
-    #width
-    cv2.circle(copy, (Xy_min, X_min), 6, (0, 255, 0), 6)
-    cv2.circle(copy, (Xy_max, X_max), 6, (255, 255, 0), 6)
-
-    print(X_min, Xy_min)
-    print(X_max, Xy_max)
-
-    show_picture("copy", copy, 0, "y")
 
 
-    rows = img.shape[0]
-    cols = img.shape[1]
-    img_center = (cols / 2, rows / 2)
+        #width
+        cv2.circle(copy, (Xy_min, X_min), 6, (0, 255, 0), 6)
+        cv2.circle(copy, (Xy_max, X_max), 6, (255, 255, 0), 6)
+
+        print(X_min, Xy_min)
+        print(X_max, Xy_max)
+
+        show_picture("copy", copy, 0, "y")
 
 
-    M = cv2.getRotationMatrix2D(img_center, abs(c), 1)
-    rotated = cv2.warpAffine(copy, M, (cols, rows), borderValue=(255,255,255))
-
-    show_picture("rotated", rotated, 0, "y")
-
+        rows = img.shape[0]
+        cols = img.shape[1]
+        img_center = (cols / 2, rows / 2)
 
 
-    print("")
+        M = cv2.getRotationMatrix2D(img_center, c, 1)
+        rotated = cv2.warpAffine(copy, M, (cols, rows), borderValue=(255,255,255))
+
+        show_picture("rotated", rotated, 0, "y")
 
 
 
 
 
 
+        show_picture("copy2", rotated, 0, "y")
+
+        
+
+
+        c = 0
+        go = True
+        while go:
+
+
+            listex = []
+            listey = []
+
+            for x in range(rotated.shape[0]):
+                for y in range(rotated.shape[1]):
+                    if rotated[x, y][0] == 0 and\
+                       rotated[x, y][1] == 255 and\
+                       rotated[x, y][2] == 0: 
+                        x1 = x
+                        y1 = y
+                        #cv2.circle(rotated, (y, x), 6, (0, 0, 0), 6)
+
+                        break
+
+
+                    if rotated[x, y][0] == 255 and\
+                       rotated[x, y][1] == 255 and\
+                       rotated[x, y][2] == 0:
+                        #cv2.circle(rotated, (y, x), 6, (0, 0, 0), 6)
+                        x2 = x
+                        y2 = y
+                        
+                        break
+
+            print("current data")
+            print(x1, y1)
+            print(x2, y2)
+
+            if angle > - 45:
+                M = cv2.getRotationMatrix2D(img_center, c, 1)
+                rotated = cv2.warpAffine(rotated, M, (cols, rows), borderValue=(255,255,255))
+            else:
+               M = cv2.getRotationMatrix2D(img_center, -c, 1)
+               rotated = cv2.warpAffine(rotated, M, (cols, rows), borderValue=(255,255,255)) 
+
+            
+        
+            c+=1
 
 
 
+            if abs(y1 - y2) < 10:
+                go = False
 
+        show_picture("rotated", rotated, 0, "y")
 
-
-
-
-
-
-
-
-
-
-
+    else:
+        print("nan")
 
 
