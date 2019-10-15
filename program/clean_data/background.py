@@ -6,6 +6,32 @@ import math
 from PIL import Image
 
 
+
+
+
+def main_color_background(img):
+
+    dico = {}
+
+    im = Image.fromarray(img)
+    for value in im.getdata():
+        if value in dico.keys():
+            dico[value] += 1
+        else:
+            dico[value] = 1
+
+    max_value = 0
+    color = []
+    for key, value in dico.items():
+        if value > max_value:
+            if key != (0, 255, 0):
+                max_value = value
+                color = key
+
+    return color
+
+
+
 def open_picture(image):
 
     """We open picture"""
@@ -34,245 +60,130 @@ def blanck_picture(img):
 
 
 
-def main_color_background(img):
 
-    """
-        We verify white is the current background
-        Indeed, we recup the main color of picture.
-    """
     
-    dico = {}
-
-    im = Image.fromarray(img)
-    for value in im.getdata():
-        if value in dico.keys():
-            dico[value] += 1
-        else:
-            dico[value] = 1
-
-    max_value = 0
-    color = []
-    for key, value in dico.items():
-        if value > max_value:
-            max_value = value
-            color = key
-
-    return color
 
 
 
-def make_cnts(img):
 
+
+def pre_treatment(img):
     """
-        We copy the picture,
-        apply adaptativ threshold,
-        make contour,
-        and draw it into white image
+        gray
+        ADAPTIVE_THRESH_GAUSSIAN_C
+
+        make copy, and white picture
     """
 
-    copy_img = img.copy()
-    copy_img1 = img.copy()
-
-    #show_picture("copy_img1", copy_img1, 0, "y")
     gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
-
-    blanck = blanck_picture(img)
-
     th3 = cv2.adaptiveThreshold(gray, 255, cv2.ADAPTIVE_THRESH_GAUSSIAN_C,\
-                                cv2.THRESH_BINARY,11,10)
+                                cv2.THRESH_BINARY,11,5)
 
-    #show_picture("thresh", th3, 0, "y")
+    #show_picture("th3", th3, 0, "y")
 
+    blanck0 = blanck_picture(img)
+    copy5 = img.copy()
 
-    contours, _ = cv2.findContours(th3, cv2.RETR_TREE,
-                                   cv2.CHAIN_APPROX_SIMPLE)
-    
-    for cnts in contours:
-        if 50 < cv2.contourArea(cnts) < 30000:
-            cv2.drawContours(blanck, cnts, -1, (255, 255, 255), 1)
-
-    #show_picture("blanck", blanck, 0, "y")
-
-    return blanck, copy_img, copy_img1
+    return th3, blanck0, copy5
 
 
 
-
-def find_contour_else_white(img, blanck, copy_img):
-
+def make_first_treatment(th3, copy5):
     """
-        We drawing a big contour on the copy of image.
-        On the picture we detect contour from copy
-        It give us the object in a big area of the picture
-        Indeed if on the copy != green we put only white
+        contours (filled)
+        only keep contours
+        other white
     """
 
-    gray_blanck = cv2.cvtColor(blanck, cv2.COLOR_BGR2GRAY)
-    contours, _ = cv2.findContours(gray_blanck, cv2.RETR_TREE,
-                                   cv2.CHAIN_APPROX_SIMPLE)
+    cont,h=cv2.findContours(th3,cv2.RETR_TREE,cv2.CHAIN_APPROX_NONE)
+    for cn in cont:
+        if cv2.contourArea(cn) < 10000:
+            cv2.drawContours(copy5,[cn],-1,(0,255,0),3)
+            cv2.fillPoly(copy5, pts =[cn], color=(0,255,0))
 
-    cv2.drawContours(copy_img, contours, -1, (0, 255, 0), 26)
+    #show_picture("copy5", copy5, 0, "y")
 
-    for i in range(img.shape[0]):
-        for j in range(img.shape[1]):
-            if copy_img[i, j][0] != 0 and\
-               copy_img[i, j][1] != 255 and\
-               copy_img[i, j][2] != 0:
-                img[i, j] = 255, 255, 255
-
-    return img
-
-
-
-def finish_to_clean_background(img):
-
-    """
-        We recup the main color now
-        because we have object + background
-    """
-    
-    dico = {}
-
-    im = Image.fromarray(img)
-    for value in im.getdata():
-        if value in dico.keys():
-            dico[value] += 1
-        else:
-            dico[value] = 1
-
-    max_value = 0
-    color = []
-    for key, value in dico.items():
-        if value > max_value and key != (255, 255, 255):
-            max_value = value
-            color = key
-
-    return color
-
-
-
-def masking_to_black(img, color):
-
-    """We delete the rest of bakcground"""
-    
-    for i in range(img.shape[0]):
-        for j in range(img.shape[1]):
-            if img[i, j][0] > color[0] - 70 and\
-               img[i, j][0] < color[0] + 70 and\
-               img[i, j][1] > color[1] - 70 and\
-               img[i, j][1] < color[1] + 70 and\
-               img[i, j][2] > color[1] - 70 and\
-               img[i, j][2] < color[2] + 70:
-                img[i, j] = 255, 255, 255
-
-
-    for i in range(img.shape[0]):
-        for j in range(img.shape[1]):
-            if img[i, j][0] < 50 and\
-               img[i, j][1] < 50 and\
-               img[i, j][2] < 50:
-                img[i, j] = 255
-               
-
-    #show_picture("img", img, 0, "")
-    
-
-    return img
-
-
-
-
-
-def treatment_background(img, category):
-    name = str(img)
-    img = cv2.resize(img, (200, 200))
-    color = main_color_background(img)
-
-    #if background black
-    if color[0] < 200 and color[1] < 200 and color[2] < 200:
-
-        #make a blanck, a copy and make contour
-        blanck, copy_img, copy_img1 = make_cnts(img)
-
-        #We take contours of object and delete the background for a white bg
-        img = find_contour_else_white(img, blanck, copy_img)
-
-        #we delete the rest of bg
-        color = finish_to_clean_background(img)
-
-        #it'so ok now
-        img = masking_to_black(img, color)
-
-    else:
-        pass
-
-    return img
-
-
-
-def transform_i(objects):
-    out_objects = ""
-    for i in objects:
-        for j in i:
-            if j in ("é", "è"):
-               out_objects += "e"
-            else:
-                out_objects += j
-      
-    return out_objects
-
-
-
-def pre_treatment(path_picture, objects, image):
-    img = open_picture(path_picture.format(objects, image))
-
-    height, width, channel = img.shape
-    if height > 200 and width > 200:
-        img = cv2.resize(img, (200, 200))
-
-    blanck = blanck_picture(img)
-
-    gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
-    edged = cv2.Canny(img, 100, 200)
-
-    contours, _ = cv2.findContours(edged, cv2.RETR_TREE,
-                                   cv2.CHAIN_APPROX_SIMPLE)
-
-
-
-    return img, objects, contours, blanck
-
-
-
-
-def take_features_background(objects_to_search):
-
-
-    path_folder = "dataset/{}"
-    path_picture = "dataset/{}/{}"
-    path_clean = "dataset/clean/{}/{}"
-
-
-    for objects in objects_to_search:
-
-        objects = transform_i(objects)
-        os.makedirs(path_picture.format("clean", objects))
-
-        liste_obj = os.listdir(path_folder.format(objects))
-
-        for image in liste_obj:
-
-            print("picture: ", image)
-
-            try:
-                #contours, blanck
-                img, objects, contours, blanck =\
-                pre_treatment(path_picture, objects, image)
-
-                #background
-                img = treatment_background(img, objects)
-                cv2.imwrite(path_clean.format(objects, image), img)
-
-            except:
+    for i in range(copy5.shape[0]):
+        for j in range(copy5.shape[1]):
+            if copy5[i, j][0] == 0 and\
+               copy5[i, j][1] == 255 and\
+               copy5[i, j][2] == 0:
                 pass
+            else:
+                copy5[i, j] = 255, 255, 255
+                
 
+    #show_picture("copy5", copy5, 0, "y")
+
+    return copy5
+
+
+
+def second_treatment(copy5, img):
+    """
+        gray
+        thresh
+        contours filled
+    """
+    
+    gray = cv2.cvtColor(copy5, cv2.COLOR_BGR2GRAY)
+    _,thresh = cv2.threshold(gray,250,255,cv2.THRESH_BINARY_INV)
+    cont,h=cv2.findContours(thresh,cv2.RETR_EXTERNAL,cv2.CHAIN_APPROX_SIMPLE)
+
+    #show_picture("thresh", thresh, 0, "y")
+
+    blanck10 = blanck_picture(img)
+    for cn in cont:
+        #print(cv2.contourArea(cn))
+        if cv2.contourArea(cn) > 20:
+            cv2.drawContours(blanck10,[cn],-1,(255,255,255),1)
+            cv2.fillPoly(blanck10, pts =[cn], color=(255,255,255))
+
+        
+    #show_picture("blanck10", blanck10, 0, "y")
+
+    return blanck10
+
+
+
+
+def third_treatment(blanck10, img):
+    """
+        raise all execpt object on current picture
+    """
+
+    for i in range(blanck10.shape[0]):
+        for j in range(blanck10.shape[1]):
+            if blanck10[i, j][0] == 255 and\
+               blanck10[i, j][1] == 255 and\
+               blanck10[i, j][2] == 255:
+                pass
+            else:
+                img[i, j] = 255, 255, 255
+
+
+
+    #show_picture("img", img, 0, "y")
+
+    return img
+
+
+
+def take_features_background(img):
+
+    name = img
+    print(name)
+
+    img = open_picture(img)
+    img = cv2.resize(img, (200, 200))
+
+    #show_picture("img", img, 0, "y")
+    th3, blanck0, copy5 = pre_treatment(img)
+
+    copy5 = make_first_treatment(th3, copy5)
+    blanck10 = second_treatment(copy5, img)
+    img = third_treatment(blanck10, img)
+
+
+    #show_picture("img", img, 0, "y")
+    cv2.imwrite(name, img)
