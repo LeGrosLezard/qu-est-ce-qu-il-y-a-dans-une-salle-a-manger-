@@ -7,7 +7,7 @@
 -   Attention
 
 
-           ok j'ai rien dit selon inclaison réduire ca a 25
+           ok j'ai rien dit selon inclaison réduire ca a 65
 
            finir les seconds traitements ou le faire direct
            
