@@ -6,6 +6,8 @@ import math
 from PIL import Image
 import time
 
+
+
 def open_picture(image):
 
     """We open picture"""
@@ -33,38 +35,92 @@ def blanck_picture(img):
     blank_image[0:img.shape[0], 0:img.shape[1]] = 0, 0, 0
 
 
-def main():
 
 
-path_liste = r"C:\Users\jeanbaptiste\Desktop\assiette\program\test"
-path_im = r"C:\Users\jeanbaptiste\Desktop\assiette\program\test/"
+def rotation(img, degrees):
 
-liste = os.listdir(path_liste)
+    rows = img.shape[0]
+    cols = img.shape[1]
 
-for i in liste:
-    i = path_im.format(str(i))
-    print(i)
+    img_center = (cols / 2, rows / 2)
+    M = cv2.getRotationMatrix2D(img_center, degrees, 1) #-90
+    rotated = cv2.warpAffine(img, M, (cols, rows), borderValue=(255,255,255))
+    show_picture("rotated", rotated, 0, "y")
 
-    img, copy = early_picture(i)
-    copy = first_contour(img, copy)
-    Xy_min, X_min, Xy_max, X_max = delimited_by_points(copy)
+
+    return rotated
+
+
+
+def run_a_picture(img, color, mode):
+
+    listex = []; listey = []
+
+    if mode is "liste":
+
+        for y in range(img.shape[1]):
+            for x in range(img.shape[0]):
+                if img[y, x][0] == color[0] and\
+                   img[y, x][1] == color[1] and\
+                   img[y, x][2] == color[2]: 
+                    listex.append(x)
+                    listey.append(y)
+
+
+        return listex, listey
+
+    elif mode is "points":
+
+        pts1 = 0; pts2 = 0;
+
+        for x in range(img.shape[0]):
+            for y in range(img.shape[1]):
+                if img[x, y][0] == color[0] and\
+                   img[x, y][1] == color[1] and\
+                   img[x, y][2] == color[2]: 
+                    pts1 = x
+                    pts2 = y
+
+                    return pts1, pts2
+
+
+
+
+
+
+
+def angle_function(X_min, Xy_min, X_max, Xy_max):
+
+    angle = math.degrees(math.atan(X_min/Xy_min))
+    second_angle = math.degrees(math.atan(X_max/Xy_max))
+    angle =  45 - angle - second_angle
+
+    return angle
+
+
+
+
+
+
+
+
+
 
 def early_picture(img):
 
 
-    img = open_picture(i)
+    img = open_picture(img)
     img = cv2.resize(img, (200, 200))
     img = cv2.copyMakeBorder(img, 50, 50, 50, 50,
                              cv2.BORDER_CONSTANT, value=(255, 255, 255))
 
     copy = img.copy()
 
-
     return img, copy
 
 
-def first_contour(img, copy):
 
+def first_contour(img, copy):
 
     gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
     _,thresh = cv2.threshold(gray,250,255,cv2.THRESH_BINARY_INV)
@@ -88,128 +144,81 @@ def first_contour(img, copy):
     return copy
 
 
+
 def delimited_by_points(copy):
 
-    listex = []
-    listey = []
-
-    for y in range(copy.shape[1]):
-        for x in range(copy.shape[0]):
-            if copy[y, x][0] == 0 and\
-               copy[y, x][1] == 0 and\
-               copy[y, x][2] == 255: 
-                listex.append(x)
-                listey.append(y)
-
+    listex, listey = run_a_picture(copy, (0, 0, 255), "liste")
 
 
     Xy_min = min(listex)
-    index_min = listex.index(min(listex))
-    X_min = listey[index_min]
+    X_min = listey[listex.index(min(listex))]
 
     Xy_max = max(listex)
-    index_max = listex.index(max(listex))
-    X_max = listey[index_max]
+    X_max = listey[listex.index(max(listex))]
 
     print(Xy_min, X_min)
     print(Xy_max, X_max)
 
-
-    return Xy_min, X_min, Xy_max, X_max
+    return X_min, Xy_min, X_max, Xy_max
 
 
 def normal_angle():
     print("noramle")
 
-def 90_degrees(copy, Xy_min, X_min, Xy_max, X_max, img):
 
-    print("90000")
+
+def nine_degrees(copy, X_min, Xy_min, X_max, Xy_max, img):
+
+    print("90")
     cv2.circle(copy, (Xy_min, X_min), 6, (0, 255, 0), 6)
     cv2.circle(copy, (Xy_max, X_max), 6, (255, 255, 0), 6)
 
-
     show_picture("copy", copy, 0, "y")
 
-
-    rows = img.shape[0]
-    cols = img.shape[1]
-    img_center = (cols / 2, rows / 2)
+    rotated = rotation(img, -90)
 
 
-    M = cv2.getRotationMatrix2D(img_center, -90, 1)
-    rotated = cv2.warpAffine(copy, M, (cols, rows), borderValue=(255,255,255))
 
-    show_picture("rotated", rotated, 0, "y")
-
-
-def top_bot_first(Xy_min,X_min, Xy_max, X_max):
+def top_bot_first(X_min, Xy_min, X_max, Xy_max, img):
 
     print("yooo")
-    c = math.atan(X_min/Xy_min)
-    c = math.degrees(c)
 
-
-    d = math.atan(X_max/Xy_max)
-    d = math.degrees(d)
-    print(d)
-
-    
-    c =  45- c - math.degrees(math.atan(X_max/Xy_max))
-    print(c, "ANGLE")
-    angle = c
+    angle = angle_function(X_min, Xy_min, X_max, Xy_max)
 
     return angle
 
 
-def top_bot_second(Xy_min,X_min, Xy_max, X_max):
+
+
+def top_bot_second(Xy_min,X_min, Xy_max, X_max, img):
 
     print("ici")
     copy = cv2.copyMakeBorder(copy, 50, 50, 50, 50,
                               cv2.BORDER_CONSTANT, value=(255, 255, 255))
 
-
-    listex = []
-    listey = []
-
-    for y in range(copy.shape[1]):
-        for x in range(copy.shape[0]):
-            if copy[y, x][0] == 0 and\
-               copy[y, x][1] == 0 and\
-               copy[y, x][2] == 255: 
-                listex.append(x)
-                listey.append(y)
-
+    listex, listey = run_a_picture(copy, (0, 0, 255), "liste")
 
 
     Xy_min = min(listex)
-
-    index_min = listex.index(min(listex))
-    X_min = listey[index_min]
+    X_min = listey[listex.index(min(listex))]
 
     Xy_max = max(listex)
-    index_max = listex.index(max(listex))
-    X_max = listey[index_max]
-
+    X_max = listey[listex.index(max(listex))]
 
     show_picture("copy", copy, 0, "y")
 
-    c = math.atan(X_min/Xy_min)
-    c = math.degrees(c)
 
 
-    d = math.atan(X_max/Xy_max)
-    d = math.degrees(d)
-    print(d)
+    angle = angle_function(X_min, Xy_min, X_max, Xy_max)
+    print(angle, "ANGLE")
 
-    
-    c =  45- c - math.degrees(math.atan(X_max/Xy_max))
-    print(c, "ANGLE")
-    angle = c
 
     return angle
 
 
-def top_bot_third(angle, copy, Xy_min,X_min, Xy_max, X_max):
+
+
+def top_bot_third(angle, copy, X_min, Xy_min, X_max, Xy_max, img):
 
     #width
     cv2.circle(copy, (Xy_min, X_min), 6, (0, 255, 0), 6)
@@ -220,13 +229,8 @@ def top_bot_third(angle, copy, Xy_min,X_min, Xy_max, X_max):
 
     show_picture("copy", copy, 0, "y")
 
+    rotated = rotation(copy, abs(angle))
 
-    rows = img.shape[0]
-    cols = img.shape[1]
-    img_center = (cols / 2, rows / 2)
-
-    M = cv2.getRotationMatrix2D(img_center, abs(c), 1)
-    rotated = cv2.warpAffine(copy, M, (cols, rows), borderValue=(255,255,255))
 
     show_picture("rotated", rotated, 0, "y")
 
@@ -238,24 +242,9 @@ def top_bot_third(angle, copy, Xy_min,X_min, Xy_max, X_max):
         go = True
         while go:
 
-            listex = []
-            listey = []
 
-            for x in range(rotated.shape[0]):
-                for y in range(rotated.shape[1]):
-                    if rotated[x, y][0] == 0 and\
-                       rotated[x, y][1] == 255 and\
-                       rotated[x, y][2] == 0: 
-                        x1 = x
-                        y1 = y
-                        break
-
-                    if rotated[x, y][0] == 255 and\
-                       rotated[x, y][1] == 255 and\
-                       rotated[x, y][2] == 0:
-                        x2 = x
-                        y2 = y
-                        break
+            x1, y1 = run_a_picture(rotated, (0, 255, 0), "points")
+            x2, y2 = run_a_picture(rotated, (255, 255, 0), "points")
 
             print("current data")
             print(x1, y1)
@@ -264,44 +253,32 @@ def top_bot_third(angle, copy, Xy_min,X_min, Xy_max, X_max):
       
             print("oui")
             if abs(angle) < 35:
-                M = cv2.getRotationMatrix2D(img_center, -c, 1)
-                rotated = cv2.warpAffine(rotated, M, (cols, rows), borderValue=(255,255,255))
 
+                rotated = rotation(rotated, -c)
                 if abs(y1 - y2) < 10:
                     go = False
 
             elif abs(angle) > 45:
-                M = cv2.getRotationMatrix2D(img_center, c, 1)
-                rotated = cv2.warpAffine(rotated, M, (cols, rows), borderValue=(255,255,255))
-
+                rotated = rotation(rotated, c)
                 if abs(y1 - y2) < 30:
                     go = False
 
-            show_picture("rotated", rotated, 0, "y")
             print(c)
             c+=1
+
 
         show_picture("rotated", rotated, 0, "y")
 
 
-def bot_top(angle, copy, Xy_min,X_min, Xy_max, X_max):
+
+def bot_top(angle, copy, X_min, Xy_min, X_max, Xy_max, img):
 
 
     print("laaaaaaaaaaaaa")
-    c = math.atan(X_min/Xy_min)
-    c = math.degrees(c)
-
-    d = math.atan(X_max/Xy_max)
-    d = math.degrees(d)
-    print(d)
-
-    c =  45- c - d
-    print(c)
-    angle = c
-    
+    angle = angle_function(X_min, Xy_min, X_max, Xy_max)
 
 
-    #width
+
     cv2.circle(copy, (Xy_min, X_min), 6, (0, 255, 0), 6)
     cv2.circle(copy, (Xy_max, X_max), 6, (255, 255, 0), 6)
 
@@ -311,58 +288,24 @@ def bot_top(angle, copy, Xy_min,X_min, Xy_max, X_max):
     show_picture("copy", copy, 0, "y")
 
 
-    rows = img.shape[0]
-    cols = img.shape[1]
-    img_center = (cols / 2, rows / 2)
-
-
-    M = cv2.getRotationMatrix2D(img_center, c, 1)
-    rotated = cv2.warpAffine(copy, M, (cols, rows), borderValue=(255,255,255))
-
-    show_picture("rotated", rotated, 0, "y")
+    rotated = rotation(copy, c)
 
     c = 0
     go = True
     while go:
 
-
-        listex = []
-        listey = []
-
-        for x in range(rotated.shape[0]):
-            for y in range(rotated.shape[1]):
-                if rotated[x, y][0] == 0 and\
-                   rotated[x, y][1] == 255 and\
-                   rotated[x, y][2] == 0: 
-                    x1 = x
-                    y1 = y
-                    #cv2.circle(rotated, (y, x), 6, (0, 0, 0), 6)
-
-                    break
-
-
-                if rotated[x, y][0] == 255 and\
-                   rotated[x, y][1] == 255 and\
-                   rotated[x, y][2] == 0:
-                    #cv2.circle(rotated, (y, x), 6, (0, 0, 0), 6)
-                    x2 = x
-                    y2 = y
-                    
-                    break
+        x1, y1 = run_a_picture(rotated, (0, 255, 0), "points")
+        x2, y2 = run_a_picture(rotated, (255, 255, 0), "points")
 
         print("current data")
         print(x1, y1)
         print(x2, y2)
 
         if angle > - 45:
-            M = cv2.getRotationMatrix2D(img_center, c, 1)
-            rotated = cv2.warpAffine(rotated, M, (cols, rows), borderValue=(255,255,255))
+            rotated = rotation(rotated, c)
         else:
-           M = cv2.getRotationMatrix2D(img_center, -c, 1)
-           rotated = cv2.warpAffine(rotated, M, (cols, rows), borderValue=(255,255,255)) 
+           rotated = rotation(rotated, -c)
 
-        
-    
         c+=1
 
         if abs(y1 - y2) < 10:
@@ -371,32 +314,51 @@ def bot_top(angle, copy, Xy_min,X_min, Xy_max, X_max):
     show_picture("rotated", rotated, 0, "y")
 
 
-
-def define_rotation():
+     
+def define_rotation(X_min, Xy_min, X_max, Xy_max, copy, img):
 
     if abs(X_min - X_max) < 10 and abs(Xy_min - Xy_max) < 100:
         normal_angle()
 
     elif abs(X_min - X_max) < 15:
-        90_degrees(copy, Xy_min, X_min, Xy_max, X_max, img)
+        nine_degrees(copy, X_min, Xy_min, X_max, Xy_max, img)
 
     elif Xy_min + 50 < Xy_max and abs(Xy_min - Xy_max) > 50 and X_min > X_max:
         
-        print("unnnnnnnnnnnnnn")
 
         if Xy_min > 0 and X_min > 0:
-            angle = top_bot_first(Xy_min,X_min, Xy_max, X_max)
+            angle = top_bot_first(X_min, Xy_min, X_max, Xy_max, img)
             
         else:
-            angle = top_bot_second(Xy_min,X_min, Xy_max, X_max)
+            angle = top_bot_second(X_min, Xy_min, X_max, Xy_max, img)
 
-        top_bot_third(angle, copy, Xy_min,X_min, Xy_max, X_max)
+        top_bot_third(angle, copy, X_min, Xy_min, X_max, Xy_max, img)
     
 
     elif abs(Xy_min - Xy_max) > 80 and X_min < X_max:
-        bot_top(angle, copy, Xy_min,X_min, Xy_max, X_max)
+        bot_top(angle, copy, X_min, Xy_min, X_max, Xy_max)
 
     else:
         normal_angle()
 
 
+
+def main():
+
+    path_liste = r"C:\Users\jeanbaptiste\Desktop\assiette\program\test"
+    path_im = r"C:\Users\jeanbaptiste\Desktop\assiette\program\test/{}"
+
+    liste = os.listdir(path_liste)
+
+    for i in liste:
+        i = path_im.format(str(i))
+        print(i)
+
+        img, copy = early_picture(i)
+        copy = first_contour(img, copy)
+        X_min, Xy_min, X_max, Xy_max = delimited_by_points(copy)
+        
+        define_rotation(X_min, Xy_min, X_max, Xy_max, copy, img)
+
+
+main()
