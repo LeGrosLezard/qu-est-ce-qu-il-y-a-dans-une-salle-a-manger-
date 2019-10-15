@@ -17,6 +17,8 @@
 
  - travail des images data 
  
+           certains ne s'effacent pas
+ 
            remplacer les fichiers
  
            mtn faut lancer et save
