@@ -7,7 +7,7 @@
 -   Attention
 
 
-           enfaite c pas grave tete en l'air tete en bas on va ensuite tout mettre dans cuillere puis compa fourchette travaillé le csv jcrois si ca marche au pire nique
+           enfaite c pas grave tete en l'air tete en bas on va ensuite tout mettre dans cuillere puis compa fourchette travaillé le csv jcrois si ca marche au pire nique ben c pas ma faute faut voir la gueule des images
 
            dans MAIN les PATH
 
