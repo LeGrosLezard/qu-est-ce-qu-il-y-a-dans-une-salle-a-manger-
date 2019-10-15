@@ -55,11 +55,13 @@
             
             on recré model
             
-            si csv + 26 + 9 label
+           
 
 
 
 - programme
+
+             si csv + 26 + 9 label
 
             on réécrit directement dans le programme  (algo algo)
             
