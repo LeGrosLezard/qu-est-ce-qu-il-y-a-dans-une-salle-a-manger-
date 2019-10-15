@@ -61,17 +61,15 @@ for i in liste:
 
     for cnts in contours:
         if cv2.contourArea(cnts) > 5:
-            cv2.drawContours(thresh, cnts, -1, (0, 0, 0), 2)
-            (x, y, w, h) = cv2.boundingRect(cnts)
+            cv2.drawContours(copy, cnts, -1, (0, 0, 255), 2)
 
-            cv2.rectangle(copy, (x, y), (x+2, y+h), (0, 0, 255), 3)
-            okx = x
-            oky = y
-            print(x, y)
-            b = 200 - x
-            a = math.atan(b/200)
-            c = math.degrees(a)
-            print(90 - c, "iciiiiii")
+            M = cv2.moments(cnts)
+            cX = int(M["m10"] / M["m00"])
+            cY = int(M["m01"] / M["m00"])
+
+
+    cv2.circle(copy, (cX, cY), 3, (0,255,0), 3)
+    show_picture("copy", copy, 0, "y")
 
 
 
@@ -110,35 +108,28 @@ for i in liste:
     cv2.circle(copy, (haut1, haut2), 6, (255, 0, 0), 6)
 
 
-    print(okx, oky, bas1, bas2, haut1, haut2)
+
 
 
     show_picture("copy", copy, 0, "y")
 
-
+    c = 0
     if bas1 + 50 < haut1 and\
        bas2 > haut2 + 25:
         print("un")
 
-
-        b = 200
-        a = math.atan(b/200)
-        c = math.degrees(a)
-        print(c)
-
-        c = math.degrees(math.atan(haut1 - okx / oky - okx))
-
-        rows = img.shape[0]
-        cols = img.shape[1]
-        img_center = (cols / 2, rows / 2)
-        M = cv2.getRotationMatrix2D(img_center, c, 1)
-        rotated = cv2.warpAffine(img, M, (cols, rows), borderValue=(255,255,255))
-
-        show_picture("img", rotated, 0, "y")
+        while True:
+            print(cX - c)
+            cv2.circle(copy, (cX - c, cY), 3, (0,255,0), 3)
+            rows = img.shape[0]
+            cols = img.shape[1]
+            img_center = (cols / 2, rows / 2)
+            M = cv2.getRotationMatrix2D(img_center, c, 1)
+            rotated = cv2.warpAffine(copy, M, (cols, rows), borderValue=(255,255,255))
+            show_picture("img", rotated, 0, "y")
 
 
-
-
+            c+=1
 
 
 
