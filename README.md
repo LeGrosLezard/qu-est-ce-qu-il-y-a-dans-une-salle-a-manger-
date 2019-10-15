@@ -17,6 +17,8 @@
 
  - travail des images data 
  
+           remplacer les fichiers
+ 
            mtn faut lancer et save
            
            faire le truk des crop et save (croping) -> se calquer sur assiette
