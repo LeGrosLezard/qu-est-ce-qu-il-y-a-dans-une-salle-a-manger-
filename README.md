@@ -27,9 +27,7 @@
   
        réfléchir au truk csv
   
-       - partie de l'objet
-                            
-          via les crop 
+       - partie de l'objet via les crop 
         
         
  - entrainement model
