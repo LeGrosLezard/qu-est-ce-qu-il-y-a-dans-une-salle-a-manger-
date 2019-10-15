@@ -21,12 +21,15 @@
            
            faire le truk des crop et save (croping)
            
-           réfléchir au truk csv
            
    
  - on remplis le csv avec le nouveau label
   
-       - partie de l'objet (1 csv manche / 1 csv cuilleré 1 csv objet complet)
+       réfléchir au truk csv
+  
+       - partie de l'objet
+                            
+          via les crop 
         
         
  - entrainement model
