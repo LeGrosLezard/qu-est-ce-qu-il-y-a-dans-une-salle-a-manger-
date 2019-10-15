@@ -173,17 +173,20 @@ def take_features_background(img):
 
     name = img
     print(name)
+    try:
+        img = open_picture(img)
+        img = cv2.resize(img, (200, 200))
 
-    img = open_picture(img)
-    img = cv2.resize(img, (200, 200))
+        #show_picture("img", img, 0, "y")
+        th3, blanck0, copy5 = pre_treatment(img)
 
-    #show_picture("img", img, 0, "y")
-    th3, blanck0, copy5 = pre_treatment(img)
-
-    copy5 = make_first_treatment(th3, copy5)
-    blanck10 = second_treatment(copy5, img)
-    img = third_treatment(blanck10, img)
+        copy5 = make_first_treatment(th3, copy5)
+        blanck10 = second_treatment(copy5, img)
+        img = third_treatment(blanck10, img)
 
 
-    #show_picture("img", img, 0, "y")
-    cv2.imwrite(name, img)
+        #show_picture("img", img, 0, "y")
+        cv2.imwrite(name, img)
+
+    except:
+        pass
