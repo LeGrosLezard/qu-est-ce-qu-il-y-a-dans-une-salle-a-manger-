@@ -7,13 +7,9 @@
 -   Attention
 
 
-           verifier pos, finir la digestion
+           back multi(effacer si les objets peuvent pas etre ok) posi
 
-           dans MAIN les PATH
-
-           tout factoriser
-           
-           faire des programmes séparer et c dans main qu'on fait les connexions comme ca c plus facile a refaire
+           chai pas si faut garder les premiers truk ou pas
 
            
 
