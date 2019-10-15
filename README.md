@@ -61,7 +61,7 @@
 
 - programme
 
-            on réécrit directement dans le programme 
+            on réécrit directement dans le programme  (algo algo)
             
             via un fichier ou y'a écrit ligne tant ou ca dit fonction with open + model = load
  
