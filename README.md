@@ -27,7 +27,7 @@
   
        réfléchir au truk csv
   
-       - partie de l'objet via les crop 
+       récupérer les parties de l'objet via les crop 
         
         
  - entrainement model
