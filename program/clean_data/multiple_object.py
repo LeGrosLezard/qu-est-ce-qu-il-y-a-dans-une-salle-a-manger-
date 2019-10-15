@@ -58,6 +58,7 @@ def find_contour(img):
 def recup_object(img, blanck1, contours,
                  name):
     c = 0
+
     for cnt in contours:
         if cv2.contourArea(cnt) > 500:
 
@@ -93,21 +94,20 @@ def save_or_delete(copy, name, counter):
 
     contours,h=cv2.findContours(thresh,cv2.RETR_EXTERNAL,cv2.CHAIN_APPROX_SIMPLE)
 
-
     for cnts in contours:
         if cv2.contourArea(cnts) > 9000:
             #os.remove(name)
             pass
         else:
             #show_picture("copy", copy, 0, "y")
-            return copy
-
+            new_name = str(name[:-4]) + "v" + str(counter) + ".jpg"
+            cv2.imwrite(new_name, copy)
+            os.remove(name)
 
 
 
 
 def take_features_multi_obj(img):
-
 
     try:
         name = str(img)
@@ -115,14 +115,25 @@ def take_features_multi_obj(img):
         img = open_picture(img)
         img = cv2.resize(img, (200, 200))
 
-        show_picture("img", img, 0, "y")
+        #show_picture("img", img, 0, "y")
 
         blanck1, contours = find_contour(img)
         copy = recup_object(img, blanck1, contours,
                             name)
-
-        #show_picture("copy", copy, 0, "y")
-        cv2.imwrite(name, copy)
     except:
         pass
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
