@@ -97,16 +97,28 @@ def download_picture(objects_to_search):
 
 
 from clean_data.background import take_features_background
-from clean_data.multiple_object import take_features_multi_obj
-from clean_data.position_object import take_features_position
+##from clean_data.multiple_object import take_features_multi_obj
+##from clean_data.position_object import take_features_position
 def cleanning_dataset(objects_to_search):
 
-    pass
-
     #['Couteau', 'Cuillère', 'Fourchette']
-##    take_features_background(objects_to_search)
-##    take_features_multi_obj(objects_to_search)
-    take_features_position(objects_to_search)
+
+    for objects in objects_to_search:
+
+        liste = os.listdir("dataset/" + str(objects))
+
+        for picture in liste:
+
+            name = picture
+            picture = str("dataset/") + str(objects) + "/" + str(picture)
+
+            take_features_background(picture)
+
+
+            #take_features_multi_obj(objects_to_search)
+            #take_features_position(objects_to_search)
+
+
 
 
 def croping_data(objects_to_search):
@@ -148,7 +160,6 @@ if __name__ == "__main__":
 
 
 ##    """clean_data.main"""
-    objects_to_search = ['Couteau', 'Cuillère', 'Fourchette']
-##    #objects_to_search = ['Cuillere']
+    objects_to_search = ['Cuillere', 'Couteau', 'Fourchette']
     cleanning_dataset(objects_to_search)
 
