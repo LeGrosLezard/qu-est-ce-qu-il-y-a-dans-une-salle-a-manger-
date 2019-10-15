@@ -85,6 +85,19 @@ def run_a_picture(img, color, mode):
 
 
 
+def find_points(listex, listey):
+
+    Xy_min = min(listex)
+    X_min = listey[listex.index(min(listex))]
+
+    Xy_max = max(listex)
+    X_max = listey[listex.index(max(listex))]
+
+    print(Xy_min, X_min)
+    print(Xy_max, X_max)
+
+    return X_min, Xy_min, X_max, Xy_max
+
 
 
 
@@ -148,16 +161,7 @@ def first_contour(img, copy):
 def delimited_by_points(copy):
 
     listex, listey = run_a_picture(copy, (0, 0, 255), "liste")
-
-
-    Xy_min = min(listex)
-    X_min = listey[listex.index(min(listex))]
-
-    Xy_max = max(listex)
-    X_max = listey[listex.index(max(listex))]
-
-    print(Xy_min, X_min)
-    print(Xy_max, X_max)
+    X_min, Xy_min, X_max, Xy_max = find_points(listex, listey)
 
     return X_min, Xy_min, X_max, Xy_max
 
@@ -198,16 +202,9 @@ def top_bot_second(Xy_min,X_min, Xy_max, X_max, img):
 
     listex, listey = run_a_picture(copy, (0, 0, 255), "liste")
 
-
-    Xy_min = min(listex)
-    X_min = listey[listex.index(min(listex))]
-
-    Xy_max = max(listex)
-    X_max = listey[listex.index(max(listex))]
+    X_min, Xy_min, X_max, Xy_max = find_points(listex, listey)
 
     show_picture("copy", copy, 0, "y")
-
-
 
     angle = angle_function(X_min, Xy_min, X_max, Xy_max)
     print(angle, "ANGLE")
@@ -271,12 +268,11 @@ def top_bot_third(angle, copy, X_min, Xy_min, X_max, Xy_max, img):
 
 
 
-def bot_top(angle, copy, X_min, Xy_min, X_max, Xy_max, img):
+def bot_top(copy, X_min, Xy_min, X_max, Xy_max, img):
 
 
     print("laaaaaaaaaaaaa")
     angle = angle_function(X_min, Xy_min, X_max, Xy_max)
-
 
 
     cv2.circle(copy, (Xy_min, X_min), 6, (0, 255, 0), 6)
@@ -287,8 +283,7 @@ def bot_top(angle, copy, X_min, Xy_min, X_max, Xy_max, img):
 
     show_picture("copy", copy, 0, "y")
 
-
-    rotated = rotation(copy, c)
+    rotated = rotation(copy, angle)
 
     c = 0
     go = True
@@ -336,7 +331,7 @@ def define_rotation(X_min, Xy_min, X_max, Xy_max, copy, img):
     
 
     elif abs(Xy_min - Xy_max) > 80 and X_min < X_max:
-        bot_top(angle, copy, X_min, Xy_min, X_max, Xy_max)
+        bot_top(copy, X_min, Xy_min, X_max, Xy_max, img)
 
     else:
         normal_angle()
@@ -362,3 +357,16 @@ def main():
 
 
 main()
+
+
+
+
+
+
+
+
+
+
+
+
+
