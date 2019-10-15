@@ -7,13 +7,7 @@
 -   Attention
 
 
-           ok j'ai rien dit selon inclaison réduire ca a 65
-
-           finir les seconds traitements ou le faire direct
-           
-           comprendre le truk des carrées
-
-           rotation 
+           bon chai pas comment ca marche mais ca marche c pas parfaitement droit mais c a cause de l'index ca prend le premier et je veuxx le dernier pas grave
 
             croping c pour une image un objet mais crop c pour pleins d'objet comprendre pk
 
