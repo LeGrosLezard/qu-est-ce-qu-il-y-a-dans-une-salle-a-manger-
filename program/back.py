@@ -68,6 +68,12 @@ def blanck_picture(img):
 
 
 def pre_treatment(img):
+    """
+        gray
+        ADAPTIVE_THRESH_GAUSSIAN_C
+
+        make copy, and white picture
+    """
 
     gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
     th3 = cv2.adaptiveThreshold(gray, 255, cv2.ADAPTIVE_THRESH_GAUSSIAN_C,\
@@ -81,7 +87,15 @@ def pre_treatment(img):
     return th3, blanck0, copy5
 
 
+
 def make_first_treatment(th3, copy5):
+    """
+        contours (filled)
+        only keep contours
+        other white
+    """
+
+
 
     cont,h=cv2.findContours(th3,cv2.RETR_TREE,cv2.CHAIN_APPROX_NONE)
     for cn in cont:
@@ -106,8 +120,14 @@ def make_first_treatment(th3, copy5):
     return copy5
 
 
-def second_treatment(copy5):
 
+def second_treatment(copy5):
+    """
+        gray
+        thresh
+        contours filled
+    """
+    
     gray = cv2.cvtColor(copy5, cv2.COLOR_BGR2GRAY)
     _,thresh = cv2.threshold(gray,250,255,cv2.THRESH_BINARY_INV)
     cont,h=cv2.findContours(thresh,cv2.RETR_EXTERNAL,cv2.CHAIN_APPROX_SIMPLE)
@@ -125,8 +145,13 @@ def second_treatment(copy5):
 
     return blanck10
 
-def third_treatment(blanck10, img):
 
+
+
+def third_treatment(blanck10, img):
+    """
+        raise all execpt object on current picture
+    """
 
     for i in range(blanck10.shape[0]):
         for j in range(blanck10.shape[1]):
@@ -144,7 +169,8 @@ def third_treatment(blanck10, img):
     return img
 
 
-def contours_square(img, name):
+
+def treatment(img, name):
 
 
     show_picture("img", img, 0, "y")
@@ -174,7 +200,7 @@ for i in liste:
     print(color)
 
     show_picture("img", img, 0, "y")
-    contours_square(img, i)
+    treatment(img, i)
 
 
 
