@@ -4,28 +4,50 @@
 
 
 
--   Attention
 
 
-           back multi(effacer si les objets peuvent pas etre ok) posi
 
-           chai pas si faut garder les premiers truk ou pas
+       
+ -   détecter une assiette
+ 
+  - Scrap
+     
+  - scrap v2
+   
 
+ - travail des images data 
+ 
+           mtn faut lancer et save
            
+           faire le truk des crop et save (croping)
+           
+           réfléchir au truk csv
+           
+   
+ - on remplis le csv avec le nouveau label
+  
+       - partie de l'objet (1 csv manche / 1 csv cuilleré 1 csv objet complet)
+        
+        
+ - entrainement model
+ 
+         faire l'apprentissage des croping
 
+- Scrap partie objet
 
-            plusieurs fois manche (scrap)
-
-            ex : cuillere + fourchette + couteau a detection a stendroit
-            
+           scrap des items (manche)
+ 
+ - detection/comparaison
+ 
+           ex : cuillere + fourchette + couteau a detection a stendroit
+ 
             on dit c le manche
             
-            on récupere le plus haut cadre et le plus bas (y et y+h)
-            
-            on retourne dans les images de tout
-            
-            on fait pourcentage
-            
+            on récupere les parties
+
+
+- réentrainement
+
             on rajoute une ligne au csv
             
             on efface model
@@ -33,51 +55,25 @@
             on recré model
             
             si csv + 26 + 9 label
-            
+
+
+
+- programme
+
             on réécrit directement dans le programme 
             
             via un fichier ou y'a écrit ligne tant ou ca dit fonction with open + model = load
-
- -   détecter une assiette
-
-
-  - Scrap
-  
  
-           
-   - scrap v2
-   
-
-           
-          
-   
  
- - travail des images data 
  
-
-        
-        
- - on remplis le csv avec le nouveau label
-  
-       - partie de l'objet (1 csv manche / 1 csv cuilleré 1 csv objet complet)
-        
-
-        
- -  entrainement model
  
-        -> faut crop pour ne plus qu'avoir l'image
  
-        -> faut faire: slider hog mais on veut le manche donc on fait partie objet hog + detection svm
  
-        -> on récupere toutes les parties des objets
-        
-        -> on les mets dans un model
-
-        -> entrainer un model de forme (ou le faire sous opencv)
-       
-        -> supprimer image
-
-
+ 
+ 
+ 
+ 
+ 
  
  - BUT
  
