@@ -64,7 +64,7 @@ for i in liste:
             cv2.drawContours(thresh, cnts, -1, (0, 0, 0), 2)
             (x, y, w, h) = cv2.boundingRect(cnts)
 
-            cv2.rectangle(copy, (x+w - 2, y), (x+w, y+h), (0, 0, 255), 3)
+            cv2.rectangle(copy, (x, y), (x+2, y+h), (0, 0, 255), 3)
             okx = x
             oky = y
             print(x, y)
