@@ -6,6 +6,11 @@
 
 -   Attention
 
+
+           attend jcrois que c bon enfete depuis le début mais faut le faire dans l'autre sens apres ptetre
+           
+           genre un carré 
+
            finir les seconds traitements ou le faire direct
            
            comprendre le truk des carrées
