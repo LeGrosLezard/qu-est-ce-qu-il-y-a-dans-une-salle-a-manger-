@@ -7,9 +7,9 @@
 -   Attention
 
 
-           bon chai pas comment ca marche mais ca marche c pas parfaitement droit mais c a cause de l'index ca prend le premier et je veuxx le dernier pas grave
-
-            croping c pour une image un objet mais crop c pour pleins d'objet comprendre pk
+           tout factoriser
+           
+           faire des programmes séparer et c dans main qu'on fait les connexions comme ca c plus facile a refaire
 
             plusieurs fois manche (scrap)
 
