@@ -17,11 +17,7 @@
 
  - travail des images data 
  
-           certains ne s'effacent pas
- 
-           remplacer les fichiers
- 
-           mtn faut lancer et save
+           supprimer les images ou les objets sont pas décollés + les images dégommés par le contour
            
            faire le truk des crop et save (croping) -> se calquer sur assiette
            
