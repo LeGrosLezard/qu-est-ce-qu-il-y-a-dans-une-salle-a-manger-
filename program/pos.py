@@ -6,13 +6,13 @@ import math
 from PIL import Image
 
 
-
 def open_picture(image):
 
     """We open picture"""
 
     img = cv2.imread(image)
     return img
+
 
 
 def show_picture(name, image, mode, destroy):
@@ -22,6 +22,7 @@ def show_picture(name, image, mode, destroy):
         cv2.destroyAllWindows()
 
 
+
 def blanck_picture(img):
 
     """Create a black background picture same dimension of original picture"""
@@ -29,263 +30,188 @@ def blanck_picture(img):
     blank_image = np.zeros((img.shape[0],img.shape[1],3), np.uint8)
     blank_image[0:img.shape[0], 0:img.shape[1]] = 0, 0, 0
 
-    return blank_image
 
 
-def draw_contours(contours, blanck):
 
-    #recup center of detection and draw it in red
-    position_circleX = []
-    position_circleY = []
+
+
+
+
+
+
+
+
+liste = os.listdir(r"C:\Users\jeanbaptiste\Desktop\assiette\program\dataset\cuillere")
+for i in liste:
+    i = str(r"C:\Users\jeanbaptiste\Desktop\assiette\program\dataset\cuillere/") + str(i)
+    print(i)
+    img = open_picture(i)
+    img = cv2.resize(img, (200, 200))
+
+    copy = img.copy()
+
+    gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
+    _,thresh = cv2.threshold(gray,250,255,cv2.THRESH_BINARY_INV)
+
+    show_picture("thresh", thresh, 0, "y")
+
+    contours,h=cv2.findContours(thresh,cv2.RETR_EXTERNAL,
+                                cv2.CHAIN_APPROX_SIMPLE)
+
 
     for cnts in contours:
-        if cv2.contourArea(cnts):
-            
-            cv2.drawContours(blanck, cnts, -1, (255, 255, 255), 1)
-            
-            M = cv2.moments(cnts)
-            cX = int(M["m10"] / M["m00"])
-            cY = int(M["m01"] / M["m00"])
+        if cv2.contourArea(cnts) > 5:
+            cv2.drawContours(thresh, cnts, -1, (0, 0, 0), 2)
+            (x, y, w, h) = cv2.boundingRect(cnts)
 
-            position_circleX.append(cX)
-            position_circleY.append(cY)
-
-            cv2.circle(blanck, (cX, cY), 6, (0, 0, 255), 6)
-
-
-    return position_circleX, position_circleY
+            cv2.rectangle(copy, (x+w - 2, y), (x+w, y+h), (0, 0, 255), 3)
+            okx = x
+            oky = y
+            print(x, y)
+            b = 200 - x
+            a = math.atan(b/200)
+            c = math.degrees(a)
+            print(90 - c, "iciiiiii")
 
 
 
-def recup_red_points(blanck):
 
-    #recup red picture
     listex = []
     listey = []
+
     listex2 = []
     listey2 = []
 
-    for y in range(blanck.shape[1]):
-        for x in range(blanck.shape[0]):
-            if blanck[y, x][0] == 0 and\
-               blanck[y, x][1] == 0 and\
-               blanck[y, x][2] == 255: 
+
+    for x in range(thresh.shape[0]):
+        for y in range(thresh.shape[1]):
+            if thresh[x, y] == 255:
                 listex.append(x)
                 listey.append(y)
-
-            if blanck[x, y][0] == 0 and\
-               blanck[x, y][1] == 0 and\
-               blanck[x, y][2] == 255: 
+   
+            if thresh[y, x] == 255:
                 listex2.append(x)
                 listey2.append(y)
 
-    return listex, listey, listex2, listey2
+
+    bas1 = min(listey)
+    bas2 = listex[listey.index(min(listey))]
+
+    haut1 = max(listey)
+    haut2 = listex[listey.index(max(listey))]
+
+
+    print(bas1, bas2)
+    print(haut1, haut2)
+
+
+
+    cv2.circle(copy, (bas1, bas2), 6, (0, 255, 0), 6)
+    cv2.circle(copy, (haut1, haut2), 6, (255, 0, 0), 6)
+
+
+    print(okx, oky, bas1, bas2, haut1, haut2)
+
+
+    show_picture("copy", copy, 0, "y")
+
+
+    if bas1 + 50 < haut1 and\
+       bas2 > haut2 + 25:
+        print("un")
+
+
+        b = 200
+        a = math.atan(b/200)
+        c = math.degrees(a)
+        print(c)
+
+        c = math.degrees(math.atan(haut1 - okx / oky - okx))
+
+        rows = img.shape[0]
+        cols = img.shape[1]
+        img_center = (cols / 2, rows / 2)
+        M = cv2.getRotationMatrix2D(img_center, c, 1)
+        rotated = cv2.warpAffine(img, M, (cols, rows), borderValue=(255,255,255))
+
+        show_picture("img", rotated, 0, "y")
 
 
 
 
-def points_for_define_inclinaison(listex, listey, listex2, listey2, blanck):
-
-
-    #take max (x, y) and min (x, y) on l and L
-    X_min = min(listex)
-    index_min = listex.index(min(listex))
-    Xy_min = listey[index_min]
-
-    X_max = max(listex)
-    index_max = listex.index(max(listex))
-    Xy_max = listey[index_max]
-
-    X_min2 = min(listex2)
-    index_min2 = listex2.index(min(listex2))
-    Xy_min2 = listey2[index_min2]
-
-    X_max2 = max(listex2)
-    index_max2 = listex2.index(max(listex2))
-    Xy_max2 = listey2[index_max2]
-
-
-    #width
-    cv2.circle(blanck, (X_min, Xy_min), 6, (0, 255, 0), 6)
-    cv2.circle(blanck, (X_max, Xy_max), 6, (50, 255, 50), 6)
-
-    #height
-    cv2.circle(blanck, (Xy_min2, X_min2), 6, (255, 0, 255), 6)
-    cv2.circle(blanck, (Xy_max2, X_max2), 6, (255, 255, 0), 6)
-
-
-    show_picture("blanck", blanck, 0, "")
-
-
-
-    return X_min, Xy_min, X_max, Xy_max,\
-           X_min2, Xy_min2, X_max2, Xy_max2, blanck
 
 
 
 
-def treatment_inclinaison(X_min, Xy_min, X_max, Xy_max,
-                          X_min2, Xy_min2, X_max2,
-                          Xy_max2):
+    elif abs(bas2 - haut2) < 25 and\
+         bas1 + 100 < haut1:
+        print("90")
 
-    out = 0
 
-    #0)ok 1)horrizontal 2)bot/top 3)top/bot 
+        rows = img.shape[0]
+        cols = img.shape[1]
+        img_center = (cols / 2, rows / 2)
+        M = cv2.getRotationMatrix2D(img_center, 90, 1)
+        rotated = cv2.warpAffine(img, M, (cols, rows), borderValue=(255,255,255))
 
-    if abs(Xy_min - Xy_max) < 5 and\
-       abs(Xy_min2 - Xy_max2) < 15:
-        out = 0
-
-    elif abs(Xy_min - Xy_max) <= 5 and abs(Xy_min2 - Xy_max2) > 15:
-        out = 1
-    
-    elif abs(X_min - X_max) > 80 and Xy_min > Xy_max:
-        out = 2
-
-    elif abs(X_min - X_max) > 80 and Xy_min < Xy_max:
-        out = 3
+        show_picture("img", rotated, 0, "y")
         
-    elif abs(Xy_min2 - Xy_max2) < 15:
-        out = 0
-
-    return out
 
 
 
 
-def precise_angle(img, X_min, Xy_min, X_max, Xy_max,
-                  X_min2, Xy_min2, X_max2, Xy_max2,
-                  position, blanck,
-                  path_clean, category, image):
+    elif bas2 + 30 < haut2 and\
+       bas1 + 20 < haut1:
+        print("deux")
 
-    if position == 2:
-        print("Search coordinates")
 
-        b = 200 - X_min2
+        b = 200 - bas1
+        a = math.atan(b/200)
+        c = math.degrees(a)
+        print(c)
+
+        rows = img.shape[0]
+        cols = img.shape[1]
+        img_center = (cols / 2, rows / 2)
+        M = cv2.getRotationMatrix2D(img_center, -c, 1)
+        rotated = cv2.warpAffine(img, M, (cols, rows), borderValue=(255,255,255))
+        show_picture("img", rotated, 0, "y")
+
+
+
+    else:
+        print("normal")
+        b = 200 - bas1
         a = math.atan(b/200)
         c = math.degrees(a)
         d = 90 - c
-
-        rows = img.shape[0]
-        cols = img.shape[1]
-        img_center = (cols / 2, rows / 2)
-        M = cv2.getRotationMatrix2D(img_center, d, 1)
-        rotated = cv2.warpAffine(img, M, (cols, rows), borderValue=(255,255,255))
-        show_picture("img", rotated, 0, "y")
-        #cv2.imwrite(path_clean.format(category, image), rotated)
-
-
-    if position == 3:
-        print("Search coordinates")
-
-        b = 200 - X_min2
-        a = math.atan(b/200)
-        c = math.degrees(a)
-        d = 90 - c
-
-        rows = img.shape[0]
-        cols = img.shape[1]
-        img_center = (cols / 2, rows / 2)
-        M = cv2.getRotationMatrix2D(img_center, -d, 1)
-        rotated = cv2.warpAffine(img, M, (cols, rows), borderValue=(255,255,255))
-        show_picture("img", rotated, 0, "y")
-        #cv2.imwrite(path_clean.format(category, image), rotated)
-
-    if position == 1:
-        print("seaching coordinates")
-
-        rows = img.shape[0]
-        cols = img.shape[1]
-        img_center = (cols / 2, rows / 2)
-        M = cv2.getRotationMatrix2D(img_center, -90, 1)
-        rotated = cv2.warpAffine(img, M, (cols, rows), borderValue=(255,255,255))
-        show_picture("img", rotated, 0, "y")
-        #cv2.imwrite(path_clean.format(category, image), rotated)
-
-
-
-
-def position_rotation(contours, blanck, img,
-                      path_clean, category, image):
-
-
-    position_circleX, position_circleY = draw_contours(contours, blanck)
-
-    listex, listey, listex2, listey2 = recup_red_points(blanck)
-
-    X_min, Xy_min, X_max, Xy_max,\
-    X_min2, Xy_min2, X_max2, Xy_max2, blanck\
-    = points_for_define_inclinaison(listex, listey, listex2, listey2, blanck)
-
-    position = treatment_inclinaison(X_min, Xy_min, X_max, Xy_max,
-                                     X_min2, Xy_min2, X_max2, Xy_max2)
-
-    precise_angle(img, X_min, Xy_min, X_max, Xy_max,
-                  X_min2, Xy_min2, X_max2, Xy_max2,
-                  position, blanck, path_clean,
-                  category, image)
-
-
-
-def transform_i(objects):
-    out_objects = ""
-    for i in objects:
-        for j in i:
-            if j in ("é", "è"):
-               out_objects += "e"
-            else:
-                out_objects += j
-      
-    return out_objects
-
-
-
-def pre_treatment(path_picture, objects, image):
-    #img = open_picture(path_picture.format(objects, image))
-    img = open_picture(image)
-    height, width, channel = img.shape
-    if height > 200 and width > 200:
-        img = cv2.resize(img, (200, 200))
-
-    blanck = blanck_picture(img)
-
-    gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
-    edged = cv2.Canny(img, 100, 200)
-
-    contours, _ = cv2.findContours(edged, cv2.RETR_TREE,
-                                   cv2.CHAIN_APPROX_SIMPLE)
-
-
-
-    return img, objects, contours, blanck
+        print(d)
 
 
 
 
 
-def take_features_position1():
-
-
-    liste = ["34.jpg", "45.jpg", "55.jpg", "70.jpg", "71.jpg", "108.jpg"]
-    path_clean = ""
-    objects = ""
-    for i in liste:
-
-        img, objects, contours, blanck =\
-        pre_treatment(path_clean, objects, i)
-
-        img = cv2.copyMakeBorder(img, 50, 50, 50, 50,
-                                  cv2.BORDER_CONSTANT, value=(255, 255, 255))
-
-
-        position_rotation(contours, blanck, img,
-                            path_clean, objects, i)
-    
 
 
 
 
-take_features_position1()
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
