@@ -50,7 +50,7 @@ for i in liste:
 
 
     img = open_picture(i)
-    img = cv2.resize(img, (500, 500))
+    img = cv2.resize(img, (200, 200))
 
     copy = img.copy()
 
@@ -90,49 +90,50 @@ for i in liste:
 
 
     #take max (x, y) and min (x, y) on l and L
-    X_min = min(listex)
+    Xy_min = min(listex)
     index_min = listex.index(min(listex))
-    Xy_min = listey[index_min]
+    X_min = listey[index_min]
 
-    X_max = max(listex)
+    Xy_max = max(listex)
     index_max = listex.index(max(listex))
-    Xy_max = listey[index_max]
+    X_max = listey[index_max]
 
-    print(X_min, Xy_min)
-    print(X_max, Xy_max)
 
+    print(math.degrees(8))
 
     #402 - 98 456 - 21/ 484-8 451-64 -> mettre a 90 -< puis 90
 
 
-
-
+    
+    cv2.line(copy, (0, 0), (X_min, Xy_min), (0, 255, 0), 6)
+    cv2.line(copy, (X_min, Xy_min), (0, 200), (0, 255, 0), 6)
+    cv2.line(copy, (0, 0), (0, 200), (0, 255, 0), 6)
 
     
     #width
-    cv2.circle(copy, (X_max, Xy_max), 6, (0, 255, 0), 6)
-    cv2.circle(copy, (X_min, Xy_min), 6, (255, 255, 0), 6)
+    cv2.circle(copy, (X_min, Xy_min), 6, (0, 255, 0), 6)
+    cv2.circle(copy, (X_max, Xy_max), 6, (255, 255, 0), 6)
 
-
+    print(X_min, Xy_min)
+    print(X_max, Xy_max)
 
     show_picture("copy", copy, 0, "y")
 
-    b = 500 - X_min
-    a = math.atan(b/500 - Xy_min)
-    c = math.degrees(a)
-    c = c + 45
-
+    c = 0
     rows = img.shape[0]
     cols = img.shape[1]
     img_center = (cols / 2, rows / 2)
-    M = cv2.getRotationMatrix2D(img_center, - c, 1)
+
+
+    M = cv2.getRotationMatrix2D(img_center, 89 - 45, 1)
     rotated = cv2.warpAffine(copy, M, (cols, rows), borderValue=(255,255,255))
+
 
     c+=1
 
     show_picture("rotated", rotated, 0, "y")
 
-
+    print("")
 
 
 
