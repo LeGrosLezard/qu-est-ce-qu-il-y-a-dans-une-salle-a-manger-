@@ -169,7 +169,7 @@ def third_treatment(blanck10, img):
 
 
 
-def take_features_background(img):
+def take_features_background(img, save):
 
     name = img
     print(name)
@@ -186,7 +186,8 @@ def take_features_background(img):
 
 
         #show_picture("img", img, 0, "y")
-        cv2.imwrite(name, img)
+        cv2.imwrite(save, img)
 
     except:
         pass
+
