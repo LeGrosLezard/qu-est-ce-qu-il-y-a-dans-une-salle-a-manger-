@@ -6,6 +6,7 @@
 
 -   Attention
 
+           dans MAIN les PATH
 
            tout factoriser
            
