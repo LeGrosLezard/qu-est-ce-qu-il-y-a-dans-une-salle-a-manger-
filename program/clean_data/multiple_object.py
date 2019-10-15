@@ -121,7 +121,7 @@ def take_features_multi_obj(img):
         copy = recup_object(img, blanck1, contours,
                             name)
 
-        show_picture("copy", copy, 0, "y")
+        #show_picture("copy", copy, 0, "y")
         cv2.imwrite(name, copy)
     except:
         pass
