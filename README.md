@@ -19,7 +19,7 @@
  
            ^^ enlevé le truk de l'angle partie 2 et le faire avec cnter et ok
            
-           ps couteau est corrompu faut utiliser save
+           ps couteau est  faut utiliser save
  
            certains objets bug position, voir si un deuxieme truk le regle 
               
