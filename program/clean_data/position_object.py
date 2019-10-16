@@ -45,7 +45,7 @@ def rotation(img, degrees):
     img_center = (cols / 2, rows / 2)
     M = cv2.getRotationMatrix2D(img_center, degrees, 1)
     rotated = cv2.warpAffine(img, M, (cols, rows), borderValue=(255,255,255))
-    show_picture("rotated", rotated, 0, "y")
+    #show_picture("rotated", rotated, 0, "y")
 
 
     return rotated
@@ -135,8 +135,8 @@ def early_picture(img):
                              cv2.BORDER_CONSTANT, value=(255, 255, 255))
 
     copy = img.copy()
-
-    return img, copy
+    img_final = img.copy()
+    return img, copy, img_final
 
 
 
@@ -145,7 +145,7 @@ def first_contour(img, copy):
     gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
     _,thresh = cv2.threshold(gray,250,255,cv2.THRESH_BINARY_INV)
 
-    show_picture("thresh", thresh, 0, "y")
+    #show_picture("thresh", thresh, 0, "y")
 
     contours,h=cv2.findContours(thresh,cv2.RETR_TREE,
                                 cv2.CHAIN_APPROX_NONE)
@@ -173,26 +173,28 @@ def delimited_by_points(copy):
     return X_min, Xy_min, X_max, Xy_max
 
 
-def normal_angle():
-    print("noramle")
+def normal_angle(img):
+    #print("noramle")
+    #show_picture("img", img, 0, "y")
+    return img
 
+def nine_degrees(copy, X_min, Xy_min, X_max, Xy_max, img,
+                 img_final):
 
-
-def nine_degrees(copy, X_min, Xy_min, X_max, Xy_max, img):
-
-    print("90")
     cv2.circle(copy, (Xy_min, X_min), 6, (0, 255, 0), 6)
     cv2.circle(copy, (Xy_max, X_max), 6, (255, 255, 0), 6)
 
-    show_picture("copy", copy, 0, "y")
+    #show_picture("copy", copy, 0, "y")
 
     rotated = rotation(img, -90)
+    img_final = rotation(img_final, -90)
+    show_picture("img_final", img_final, 0, "y")
 
+    return img_final
 
 
 def top_bot_first(X_min, Xy_min, X_max, Xy_max, img):
 
-    print("yooo")
 
     angle = angle_function(X_min, Xy_min, X_max, Xy_max)
 
@@ -203,7 +205,7 @@ def top_bot_first(X_min, Xy_min, X_max, Xy_max, img):
 
 def top_bot_second(Xy_min,X_min, Xy_max, X_max, img):
 
-    print("ici")
+
     copy = cv2.copyMakeBorder(copy, 50, 50, 50, 50,
                               cv2.BORDER_CONSTANT, value=(255, 255, 255))
 
@@ -211,10 +213,10 @@ def top_bot_second(Xy_min,X_min, Xy_max, X_max, img):
 
     X_min, Xy_min, X_max, Xy_max = find_points(listex, listey)
 
-    show_picture("copy", copy, 0, "y")
+    #show_picture("copy", copy, 0, "y")
 
     angle = angle_function(X_min, Xy_min, X_max, Xy_max)
-    print(angle, "ANGLE")
+
 
 
     return angle
@@ -222,22 +224,23 @@ def top_bot_second(Xy_min,X_min, Xy_max, X_max, img):
 
 
 
-def top_bot_third(angle, copy, X_min, Xy_min, X_max, Xy_max, img):
+def top_bot_third(angle, copy, X_min, Xy_min, X_max, Xy_max,
+                  img, img_final):
 
     #width
     cv2.circle(copy, (Xy_min, X_min), 6, (0, 255, 0), 6)
     cv2.circle(copy, (Xy_max, X_max), 6, (255, 255, 0), 6)
 
-    print(X_min, Xy_min)
-    print(X_max, Xy_max)
-    show_picture("copy", copy, 0, "y")
+    #print(X_min, Xy_min)
+    #print(X_max, Xy_max)
+    #show_picture("copy", copy, 0, "y")
 
     rotated = rotation(copy, abs(angle))
-    show_picture("rotated", rotated, 0, "y")
+    img_final = rotation(img_final, abs(angle))
+    
+    #show_picture("rotated", rotated, 0, "y")
 
 
-    print(angle)
-    print("annnnnnnnnnnnnnnnnnnnnnnnnnnnnngle")
     if abs(angle) < 35 or abs(angle) > 45:
 
         c = 0
@@ -247,79 +250,86 @@ def top_bot_third(angle, copy, X_min, Xy_min, X_max, Xy_max, img):
             x1, y1 = run_a_picture(rotated, (0, 255, 0), "points")
             x2, y2 = run_a_picture(rotated, (255, 255, 0), "points")
 
-            print("current data")
-            print(x1, y1)
-            print(x2, y2)
-            print(abs(angle), "annnnnnngle°")
-      
-            print("oui")
+            #print(x1, y1)
+            #print(x2, y2)
 
             if abs(angle) < 35:
                 rotated = rotation(rotated, -c)
+                img_final = rotation(img_final, -c)
                 if abs(y1 - y2) < 10:
                     go = False
 
             elif abs(angle) > 45:
                 rotated = rotation(rotated, c)
+                img_final = rotation(img_final, c)
                 if abs(y1 - y2) < 30:
                     go = False
 
-            print(c)
             c+=1
 
-        show_picture("rotated", rotated, 0, "y")
+        #show_picture("rotated", rotated, 0, "y")
+        #show_picture("img_final", img_final, 0, "y")
+        return img_final
 
 
+def bot_top(copy, X_min, Xy_min, X_max, Xy_max,
+            img, img_final):
 
-def bot_top(copy, X_min, Xy_min, X_max, Xy_max, img):
 
-
-    print("laaaaaaaaaaaaa")
     angle = angle_function(X_min, Xy_min, X_max, Xy_max)
 
 
     cv2.circle(copy, (Xy_min, X_min), 6, (0, 255, 0), 6)
     cv2.circle(copy, (Xy_max, X_max), 6, (255, 255, 0), 6)
 
-    print(X_min, Xy_min)
-    print(X_max, Xy_max)
+    #print(X_min, Xy_min)
+    #print(X_max, Xy_max)
 
-    show_picture("copy", copy, 0, "y")
+    #show_picture("copy", copy, 0, "y")
 
     rotated = rotation(copy, angle)
+    img_final = rotation(img_final, angle)
 
     c = 0
     go = True
     while go:
 
-        x1, y1 = run_a_picture(rotated, (0, 255, 0), "points")
-        x2, y2 = run_a_picture(rotated, (255, 255, 0), "points")
-
-        print("current data")
-        print(x1, y1)
-        print(x2, y2)
+        try:
+            x1, y1 = run_a_picture(rotated, (0, 255, 0), "points")
+            x2, y2 = run_a_picture(rotated, (255, 255, 0), "points")
+        except:
+            print(x1, y1)
+            go = False
+        #print("current data")
+        #print(x1, y1)
+        #print(x2, y2)
 
         if angle > - 45:
             rotated = rotation(rotated, c)
+            img_final = rotation(img_final, c)
         else:
            rotated = rotation(rotated, -c)
+           img_final = rotation(img_final, -c)
 
         c+=1
 
         if abs(y1 - y2) < 10:
             go = False
 
-    show_picture("rotated", rotated, 0, "y")
-
+    #show_picture("rotated", rotated, 0, "y")
+    #show_picture("img_final", img_final, 0, "y")
+    return img_final
 
      
-def define_rotation(X_min, Xy_min, X_max, Xy_max, copy, img):
+def define_rotation(X_min, Xy_min, X_max, Xy_max,
+                    copy, img, img_final, picture):
 
     if abs(X_min - X_max) < 10 and abs(Xy_min - Xy_max) < 100:
-        normal_angle()
+        img_final = normal_angle(img)
 
     elif abs(X_min - X_max) < 15:
-        nine_degrees(copy, X_min, Xy_min, X_max, Xy_max, img)
+        img_final = nine_degrees(copy, X_min, Xy_min, X_max, Xy_max,
+                                 img, img_final)
 
     elif Xy_min + 50 < Xy_max and abs(Xy_min - Xy_max) > 50 and X_min > X_max:
         
@@ -330,40 +340,28 @@ def define_rotation(X_min, Xy_min, X_max, Xy_max, copy, img):
         else:
             angle = top_bot_second(X_min, Xy_min, X_max, Xy_max, img)
 
-        top_bot_third(angle, copy, X_min, Xy_min, X_max, Xy_max, img)
+        img_final = top_bot_third(angle, copy, X_min, Xy_min, X_max, Xy_max,
+                                  img, img_final)
     
 
     elif abs(Xy_min - Xy_max) > 80 and X_min < X_max:
-        bot_top(copy, X_min, Xy_min, X_max, Xy_max, img)
+        img_final = bot_top(copy, X_min, Xy_min, X_max, Xy_max,
+                            img, img_final)
 
     else:
-        normal_angle()
+        img_final = normal_angle(img)
 
+
+    cv2.imwrite(picture, img_final)
 
 
 def take_features_position(picture):
 
-    try:
-        print(picture)
-        img, copy = early_picture(picture)
-        copy = first_contour(img, copy)
-        X_min, Xy_min, X_max, Xy_max = delimited_by_points(copy)
-        
-        define_rotation(X_min, Xy_min, X_max, Xy_max, copy, img)
 
-    except:
-        pass
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+    print(picture)
+    img, copy, img_final = early_picture(picture)
+    copy = first_contour(img, copy)
+    X_min, Xy_min, X_max, Xy_max = delimited_by_points(copy)
+    
+    define_rotation(X_min, Xy_min, X_max, Xy_max,
+                    copy, img, img_final, str(picture))
