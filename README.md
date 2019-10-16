@@ -16,12 +16,10 @@
    
 
  - travail des images data 
- 
-           faire la sauvegarde et si ca marche pas recommencer
-           
+     
            effacer les objets qui sont pas sont dégommer ou pas ok
            
-           faire le crop
+           faire le crop (soit par forme soit par crop 25 / 50)
               
            supprimer les images ou les objets sont pas décollés + les images dégommés par le contour
            
@@ -37,6 +35,8 @@
         
         
  - entrainement model
+ 
+         si ca marche pas télécharger 400 données
  
          faire l'apprentissage des croping
 
