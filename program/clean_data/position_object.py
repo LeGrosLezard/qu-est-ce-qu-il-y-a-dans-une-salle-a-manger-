@@ -188,7 +188,7 @@ def nine_degrees(copy, X_min, Xy_min, X_max, Xy_max, img,
 
     rotated = rotation(img, -90)
     img_final = rotation(img_final, -90)
-    show_picture("img_final", img_final, 0, "y")
+    #show_picture("img_final", img_final, 0, "y")
 
     return img_final
 
@@ -247,11 +247,11 @@ def top_bot_third(angle, copy, X_min, Xy_min, X_max, Xy_max,
         go = True
         while go:
 
-            x1, y1 = run_a_picture(rotated, (0, 255, 0), "points")
-            x2, y2 = run_a_picture(rotated, (255, 255, 0), "points")
-
-            #print(x1, y1)
-            #print(x2, y2)
+            try:
+                x1, y1 = run_a_picture(rotated, (0, 255, 0), "points")
+                x2, y2 = run_a_picture(rotated, (255, 255, 0), "points")
+            except TypeError:
+                return img_final
 
             if abs(angle) < 35:
                 rotated = rotation(rotated, -c)
@@ -297,9 +297,9 @@ def bot_top(copy, X_min, Xy_min, X_max, Xy_max,
         try:
             x1, y1 = run_a_picture(rotated, (0, 255, 0), "points")
             x2, y2 = run_a_picture(rotated, (255, 255, 0), "points")
-        except:
-            print(x1, y1)
-            go = False
+        except TypeError:
+            return img_final
+
         #print("current data")
         #print(x1, y1)
         #print(x2, y2)
@@ -357,11 +357,15 @@ def define_rotation(X_min, Xy_min, X_max, Xy_max,
 
 def take_features_position(picture):
 
+    try:
+        print(picture)
+        img, copy, img_final = early_picture(picture)
+        copy = first_contour(img, copy)
+        X_min, Xy_min, X_max, Xy_max = delimited_by_points(copy)
+        
+        define_rotation(X_min, Xy_min, X_max, Xy_max,
+                        copy, img, img_final, str(picture))
 
-    print(picture)
-    img, copy, img_final = early_picture(picture)
-    copy = first_contour(img, copy)
-    X_min, Xy_min, X_max, Xy_max = delimited_by_points(copy)
-    
-    define_rotation(X_min, Xy_min, X_max, Xy_max,
-                    copy, img, img_final, str(picture))
+
+    except:
+        pass
