@@ -17,12 +17,11 @@
 
  - travail des images data 
      
-
-           ok ajusté le crop mais avant tetris en plus j'ai une nouvelle musique
-
-           faire le crop (soit par forme soit par crop 25 / 50)
-              
-           supprimer les images ou les objets sont pas décollés + les images dégommés par le contour
+           
+           
+           
+           
+           faire le crop (soit par forme soit par crop 25 / 50)  
            
            faire le truk des crop et save (croping) -> se calquer sur assiette
            
