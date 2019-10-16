@@ -27,7 +27,9 @@
            
            
    
- - on remplis le csv avec le nouveau label
+ - on remplis le csv /  - entrainement model
+  
+       si ca marche pas télécharger 400 données
   
        rpour chaque catégorie faire un csv a par
        
@@ -45,11 +47,9 @@
        pour vérigier refaire un position avec le nouveau csv (manche/cuve)
  
     
- - entrainement model
+
  
-         si ca marche pas télécharger 400 données
- 
-         faire l'apprentissage des croping
+
 
 - Scrap partie objet
 
