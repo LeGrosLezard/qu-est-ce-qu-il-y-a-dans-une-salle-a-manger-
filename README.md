@@ -17,7 +17,7 @@
 
  - travail des images data 
  
-           bon c bon mtn ca marche ^^ enlevé le truk de l'angle partie 2 et le faire avec cnter et ok
+           ^^ enlevé le truk de l'angle partie 2 et le faire avec cnter et ok
            
            ps couteau est corrompu faut utiliser save
  
