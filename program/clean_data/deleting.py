@@ -47,9 +47,9 @@ def recup_contour(img):
             maxi = cv2.contourArea(cnts)
 
 
-    if maxi < 1400 or maxi > 19000:
+    if maxi < 1400 or maxi > 12000:
         delete = True
-        
+
     return delete
 
 
