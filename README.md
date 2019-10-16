@@ -17,11 +17,9 @@
 
  - travail des images data 
  
-           ^^ enlevé le truk de l'angle partie 2 et le faire avec cnter et ok
+           faire la sauvegarde et si ca marche pas recommencer
            
-           ps couteau est  faut utiliser save
- 
-           , voir si un deuxieme truk le regle 
+           faire le crop
               
            supprimer les images ou les objets sont pas décollés + les images dégommés par le contour
            
