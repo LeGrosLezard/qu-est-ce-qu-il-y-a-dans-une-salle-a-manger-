@@ -29,7 +29,19 @@
    
  - on remplis le csv avec le nouveau label
   
-       réfléchir au truk csv
+       rpour chaque catégorie faire un csv a par
+       
+       remplir par size de crop ou forme
+       
+       faire un premier matching
+       
+       si plusieurs fois le meme truk et scrap ex: plusieurs fois manche, plusieurs fois detection
+       
+       récupérer la ligne du csv
+       
+       le mettre dans le ok
+       
+       
   
        récupérer les parties de l'objet via les crop 
         
