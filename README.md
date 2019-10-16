@@ -21,7 +21,7 @@
            
            ps couteau est  faut utiliser save
  
-           certains objets bug position, voir si un deuxieme truk le regle 
+           , voir si un deuxieme truk le regle 
               
            supprimer les images ou les objets sont pas décollés + les images dégommés par le contour
            
