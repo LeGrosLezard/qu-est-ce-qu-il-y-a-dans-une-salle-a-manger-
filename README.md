@@ -40,12 +40,11 @@
        récupérer la ligne du csv
        
        le mettre dans le ok
+ 
        
-       
-  
-       récupérer les parties de l'objet via les crop 
-        
-        
+       pour vérigier refaire un position avec le nouveau csv (manche/cuve)
+ 
+    
  - entrainement model
  
          si ca marche pas télécharger 400 données
