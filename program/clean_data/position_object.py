@@ -243,27 +243,50 @@ def top_bot_third(angle, copy, X_min, Xy_min, X_max, Xy_max,
 
     if abs(angle) < 35 or abs(angle) > 45:
 
+
+        last = 0 
         c = 0
         go = True
+        cnter = 0
+        ok = 0
         while go:
 
-            try:
-                x1, y1 = run_a_picture(rotated, (0, 255, 0), "points")
-                x2, y2 = run_a_picture(rotated, (255, 255, 0), "points")
-            except TypeError:
-                return img_final
+            print(angle)
+            x1, y1 = run_a_picture(rotated, (0, 255, 0), "points")
+            x2, y2 = run_a_picture(rotated, (255, 255, 0), "points")
+            show_picture("rotated", rotated, 0, "y")
+
+            if abs(y1 - y2) > last:
+                if ok == 0:
+                    angle = 46
+                    ok +=1
+                else:
+                    angle = 0
+            if abs(y1 - y2) == last:
+                cnter += 1
+            else:
+                cnter = 0
+ 
+            if cnter == 3:
+                go = False
 
             if abs(angle) < 35:
+                print("oui")
                 rotated = rotation(rotated, -c)
                 img_final = rotation(img_final, -c)
+                print(abs(y1 - y2))
                 if abs(y1 - y2) < 10:
                     go = False
 
             elif abs(angle) > 45:
                 rotated = rotation(rotated, c)
                 img_final = rotation(img_final, c)
+                print(abs(y1 - y2))
                 if abs(y1 - y2) < 30:
                     go = False
+    
+
+            last = abs(y1 - y2)
 
             c+=1
 
@@ -289,31 +312,57 @@ def bot_top(copy, X_min, Xy_min, X_max, Xy_max,
 
     rotated = rotation(copy, angle)
     img_final = rotation(img_final, angle)
-
+    print(angle)
     c = 0
     go = True
+
+    last = 0
+    cnter = 0
+    ok = 0
     while go:
 
-        try:
-            x1, y1 = run_a_picture(rotated, (0, 255, 0), "points")
-            x2, y2 = run_a_picture(rotated, (255, 255, 0), "points")
-        except TypeError:
-            return img_final
+
+        x1, y1 = run_a_picture(rotated, (0, 255, 0), "points")
+        x2, y2 = run_a_picture(rotated, (255, 255, 0), "points")
+        show_picture("rotated", rotated, 0, "y")
+
+        if abs(y1 - y2) > last:
+
+            if ok == 0:
+                angle = -39
+                ok +=1
+            else:
+                angle = -100
+
+            
+        if abs(y1 - y2) == last:
+            cnter += 1
+        else:
+            cnter = 0
+
+        if cnter == 3:
+            go = False
+
+
+        print(abs(y1 - y2))
+
 
         #print("current data")
         #print(x1, y1)
         #print(x2, y2)
 
-        if angle > - 45:
+        if angle > - 40:
             rotated = rotation(rotated, c)
             img_final = rotation(img_final, c)
         else:
            rotated = rotation(rotated, -c)
            img_final = rotation(img_final, -c)
 
+        last = abs(y1 - y2)
+
         c+=1
 
-        if abs(y1 - y2) < 10:
+        if abs(y1 - y2) <= 15:
             go = False
 
     #show_picture("rotated", rotated, 0, "y")
@@ -323,16 +372,19 @@ def bot_top(copy, X_min, Xy_min, X_max, Xy_max,
      
 def define_rotation(X_min, Xy_min, X_max, Xy_max,
                     copy, img, img_final, picture):
+    print(X_min, Xy_min, X_max, Xy_max)
 
     if abs(X_min - X_max) < 10 and abs(Xy_min - Xy_max) < 100:
+        print("ici")
         img_final = normal_angle(img)
 
     elif abs(X_min - X_max) < 15:
+        print("la")
         img_final = nine_degrees(copy, X_min, Xy_min, X_max, Xy_max,
                                  img, img_final)
 
     elif Xy_min + 50 < Xy_max and abs(Xy_min - Xy_max) > 50 and X_min > X_max:
-        
+        print("zad")
 
         if Xy_min > 0 and X_min > 0:
             angle = top_bot_first(X_min, Xy_min, X_max, Xy_max, img)
@@ -345,27 +397,40 @@ def define_rotation(X_min, Xy_min, X_max, Xy_max,
     
 
     elif abs(Xy_min - Xy_max) > 80 and X_min < X_max:
+        print(";p^^p")
         img_final = bot_top(copy, X_min, Xy_min, X_max, Xy_max,
                             img, img_final)
 
     else:
+        print("ùùùùùùùùùùùùù")
         img_final = normal_angle(img)
 
-
-    cv2.imwrite(picture, img_final)
+    show_picture("img_final", img_final, 0, "y")
+    #cv2.imwrite(picture, img_final)
 
 
 def take_features_position(picture):
 
-    try:
-        print(picture)
-        img, copy, img_final = early_picture(picture)
-        copy = first_contour(img, copy)
-        X_min, Xy_min, X_max, Xy_max = delimited_by_points(copy)
-        
-        define_rotation(X_min, Xy_min, X_max, Xy_max,
-                        copy, img, img_final, str(picture))
+    print(picture)
+    img, copy, img_final = early_picture(picture)
+    copy = first_contour(img, copy)
+    X_min, Xy_min, X_max, Xy_max = delimited_by_points(copy)
+    
+    define_rotation(X_min, Xy_min, X_max, Xy_max,
+                    copy, img, img_final, str(picture))
 
 
-    except:
-        pass
+
+
+
+
+
+
+
+
+
+
+
+
+
+
