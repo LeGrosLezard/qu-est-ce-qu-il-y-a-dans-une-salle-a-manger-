@@ -17,8 +17,9 @@
 
  - travail des images data 
      
-           effacer les objets qui sont pas sont dégommer ou pas ok
-           
+
+           ok ajusté le crop mais avant tetris en plus j'ai une nouvelle musique
+
            faire le crop (soit par forme soit par crop 25 / 50)
               
            supprimer les images ou les objets sont pas décollés + les images dégommés par le contour
