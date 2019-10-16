@@ -29,7 +29,8 @@
    
    
   en gros on découpe, on scrap, on apprend, on compare, on réapprend
-   
+  
+  et faire une image qui dit les parties avec une fleche et un rectangle comme yolo
    
  - on remplis le csv /  
   
