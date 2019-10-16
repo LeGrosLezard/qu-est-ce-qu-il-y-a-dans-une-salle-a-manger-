@@ -83,7 +83,7 @@ def search_objet(objects, objects_detected, OBJECT_SEARCHING):
             objects_to_search = transform_category_to_object(category_found, our_path)
 
     return objects_to_search 
-    
+
 
 
 from download_data.download_data import transform_i
@@ -99,6 +99,7 @@ def download_picture(objects_to_search):
 from clean_data.background import take_features_background
 from clean_data.multiple_object import take_features_multi_obj
 from clean_data.position_object import take_features_position
+from clean_data.deleting import main_deleting
 def cleanning_dataset(objects_to_search):
 
     #['Couteau', 'Cuillère', 'Fourchette']
@@ -129,8 +130,44 @@ def cleanning_dataset(objects_to_search):
             take_features_position(picture)
 
 
+
+    for objects in objects_to_search:
+        liste = os.listdir("dataset/clean/" + str(objects))
+
+        for image in liste:
+
+            picture = "dataset/clean/" + str(objects) + "/{}"
+
+            delete = main_deleting(picture.format(str(image)))
+            #show_picture("dza", img, 0, "")
+
+            if delete is True:
+                    os.remove(picture.format(str(image)))
+                    print("DELETED")
+
+
+
+
+from training.crop_object import main_croping
 def croping_data(objects_to_search):
-    pass    
+
+    objects_to_search = ['Cuillere', 'Couteau', 'Fourchette']
+    for objects in objects_to_search:
+        
+        liste = os.listdir("dataset/clean/" + str(objects))
+
+        for picture in liste:
+
+            picture = str("dataset/clean/") + str(objects) + "/" + str(picture)    
+            print(picture)
+            crop = main_croping(picture)
+
+            cv2.imwrite(picture, crop)
+
+
+
+
+
 
 
 
@@ -169,6 +206,11 @@ if __name__ == "__main__":
 
 ##    """clean_data.main"""
 
+    #cleanning_dataset(objects_to_search)
+
     objects_to_search = ['Cuillere', 'Couteau', 'Fourchette']
-    cleanning_dataset(objects_to_search)
+    croping_data(objects_to_search)
+
+
+
 
