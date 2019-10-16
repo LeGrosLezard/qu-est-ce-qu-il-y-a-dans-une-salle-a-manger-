@@ -19,6 +19,8 @@
  
            faire la sauvegarde et si ca marche pas recommencer
            
+           effacer les objets qui sont pas sont dégommer ou pas ok
+           
            faire le crop
               
            supprimer les images ou les objets sont pas décollés + les images dégommés par le contour
