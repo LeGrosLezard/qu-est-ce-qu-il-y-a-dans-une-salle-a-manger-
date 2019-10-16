@@ -17,6 +17,8 @@
 
  - travail des images data 
  
+           bon c bon mtn ca marche ^^ enlevé le truk de l'angle partie 2 et le faire avec cnter et ok
+ 
            certains objets bug position, voir si un deuxieme truk le regle 
               
            supprimer les images ou les objets sont pas décollés + les images dégommés par le contour
