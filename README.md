@@ -27,6 +27,10 @@
            
  <br> <br> <br> <br> <br> <br> <br>
    
+   
+  en gros on découpe, on scrap, on apprend, on compare, on réapprend
+   
+   
  - on remplis le csv /  
   
        
