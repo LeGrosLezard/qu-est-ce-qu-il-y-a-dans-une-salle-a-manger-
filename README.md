@@ -126,7 +126,7 @@
      
      ca sert a rien mais 
      
-essayé de faire un fleche detecteur en ne prenant que le bout de la fleche (via un centre du contour on fait un rectangle apres, avant le centre) et le transformer en triangle parfait (range range detecte les 3 pts faire la ligne voir l'air de se truk) 
+essayé de faire un fleche detecteur en ne prenant que le bout de la fleche (via un centre du contour on fait un rectangle apres, avant le centre afin de n'avoir que le triangle et caché la queue) et le transformer en triangle parfait (range range detecte les 3 pts faire la ligne voir l'air de se truk) 
 
         
         
