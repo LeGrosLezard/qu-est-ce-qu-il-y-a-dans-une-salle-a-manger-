@@ -27,18 +27,12 @@
            
            
    
- - on remplis le csv /  - entrainement model
+ - on remplis le csv /  
   
-       si ca marche pas télécharger 400 données
-  
+       
        rpour chaque catégorie faire un csv a par
        
-       remplir par size de crop ou forme
-       
-       faire un premier matching
-       
-       si plusieurs fois le meme truk et scrap ex: plusieurs fois manche, plusieurs fois detection
-       
+
        récupérer la ligne du csv
        
        le mettre dans le ok
@@ -46,22 +40,31 @@
        
        pour vérigier refaire un position avec le nouveau csv (manche/cuve)
  
-    
-
  
-
-
-- Scrap partie objet
+ - Scrap partie objet
 
            scrap des items (manche)
  
- - detection/comparaison
+  - detection/comparaison
  
-           ex : cuillere + fourchette + couteau a detection a stendroit
+              remplir par size de crop ou forme
  
-            on dit c le manche
             
-            on récupere les parties
+               faire un premier matching
+       
+               si plusieurs fois le meme truk et scrap ex: plusieurs fois manche, plusieurs fois detection
+
+ - entrainement model
+ 
+       si ca marche pas télécharger 400 données
+
+
+
+
+
+
+ 
+
 
 
 - réentrainement
