@@ -51,21 +51,66 @@ def main_couse(img):
     show_picture("dza", img, 0, "")
 
 
+    #size = [25, 50]
     size = [25, 50]
+    h, w, ch = img.shape
+    print(w, h)
+
 
     print("scanning...")
     save = 0
     for i in size:
+
+        print(i, "iciiiiiiiiiiiiii")
+        
+        bordL = w%i
+        print(bordL)
+        bordL = int(bordL / 2)
+        print(bordL)
+
+
+        bordl = h%i
+        print(bordl)
+        bordl = int(bordl / 2)
+        print(bordl)
+
+
+        copy = img.copy()
+        copy = cv2.copyMakeBorder(copy, bordL, bordL, bordl, bordl,
+                                 cv2.BORDER_CONSTANT, value=(255, 255, 255))
+
         for y in range(0, img.shape[0], i):
             for x in range(0, img.shape[1], i):
+
+                if y == img.shape[0] - i:
+                    b = y-i
+                    d = y
+                else:
+                    b = y
+                    d = y+i
+
+
+
+                if x == img.shape[1] - i:
+                    a = x-i
+                    c = x
+                else:
+                    a = x
+                    c = x+i
+ 
+
+                cv2.rectangle(copy, (a, b), (c, d), (0, 0, 255), 2)
+
+
+
+
+                #clone_draw = crop.copy()
+                #crop_clone = img[y:y+i * ok, x:x+i * ok1]
+
                 
-                clone_draw = img.copy()
-                #crop_clone = img[y:y+i, x:x+i]
 
-                cv2.rectangle(clone_draw, (x, y), (x+i, y+i), (0, 0, 255), 2)
-
-                show_picture("clone", clone_draw, 1, "")
-                #show_picture("crop", crop_clone, 0, "")
+                #show_picture("clone", clone_draw, 1, "")
+                show_picture("crop", copy, 0, "")
 
 
 
@@ -76,8 +121,15 @@ def main_couse(img):
 
 
 
+objects_to_search = ['Cuillere', 'Couteau', 'Fourchette']
+for objects in objects_to_search:
+    
+    liste = os.listdir("../dataset/clean/" + str(objects))
 
-
+    for picture in liste:
+        picture = str("../dataset/clean/") + str(objects) + "/" + str(picture)    
+        print(picture)
+        main_couse(picture)
 
 
 
