@@ -14,7 +14,7 @@
      
               chercher les dimensions de l'objet et les redimensionner
               
-              limiter les dimensions ex: fourchette = ca, verre = ca, assiette = ca, bol = assiette
+              limiter les dimensions ex: fourchette = ca, verre = ca, assiette = ca, bol = assiette tournevis = fourchette= marteau
               
               et pour la recherche... ben on peut pas resize et faire la recherche a chaque fois
               
