@@ -169,6 +169,9 @@ def croping_data(objects_to_search):
 from training.course_object import main_couse
 from training.to_csv import verify_name_csv
 from training.to_csv import csv_write
+from training.to_model import csv_to_data
+from training.to_model import training
+from training.to_model import verify_name
 def trainning(objects_to_search):
 
 
@@ -200,7 +203,22 @@ def trainning(objects_to_search):
                 if key == objects:
                     label = value
             main_couse(picture, csv_name, str(label))
-            
+
+
+    csv_name = "_in_training.csv"
+    name = verify_name()
+    data, label = csv_to_data(csv_name)
+    training(data, label, name)
+
+
+from searching_data.caracteristics import properies_object
+from searching_data.caracteristics import treat_element
+def detection_trainning(objects_to_search):
+
+
+    element = properies_object(objects_to_search)
+    carac = treat_element(element) 
+    print(carac)
 
 
 
@@ -243,6 +261,6 @@ if __name__ == "__main__":
     objects_to_search = ['Cuillere', 'Couteau', 'Fourchette']
     #croping_data(objects_to_search)
 
-    trainning(objects_to_search)
+    #trainning(objects_to_search)
 
-
+    detection_trainning(objects_to_search)
