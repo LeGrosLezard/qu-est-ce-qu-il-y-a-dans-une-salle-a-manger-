@@ -2,7 +2,7 @@
 
 #download from penseeartificielle/google-image-scrapping
 
-
+s'en tenir a ca et ensuite si ca marche pas ben comme dab^^
 
 50/50 assiette par 25 / couvert 50/150 par 25 et 50
  
@@ -10,7 +10,7 @@
  
 
  
-1 -  1 csv  OBJET  par CROP ??
+1 -  peut etre 1 csv  OBJET  par CROP ??
 
 3 -  comparaison dans la dataset clean
 
