@@ -13,7 +13,7 @@
 
 2 - scrap (si plusieurs fois manche)
   
-3 - dataset clean -> comparaison
+3 -  comparaison dans la dataset clean
 
 4 - plusieurs fois la meme detection
 
@@ -23,7 +23,8 @@
 
 7 - le reste ou tout l'objet dans le csv assiette
 
- 
+8 - detection de l'assiette + couvert stp
+
  <br> <br> <br> <br> <br> <br> <br> <br>
 
  
