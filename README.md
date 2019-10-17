@@ -5,7 +5,8 @@
 
 
 50/50 assiette par 25 / couvert 50/150 par 25 et 50
-     
+ 
+<br><br><br><br>
  
 0 -  hog
  
@@ -43,17 +44,10 @@
               sinon la forme, si manche alors 50/150 si rond = 50/50 chai pas
 
 
-- réentrainement
+- ajouté des carré a la scene assiete + couvert
 
-            on rajoute une ligne au csv
-            
-            on efface model
-            
-            on recré model
-            
-           
-
-
+- la redimensionner ?
+  
 
 - programme
 
