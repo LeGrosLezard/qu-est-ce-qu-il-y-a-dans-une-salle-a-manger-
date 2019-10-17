@@ -8,13 +8,19 @@
  
 <br><br><br><br>
  
-0 -  hog
+0 -  hog/entrainement
+
+    0 - 1 si crop que noir effacer
+ 
  
 1 -  1 csv par OBJET et par TAILLE (au cas ou)
 
 2 - scrap (si plusieurs fois manche)
   
 3 -  comparaison dans la dataset clean
+
+    3 - 1 Si detection cuillere dans fourchette éffacer
+
 
 4 - plusieurs fois la meme detection
 
@@ -25,6 +31,12 @@
 7 - le reste ou tout l'objet dans le csv assiette
 
 8 - detection de l'assiette + couvert stp
+
+    8-1 si manche + assiette -> assiette/cuillere ou vis versa recherche geometrie manche + assiette/cuillere -> cuillere / assiete/cuillere -> assiette merde mais c bon sinon jcrois
+
+
+
+
 
  <br> <br> <br> <br> <br> <br> <br> <br>
 
