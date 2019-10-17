@@ -12,6 +12,16 @@
  
   - Scrap
      
+              chercher les dimensions de l'objet et les redimensionner
+              
+              limiter les dimensions ex: fourchette = ca, verre = ca, assiette = ca, bol = assiette
+              
+              et pour la recherche... ben on peut pas resize et faire la recherche a chaque fois
+              
+              peut etre faire une recherche a droite les couvert au milieu l'assiette
+              
+
+     
   - scrap v2
    
 
