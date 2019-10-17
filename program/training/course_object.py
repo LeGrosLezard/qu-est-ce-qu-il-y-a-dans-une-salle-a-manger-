@@ -51,38 +51,29 @@ def main_couse(img):
     show_picture("dza", img, 0, "")
 
 
-    #size = [25, 50]
-    size = [25, 50]
+    size = [25]
+
     h, w, ch = img.shape
-    print(w, h)
 
-
+    
+    
+    
     print("scanning...")
     save = 0
     for i in size:
 
-        print(i, "iciiiiiiiiiiiiii")
+
+        img = cv2.resize(img, (50, 200))
         
-        bordL = w%i
-        print(bordL)
-        bordL = int(bordL / 2)
-        print(bordL)
 
-
-        bordl = h%i
-        print(bordl)
-        bordl = int(bordl / 2)
-        print(bordl)
-
-
+        
         copy = img.copy()
-        copy = cv2.copyMakeBorder(copy, bordL, bordL, bordl, bordl,
-                                 cv2.BORDER_CONSTANT, value=(255, 255, 255))
+        #copy = cv2.resize()
 
         for y in range(0, img.shape[0], i):
             for x in range(0, img.shape[1], i):
 
-                if y == img.shape[0] - i:
+                if y > img.shape[0] - i:
                     b = y-i
                     d = y
                 else:
@@ -91,7 +82,7 @@ def main_couse(img):
 
 
 
-                if x == img.shape[1] - i:
+                if x > img.shape[1] - i:
                     a = x-i
                     c = x
                 else:
@@ -126,7 +117,7 @@ for objects in objects_to_search:
     
     liste = os.listdir("../dataset/clean/" + str(objects))
 
-    for picture in liste:
+    for picture in liste[1:]:
         picture = str("../dataset/clean/") + str(objects) + "/" + str(picture)    
         print(picture)
         main_couse(picture)
