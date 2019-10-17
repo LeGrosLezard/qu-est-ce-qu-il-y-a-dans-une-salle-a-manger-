@@ -166,9 +166,41 @@ def croping_data(objects_to_search):
 
 
 
+from training.course_object import main_couse
+from training.to_csv import verify_name_csv
+from training.to_csv import csv_write
+def trainning(objects_to_search):
 
 
+    csv_name = verify_name_csv()
+    csv_write(csv_name, 10000)
+    print(csv_name)
 
+
+    dico_label = {}
+    for nb, objects in enumerate(objects_to_search):
+        dico_label[objects] = nb
+
+
+    print(dico_label)
+
+    for objects in objects_to_search:
+        
+        liste = os.listdir("dataset/clean/" + str(objects))
+        path_crop = "dataset/clean/" + str(objects) + "crop"
+
+ 
+        for picture in liste:
+
+            picture = str("dataset/clean/") + str(objects) + "/" + str(picture)    
+
+            print(picture)
+
+            for key, value in dico_label.items():
+                if key == objects:
+                    label = value
+            main_couse(picture, csv_name, str(label))
+            
 
 
 
@@ -209,8 +241,8 @@ if __name__ == "__main__":
     #cleanning_dataset(objects_to_search)
 
     objects_to_search = ['Cuillere', 'Couteau', 'Fourchette']
-    croping_data(objects_to_search)
+    #croping_data(objects_to_search)
 
-
+    trainning(objects_to_search)
 
 
