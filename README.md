@@ -80,6 +80,8 @@
         
         - lui montrer un trk ac un manche + un objet connu et qu'il le trouve le trouve
         
+        - lui trouver un nom qui pete
+        
         - tant que c pas comme jlimagine
         
         
