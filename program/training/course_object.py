@@ -81,35 +81,23 @@ def main_couse(img, csv_name, label):
 
             crop_clone = img[y:y+size, x:x+size]
             H, hogImage = HOG_detection(crop_clone)
+            #show_picture("dzad", hogImage, 0, "")
+                
+            c = 0
+            for i in range(hogImage.shape[0]):
+                for j in range(hogImage.shape[1]):
+                    if hogImage[i, j] == 0:
+                        c+=1
 
-            write_data_into_csv(csv_name, label, H)
-
-            #show_picture("hogImage", hogImage, 0, "")
-
-
-
-
-
-
-
-
-
-
-##                clone_draw = img.copy()
-##                cv2.rectangle(clone_draw, (x, y), (x+i, y+i), (0, 0, 255), 2)
-##                show_picture("clone", clone_draw, 0, "")
-
-
-            
+            if hogImage.shape[0] * hogImage.shape[1] == c:
+                pass
+            else:
+                write_data_into_csv(csv_name, label, H)
 
 
 
 
-
-
-
-
-
+##
 ##objects_to_search = ["Fourchette", 'Cuillere', 'Couteau', 'Fourchette']
 ##for objects in objects_to_search:
 ##    
@@ -118,26 +106,7 @@ def main_couse(img, csv_name, label):
 ##    for picture in liste[1:]:
 ##        picture = str("../dataset/clean/") + str(objects) + "/" + str(picture)    
 ##        print(picture)
-##        main_couse(picture, "_in_training.csv")
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+##        main_couse(picture, "_in_training.csv", 0)
 
 
 
