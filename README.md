@@ -9,7 +9,7 @@
  
 0 -  hog
  
-1 -  1 csv par OBJET et par TAILLE
+1 -  1 csv par OBJET et par TAILLE (au cas ou)
 
 2 - scrap (si plusieurs fois manche)
   
