@@ -20,6 +20,8 @@
               
               peut etre faire une recherche a droite les couvert au milieu l'assiette
               
+              sinon la forme, si manche alors 50/150 si rond = 50/50 chai pas
+              
 
      
   - scrap v2
