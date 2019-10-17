@@ -25,24 +25,12 @@ def bs4_function(path, label, element_search):
     """Request, content, bs4, element"""
 
     request = requests.get(path.format(label))
-    print(path.format(label))
+    #print(path.format(label))
     page = request.content
     soup_html = BeautifulSoup(page, "html.parser")
     content_html = soup_html.find_all(element_search)
 
     return content_html
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -52,24 +40,79 @@ def properies_object(objects_to_search):
 
     dico_path = our_dico_path_url()
     dico_path["wikipedia"]
-    
+
+
+    element = []
+
     for i in objects_to_search:
+        
         content = bs4_function(dico_path["wikipedia"], i, ("tr"))
 
         c = 0
         for cnt in content:
             if c == 1:
                 if str(cnt.get_text())[:10] == "Composé de":
-                    print(str(cnt.get_text())[10:])
+                    #print(str(cnt.get_text())[10:])
+                    element.append([str(cnt.get_text())[10:] + ",", i])
             c+=1
 
-        print("")
+    return element
 
 
 
 
-objects_to_search = ["Fruits", "légumes", "lin", 'poissons gras', "Céréales de son d'avoine", 'Jus de fruits enrichi de calcium', 'assiettes', 'Baguettes', 'Couteau', 'Cuillère', 'Cure-dent', 'Fourchette', 'Paille', 'Pincettes', 'verres', 'bols', 'tasses']
-#objects_to_search = ["couteau", "cuillere"]
+def treat_element(element):
 
-properies_object(objects_to_search)
-    
+
+    dico = {}
+
+    for i in element:
+        dico[i[1]] = []
+
+    print(dico)
+
+
+    increment = ""
+    for i in element:
+        for j in i[0]:
+
+            if j in (" ", ","):
+
+                parenthese = str(increment).find(str("("))
+                if parenthese >= 0:
+                    increment = ""
+
+                else:
+                    for letter in increment:
+                        if letter == "\n":
+                            increment = increment.replace("\n", "")
+        
+                    for key, value in dico.items():
+                        if key == i[1] and increment != "":
+                            dico[str(key)].append(increment)
+
+                increment = ""
+
+
+            else:
+                increment += j
+            
+
+    return dico
+
+
+
+objects_to_search = ['Couteau', 'Cuillère', 'Fourchette']
+element = properies_object(objects_to_search)
+carac = treat_element(element) 
+
+
+
+
+
+
+
+
+
+
+
