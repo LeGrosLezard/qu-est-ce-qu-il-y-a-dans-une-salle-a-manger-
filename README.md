@@ -21,7 +21,7 @@
 
 6 - on en fait un nouveau avec le label
 
-7 - le reste/tout l'objet dans le csv assiette
+7 - le reste ou tout l'objet dans le csv assiette
 
  
  <br> <br> <br> <br> <br> <br> <br> <br>
