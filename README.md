@@ -9,7 +9,7 @@ s'en tenir a ca et ensuite si ca marche pas ben comme dab^^
 <br><br><br><br>
  
 
-
+ouais fin la chui ok mais taleur qui sait qui a fait les 100 pas ? ptin jsp que ca marche ptin de merde
 
 
 mais chai pas si j'ai le droit de détecter mon manche sans svm de dire si y'aun changement tu prends ca et ca sinon ca detecte bon ok ca detecte sur une image / une image
