@@ -29,7 +29,7 @@ s'en tenir a ca et ensuite si ca marche pas ben comme dab^^
     8-1 si manche + assiette -> assiette/cuillere ou vis versa recherche geometrie manche + assiette/cuillere -> cuillere / assiete/cuillere -> assiette merde mais c bon sinon jcrois
 
 
-
+9 - essayer tout d'un coup
 
 
  <br> <br> <br> <br> <br> <br> <br> <br>
