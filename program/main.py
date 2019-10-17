@@ -175,9 +175,7 @@ from training.to_model import verify_name
 def trainning(objects_to_search):
 
 
-    csv_name = verify_name_csv()
-    csv_write(csv_name, 10000)
-    print(csv_name)
+
 
 
     dico_label = {}
@@ -188,7 +186,13 @@ def trainning(objects_to_search):
     print(dico_label)
 
     for objects in objects_to_search:
-        
+
+
+        csv_name = verify_name_csv()
+        csv_write(csv_name, 10000)
+        print(csv_name)
+
+
         liste = os.listdir("dataset/clean/" + str(objects))
         path_crop = "dataset/clean/" + str(objects) + "crop"
 
@@ -199,16 +203,23 @@ def trainning(objects_to_search):
 
             print(picture)
 
-            for key, value in dico_label.items():
-                if key == objects:
-                    label = value
-            main_couse(picture, csv_name, str(label))
+            main_couse(picture, csv_name, str(1))
 
 
-    csv_name = "_in_training.csv"
-    name = verify_name()
-    data, label = csv_to_data(csv_name)
-    training(data, label, name)
+        liste_n = os.listdir("../dataset1/image/assiette")
+        for picture_n in liste_n:
+
+            picture_n = str("../dataset1/image/assiette/") + str(picture_n)    
+
+            print(picture_n)
+
+            main_couse(picture_n, csv_name, str(0))
+
+
+
+        name = verify_name()
+        data, label = csv_to_data(csv_name)
+        training(data, label, name)
 
 
 from searching_data.caracteristics import properies_object
@@ -219,6 +230,20 @@ def detection_trainning(objects_to_search):
     element = properies_object(objects_to_search)
     carac = treat_element(element) 
     print(carac)
+
+
+    
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -261,6 +286,6 @@ if __name__ == "__main__":
     objects_to_search = ['Cuillere', 'Couteau', 'Fourchette']
     #croping_data(objects_to_search)
 
-    #trainning(objects_to_search)
+    trainning(objects_to_search)
 
-    detection_trainning(objects_to_search)
+    #detection_trainning(objects_to_search)
