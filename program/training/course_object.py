@@ -11,7 +11,6 @@ import joblib
 import imutils
 
 
-
 def open_picture(image):
     """We open picture"""
 
@@ -57,51 +56,69 @@ def HOG_detection(gray):
     return H, hogImage
 
 
-def main_couse(img):
 
 
+
+
+
+from training.to_csv import write_data_into_csv
+def main_couse(img, csv_name, label):
+
+    print(label)
 
     img = open_picture(img)
     img = cv2.resize(img, (50, 200))
 
-    size = [50]
+    size = 50
     
     print("scanning...")
-    save = 0
-    for i in size:
 
-        copy = img.copy()
+    copy = img.copy()
 
-        for y in range(0, img.shape[0], i):
-            for x in range(0, img.shape[1], i):
-
-                clone_draw = img.copy()
-
-                cv2.rectangle(clone_draw, (x, y), (x+i, y+i), (0, 0, 255), 2)
+    for y in range(0, img.shape[0], size):
+        for x in range(0, img.shape[1], size):
 
 
-                crop_clone = img[y:y+i, x:x+i]
-                H, hogImage = HOG_detection(crop_clone)
+            crop_clone = img[y:y+size, x:x+size]
+            H, hogImage = HOG_detection(crop_clone)
 
-                show_picture("clone", clone_draw, 0, "")
-                show_picture("hogImage", hogImage, 0, "")
+            write_data_into_csv(csv_name, label, H)
 
-                save += 1
+            #show_picture("hogImage", hogImage, 0, "")
 
 
 
 
 
 
-objects_to_search = ["Fourchette", 'Cuillere', 'Couteau', 'Fourchette']
-for objects in objects_to_search:
-    
-    liste = os.listdir("../dataset/clean/" + str(objects))
 
-    for picture in liste[1:]:
-        picture = str("../dataset/clean/") + str(objects) + "/" + str(picture)    
-        print(picture)
-        main_couse(picture)
+
+
+
+##                clone_draw = img.copy()
+##                cv2.rectangle(clone_draw, (x, y), (x+i, y+i), (0, 0, 255), 2)
+##                show_picture("clone", clone_draw, 0, "")
+
+
+            
+
+
+
+
+
+
+
+
+
+##objects_to_search = ["Fourchette", 'Cuillere', 'Couteau', 'Fourchette']
+##for objects in objects_to_search:
+##    
+##    liste = os.listdir("../dataset/clean/" + str(objects))
+##
+##    for picture in liste[1:]:
+##        picture = str("../dataset/clean/") + str(objects) + "/" + str(picture)    
+##        print(picture)
+##        main_couse(picture, "_in_training.csv")
 
 
 
