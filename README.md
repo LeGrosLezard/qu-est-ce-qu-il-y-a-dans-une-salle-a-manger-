@@ -9,14 +9,13 @@ s'en tenir a ca et ensuite si ca marche pas ben comme dab^^
 <br><br><br><br>
  
 
- 
-1 -  peut etre <strong>1 csv OBJET</strong>  par CROP ??
 
-3 -  comparaison dans la dataset clean
 
-    3 - 1 Si detection cuillere dans fourchette éffacer
 
-4 - plusieurs fois la meme detection
+mais chai pas si j'ai le droit de détecter mon manche sans svm de dire si y'aun changement tu prends ca et ca sinon ca detecte bon ok ca detecte sur une image / une image
+
+et de mettre le manche a apprendre
+
 
 5 - on supprime le csv 
 
