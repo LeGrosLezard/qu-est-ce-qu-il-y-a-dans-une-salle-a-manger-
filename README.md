@@ -4,13 +4,32 @@
 
 
 
+50/50 assiette par 25 / couvert 50/150 par 25 et 50
+     
+ 
+ hog
+ 
+1 -  1 csv par OBJET et par TAILLE
 
+2 - scrap (si plusieurs fois manche)
+  
+3 - dataset clean -> comparaison
 
+4 - plusieurs fois la meme detection
 
-       
- -   détecter une assiette
+5 - on supprime le csv 
+
+6 - on en fait un nouveau avec le label
+
+7 - le reste/tout l'objet dans le csv assiette
+
+ 
+ <br> <br> <br> <br> <br> <br> <br> <br>
+
+ 
  
   - Scrap
+              
      
               chercher les dimensions de l'objet et les redimensionner
               
@@ -21,58 +40,6 @@
               peut etre faire une recherche a droite les couvert au milieu l'assiette
               
               sinon la forme, si manche alors 50/150 si rond = 50/50 chai pas
-              
-
-     
-  - scrap v2
-   
-
- - travail des images data 
-     
-   
-
-  en gros on découpe, on scrap, on apprend, on compare, on réapprend
-  
-  et faire une image qui dit les parties avec une fleche et un rectangle comme yolo
-   
- - on remplis le csv /  
-  
-       
-       rpour chaque catégorie faire un csv a par
-       
-
-       récupérer la ligne du csv
-       
-       le mettre dans le ok
- 
-       
-       pour vérigier refaire un position avec le nouveau csv (manche/cuve)
- 
- 
- - Scrap partie objet
-
-           scrap des items (manche)
- 
-  - detection/comparaison
- 
-              remplir par size de crop ou forme
- 
-            
-               faire un premier matching
-       
-               si plusieurs fois le meme truk et scrap ex: plusieurs fois manche, plusieurs fois detection
-
- - entrainement model
- 
-       si ca marche pas télécharger 400 données
-
-
-
- <br> <br> <br> <br> <br> <br> <br> <br> <br> <br>
-
-
- 
-
 
 
 - réentrainement
