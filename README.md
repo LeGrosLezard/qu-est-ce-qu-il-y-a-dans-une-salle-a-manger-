@@ -12,8 +12,6 @@
  
 1 -  1 csv  OBJET  par CROP ??
 
-2 - scrap (si plusieurs fois manche)
-  
 3 -  comparaison dans la dataset clean
 
     3 - 1 Si detection cuillere dans fourchette éffacer
