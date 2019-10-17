@@ -29,17 +29,8 @@
 
  - travail des images data 
      
-           
-           
-           
-           
-           faire le crop (soit par forme soit par crop 25 / 50)  
-           
-           faire le truk des crop et save (croping) -> se calquer sur assiette
-           
- <br> <br> <br> <br> <br> <br> <br>
    
-   
+
   en gros on découpe, on scrap, on apprend, on compare, on réapprend
   
   et faire une image qui dit les parties avec une fleche et un rectangle comme yolo
