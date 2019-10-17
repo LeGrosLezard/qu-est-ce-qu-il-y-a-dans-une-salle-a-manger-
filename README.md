@@ -10,7 +10,7 @@ s'en tenir a ca et ensuite si ca marche pas ben comme dab^^
  
 
  
-1 -  peut etre 1 csv  OBJET  par CROP ??
+1 -  peut etre <strong>1 csv OBJET</strong>  par CROP ??
 
 3 -  comparaison dans la dataset clean
 
