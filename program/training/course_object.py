@@ -40,7 +40,21 @@ def blanck_picture(img):
     return blank_image
 
 
+def HOG_detection(gray):
 
+    """We detect contour orientation gradient
+    from color"""
+
+    (H, hogImage) = feature.hog(gray, orientations=9,
+                                pixels_per_cell=(10, 10),
+                                cells_per_block=(2, 2),
+                                transform_sqrt=True,
+                                block_norm="L1", visualize=True)
+
+    hogImage = exposure.rescale_intensity(hogImage, out_range=(0, 255))
+    hogImage = hogImage.astype("uint8")
+
+    return H, hogImage
 
 
 def main_couse(img):
@@ -48,62 +62,29 @@ def main_couse(img):
 
 
     img = open_picture(img)
-    show_picture("dza", img, 0, "")
+    img = cv2.resize(img, (50, 200))
 
-
-    size = [25]
-
-    h, w, ch = img.shape
-
-    
-    
+    size = [50]
     
     print("scanning...")
     save = 0
     for i in size:
 
-
-        img = cv2.resize(img, (50, 200))
-        
-
-        
         copy = img.copy()
-        #copy = cv2.resize()
 
         for y in range(0, img.shape[0], i):
             for x in range(0, img.shape[1], i):
 
-                if y > img.shape[0] - i:
-                    b = y-i
-                    d = y
-                else:
-                    b = y
-                    d = y+i
+                clone_draw = img.copy()
+
+                cv2.rectangle(clone_draw, (x, y), (x+i, y+i), (0, 0, 255), 2)
 
 
+                crop_clone = img[y:y+i, x:x+i]
+                H, hogImage = HOG_detection(crop_clone)
 
-                if x > img.shape[1] - i:
-                    a = x-i
-                    c = x
-                else:
-                    a = x
-                    c = x+i
- 
-
-                cv2.rectangle(copy, (a, b), (c, d), (0, 0, 255), 2)
-
-
-
-
-                #clone_draw = crop.copy()
-                #crop_clone = img[y:y+i * ok, x:x+i * ok1]
-
-                
-
-                #show_picture("clone", clone_draw, 1, "")
-                show_picture("crop", copy, 0, "")
-
-
+                show_picture("clone", clone_draw, 0, "")
+                show_picture("hogImage", hogImage, 0, "")
 
                 save += 1
 
@@ -112,7 +93,7 @@ def main_couse(img):
 
 
 
-objects_to_search = ['Cuillere', 'Couteau', 'Fourchette']
+objects_to_search = ["Fourchette", 'Cuillere', 'Couteau', 'Fourchette']
 for objects in objects_to_search:
     
     liste = os.listdir("../dataset/clean/" + str(objects))
