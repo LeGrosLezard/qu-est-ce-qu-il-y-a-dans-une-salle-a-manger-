@@ -8,9 +8,9 @@ si ca marche pas faire que manche/haut et ensutie dire si manche ou haut
  
 <br><br><br><br>
  
-- faut refaire comparaison
+- faire le reste mais avant série c le dawa par contre
 
-- sinon detection que manche que haut
+- ouasi ouais ouais
 
 
 
