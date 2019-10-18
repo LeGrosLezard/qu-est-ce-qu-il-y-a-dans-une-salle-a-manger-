@@ -22,7 +22,7 @@ remet toutes les images droite
 
 on cherche les composants de l'objet par scrap
 
-on récupére les composant de l'image
+on récupére les composant dans l'image
 
 entrainement mais faut apprendre pluss de technique et c'est un peu chiant la
 
