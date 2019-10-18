@@ -2,7 +2,7 @@
 
 #download from penseeartificielle/google-image-scrapping
 
-
+essayer sans le manche essayer de supprimer les images qui correspondent pas puis se la péter sur le compte pro
 
 en gros:
 
