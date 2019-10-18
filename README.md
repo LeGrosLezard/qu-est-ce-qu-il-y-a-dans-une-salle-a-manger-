@@ -9,12 +9,17 @@ s'en tenir a ca et ensuite si ca marche pas ben comme dab^^
 <br><br><br><br>
  
 
+il faut detecter le manche le reste c'est bon
+
+il faut au moins deux detections du manche
+
+legume/fouchette/cuillere = 2 manches
+
+du coup normalement y'a au moins deux detections de manche
+
+mais c'est parce que j'avais pas crop les images en partie
 
 
-
-mais chai pas si j'ai le droit de détecter mon manche sans svm de dire si y'aun changement tu prends ca et ca sinon ca detecte bon ok ca detecte sur une image / une image
-
-et de mettre le manche a apprendre
 
 
 5 - on supprime le csv 
