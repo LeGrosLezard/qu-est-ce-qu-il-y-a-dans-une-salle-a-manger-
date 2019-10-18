@@ -18,9 +18,11 @@ enleve les multiple objet
 
 remet toutes les images droite
 
-on cherche les composants de l'objet
+on cherche les composants de l'objet par scrap
 
-et detection mais faut apprendre pluss de technique et c'est un peu chiant la
+on récupére les composant de l'image
+
+entrainement mais faut apprendre pluss de technique et c'est un peu chiant la
 
 
      
