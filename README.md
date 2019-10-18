@@ -6,6 +6,8 @@
 
 en gros:
 
+téléchargement manuel assiette
+
 detection assiette
 
 scrappage de la categorie assiette
