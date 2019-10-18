@@ -2,7 +2,7 @@
 
 #download from penseeartificielle/google-image-scrapping
 
-s'en tenir a ca et ensuite si ca marche pas ben comme dab^^
+si ca marche pas faire que manche/haut et ensutie dire si manche ou haut
 
 50/50 assiette par 25 / couvert 50/150 par 25 et 50
  
