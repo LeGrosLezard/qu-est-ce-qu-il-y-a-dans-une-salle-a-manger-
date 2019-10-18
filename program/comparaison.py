@@ -165,6 +165,7 @@ def full_white(img):
         return True
     
 
+
 def HOG_detection(gray):
 
     """We detect contour orientation gradient
@@ -182,6 +183,8 @@ def HOG_detection(gray):
     return H, hogImage
 
 
+
+
 def final_part(blanck):
 
     gray = cv2.cvtColor(blanck, cv2.COLOR_BGR2GRAY)
@@ -197,6 +200,9 @@ def final_part(blanck):
     for cnt in contours:
         if cv2.contourArea(cnt) != maxi:
             cv2.fillPoly(blanck, pts =[cnt], color=(0,0,0))
+
+
+
 
     return blanck
 
@@ -219,13 +225,6 @@ def no_black_part(blanck):
 
 def main_comparaison(img, csv_name, t):
 
-    try:
-
-        model_name = "models/_in_training"
-        model = joblib.load(model_name)
-    except:
-        pass
-
     img = open_picture(img)
     img = cv2.resize(img, (50, 200))
 
@@ -233,9 +232,6 @@ def main_comparaison(img, csv_name, t):
 
     copy = img.copy()
 
-    print("debut")
-
-    
 
     blanck = blanck_picture(img)
     blanck = make_contours(img, blanck)
@@ -246,77 +242,39 @@ def main_comparaison(img, csv_name, t):
         points = object_contours_size(blanck)
 
         img = take_max_size(points, img)
+        #show_picture("img", img, 0, "y")
 
         blanck1, blanck2 = draw_part_picture(img, copy)
 
         blanck1 = final_part(blanck1)
         blanck2 = final_part(blanck2)
 
+
+        
         try:
             blanck1 = no_black_part(blanck1)
             blanck2 = no_black_part(blanck2)
 
 
-            blanck1 = cv2.resize(blanck1, (50, 50))
-            blanck2 = cv2.resize(blanck2, (50, 50))
+            blanck1 = cv2.resize(blanck1, (50, 100))
+            blanck2 = cv2.resize(blanck2, (50, 100))
 
 
             blanck1 = cv2.cvtColor(blanck1, cv2.COLOR_BGR2GRAY)
             H1, hogImage1 = HOG_detection(blanck1)
             #show_picture("hogImage1", hogImage1, 0, "y")
 
-            print("hog")
+            write_data_into_csv(csv_name, str(1), H1)
 
-            try:
-                
-                print("prediction")
-                pred = model.predict(H1.reshape(1, -1))[0]
-                print("prediction", pred)
 
-                if pred == 1:
-                    print("writting")
-                    write_data_into_csv(csv_name, str(1), H1)
-            except:
-                pass
-            
-            if t == 0:
-                print("T0")
-                write_data_into_csv(csv_name, str(1), H1)
-
-            print("blacnk2")
             blanck2 = cv2.cvtColor(blanck2, cv2.COLOR_BGR2GRAY)
             H2, hogImage2 = HOG_detection(blanck2)
             #show_picture("hogImage2", hogImage2, 0, "y")
 
-            try:
-                pred = model.predict(H2.reshape(1, -1))[0]
-                print(pred)
+            write_data_into_csv(csv_name, str(2), H2)
 
-                if pred == 2:
-                    write_data_into_csv(csv_name, str(2), H2)
-
-            except:
-                pass
-
-            if t == 0:
-                write_data_into_csv(csv_name, str(2), H2)
-                print("T0")
-
-            try:
-                os.remove("models/_in_training")
-                print("model removed")
-            except:
-                pass
-
-            print("in training")
-            #name = verify_name()
-            data, label = csv_to_data(csv_name)
-            training(data, label, "_in_training")
-                
-        except ValueError:
+        except:
             pass
-
-
 
 
 
@@ -330,19 +288,18 @@ from training.course_object import main_couse
 from training.to_csv import write_data_into_csv
 
 
-##csv_name = verify_name_csv()
-##csv_write(csv_name, 2500)
-##print(csv_name)
-##
-##
-##
-##
-##liste_n = os.listdir("dataset/N")
-##for picture_n in liste_n:
-##
-##    picture_n = str("dataset/N/") + str(picture_n)    
-##    print(picture_n)
-##    main_couse(picture_n, csv_name, str(0))
+csv_name = verify_name_csv()
+csv_write(csv_name, 5000)
+print(csv_name)
+
+
+
+
+liste_n = os.listdir("dataset/N")
+for picture_n in liste_n:
+
+    picture_n = str("dataset/N/") + str(picture_n)    
+    main_couse(picture_n, csv_name, str(0))
 
 
 
@@ -360,7 +317,9 @@ for objects in objects_to_search:
 
 
 
-
+name = verify_name()
+data, label = csv_to_data("_in_training.csv")
+training(data, label, name)
 
 
 
