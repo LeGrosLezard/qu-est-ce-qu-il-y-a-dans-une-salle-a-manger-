@@ -108,7 +108,7 @@ def main_comparaison(img):
             points.append(nb)
 
     print(mean)
-
+    no = False
     ok = 0
     nan = False
     for i in range(len(points)):
@@ -120,40 +120,100 @@ def main_comparaison(img):
                 nan = False
                 cv2.rectangle(img, (0, ok),
                               (img.shape[0], points[i]),
-                              (0,0,255), 3)
+                              (0,0,255), 30)
                 ok = 0
 
         except:
-            pass
+            no = True
 
     
     show_picture("img", img, 0, "y")
 
-
-    blanck1 = blanck_picture(img)
-    blanck2 = blanck_picture(img)
-
-    for i in range(img.shape[0]):
-        for j in range(img.shape[1]):
-            if img[i, j][0] == 0 and\
-               img[i, j][1] == 0 and\
-               img[i, j][2] == 255:
-                blanck1[i, j] = copy[i, j]
-            else:
-                blanck2[i, j] = copy[i, j]
-               
-
-    show_picture("blanck1", blanck1, 0, "y")
-    show_picture("blanck2", blanck2, 0, "y")
+    if no is False:
+        blanck1 = blanck_picture(img)
+        blanck2 = blanck_picture(img)
 
 
+        maxi = 0
+        c = 0
+        for i in range(img.shape[0]):
+            for j in range(img.shape[1]):
+                if img[i, j][0] == 0 and\
+                   img[i, j][1] == 0 and\
+                   img[i, j][2] == 255:
+                    blanck1[i, j] = copy[i, j]
 
+                else:
+                    blanck2[i, j] = copy[i, j]
 
+        
 
 
 
 
-objects_to_search = ['Cuillere', 'Couteau', 'Fourchette']
+        
+        show_picture("blanck1", blanck1, 0, "y")
+        #show_picture("blanck2", blanck2, 0, "y")
+
+
+
+        gray = cv2.cvtColor(blanck1, cv2.COLOR_BGR2GRAY)
+
+        _,thresh = cv2.threshold(gray,0,255,cv2.THRESH_BINARY)
+     
+
+
+
+        contours,h=cv2.findContours(thresh,cv2.RETR_EXTERNAL,
+                                    cv2.CHAIN_APPROX_SIMPLE)
+        maxi = 0
+        for cnt in contours:
+            if cv2.contourArea(cnt) > maxi:
+                maxi = cv2.contourArea(cnt)
+
+
+        for cnt in contours:
+            if cv2.contourArea(cnt) != maxi:
+                cv2.fillPoly(blanck1, pts =[cnt], color=(0,0,0))
+                
+        show_picture("blanck1", blanck1, 0, "y")
+
+
+
+        gray = cv2.cvtColor(blanck2, cv2.COLOR_BGR2GRAY)
+        show_picture("gray", gray, 0, "y")
+        _,thresh = cv2.threshold(gray,0,255,cv2.THRESH_BINARY)
+        show_picture("thresh", thresh, 0, "y")
+
+
+
+        contours,h=cv2.findContours(thresh,cv2.RETR_EXTERNAL,
+                                    cv2.CHAIN_APPROX_SIMPLE)
+        maxi = 0
+        for cnt in contours:
+            if cv2.contourArea(cnt) > maxi:
+                maxi = cv2.contourArea(cnt)
+
+
+        for cnt in contours:
+            if cv2.contourArea(cnt) != maxi:
+                cv2.fillPoly(blanck2, pts =[cnt], color=(0,0,0))
+                
+        show_picture("blanck2", blanck2, 0, "y")
+
+
+
+
+
+
+
+        
+
+
+
+
+
+objects_to_search = ['Fourchette', 'Couteau', 'Fourchette']
 for objects in objects_to_search:
 
     liste = os.listdir("../dataset/clean/" + str(objects))
