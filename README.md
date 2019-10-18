@@ -10,7 +10,7 @@ si ca marche pas faire que manche/haut et ensutie dire si manche ou haut
  
 - faire le reste mais avant série c le dawa par contre
 
-- ouasi ouais ouais
+- ouasi ouais ouais c de la merde
 
 
 
