@@ -8,16 +8,9 @@ si ca marche pas faire que manche/haut et ensutie dire si manche ou haut
  
 <br><br><br><br>
  
+- faut refaire comparaison
 
-il faut detecter le manche le reste c'est bon
-
-il faut au moins deux detections du manche
-
-legume/fouchette/cuillere = 2 manches
-
-du coup normalement y'a au moins deux detections de manche
-
-mais c'est parce que j'avais pas crop les images en partie
+- sinon detection que manche que haut
 
 
 
