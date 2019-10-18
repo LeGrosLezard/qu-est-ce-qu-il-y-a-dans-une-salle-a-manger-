@@ -252,62 +252,69 @@ def main_comparaison(img, csv_name, t):
         blanck1 = final_part(blanck1)
         blanck2 = final_part(blanck2)
 
-
-        blanck1 = no_black_part(blanck1)
-        blanck2 = no_black_part(blanck2)
-
-
-        blanck1 = cv2.resize(blanck1, (50, 50))
-        blanck2 = cv2.resize(blanck2, (50, 50))
-
-
-        blanck1 = cv2.cvtColor(blanck1, cv2.COLOR_BGR2GRAY)
-        H1, hogImage1 = HOG_detection(blanck1)
-        show_picture("hogImage1", hogImage1, 0, "y")
-
-        print("hog")
-
         try:
-            print("prediction")
-            pred = model.predict(H1.reshape(1, -1))[0]
-            print("prediction", pred)
+            blanck1 = no_black_part(blanck1)
+            blanck2 = no_black_part(blanck2)
 
-            if pred == 1:
-                print("writting")
+
+            blanck1 = cv2.resize(blanck1, (50, 50))
+            blanck2 = cv2.resize(blanck2, (50, 50))
+
+
+            blanck1 = cv2.cvtColor(blanck1, cv2.COLOR_BGR2GRAY)
+            H1, hogImage1 = HOG_detection(blanck1)
+            #show_picture("hogImage1", hogImage1, 0, "y")
+
+            print("hog")
+
+            try:
+                
+                print("prediction")
+                pred = model.predict(H1.reshape(1, -1))[0]
+                print("prediction", pred)
+
+                if pred == 1:
+                    print("writting")
+                    write_data_into_csv(csv_name, str(1), H1)
+            except:
+                pass
+            
+            if t == 0:
+                print("T0")
                 write_data_into_csv(csv_name, str(1), H1)
 
-        except:
-            pass
+            print("blacnk2")
+            blanck2 = cv2.cvtColor(blanck2, cv2.COLOR_BGR2GRAY)
+            H2, hogImage2 = HOG_detection(blanck2)
+            #show_picture("hogImage2", hogImage2, 0, "y")
 
+            try:
+                pred = model.predict(H2.reshape(1, -1))[0]
+                print(pred)
 
-        print("blacnk2")
-        blanck2 = cv2.cvtColor(blanck2, cv2.COLOR_BGR2GRAY)
-        H2, hogImage2 = HOG_detection(blanck2)
-        show_picture("hogImage2", hogImage2, 0, "y")
+                if pred == 2:
+                    write_data_into_csv(csv_name, str(2), H2)
 
-        try:
-            pred = model.predict(H2.reshape(1, -1))[0]
-            print(pred)
+            except:
+                pass
 
-
-            if pred == 2:
+            if t == 0:
                 write_data_into_csv(csv_name, str(2), H2)
-        except:
+                print("T0")
+
+            try:
+                os.remove("models/_in_training")
+                print("model removed")
+            except:
+                pass
+
+            print("in training")
+            #name = verify_name()
+            data, label = csv_to_data(csv_name)
+            training(data, label, "_in_training")
+                
+        except ValueError:
             pass
-
-
-        try:
-            os.remove("models/_in_training")
-            print("model removed")
-        except:
-            pass
-    
-        print("in training")
-        #name = verify_name()
-        data, label = csv_to_data(csv_name)
-        training(data, label, "_in_training")
-            
-
 
 
 
