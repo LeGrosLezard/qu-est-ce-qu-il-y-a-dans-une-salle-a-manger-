@@ -14,6 +14,7 @@ from sklearn.decomposition import PCA
 
 
 
+
 def open_picture(image):
 
     img = cv2.imread(image)
@@ -80,14 +81,37 @@ for objects in liste_object:
         path_picture = "dataset/clean/{}/{}"
         path_picture = path_picture.format(objects, picture)
 
-        img = open_picture(path_picture)
+        img = open_picture(r"C:\Users\jeanbaptiste\Desktop\assiette\program\dataset\aa\hh.jpg")
+        img = cv2.resize(img, (200, 200))
+
+        gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
+        _,thresh = cv2.threshold(gray,245,255,cv2.THRESH_BINARY_INV)
+
+        contours,h=cv2.findContours(thresh,cv2.RETR_EXTERNAL,
+                                    cv2.CHAIN_APPROX_SIMPLE)
+
+        maxi = 0
+        for cnts in contours:
+            if cv2.contourArea(cnts) > maxi:
+                maxi = cv2.contourArea(cnts)
+
+
+        for cnts in contours:
+            if cv2.contourArea(cnts) == maxi:
+     
+                x, y, w, h = cv2.boundingRect(cnts)
+                img = img[y:y+h, x:x+w]
+
+        show_picture("img", img, 0, "")
+
+
         img = cv2.resize(img, (100, 150))
 
         gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
-        #show_picture("gray", gray, 0, "")
+        show_picture("gray", gray, 0, "")
 
         _,thresh = cv2.threshold(gray,245,255,cv2.THRESH_BINARY_INV)
-
+        show_picture("thresh", thresh, 0, "")
 
         blanck = blanck_picture(img)
 
@@ -95,7 +119,7 @@ for objects in liste_object:
                                     cv2.CHAIN_APPROX_SIMPLE)
         for c in contours:
             cv2.fillPoly(blanck, pts =[c], color=(255,255,255))
-        #show_picture("blanck", blanck, 0, "")
+        show_picture("blanck", blanck, 0, "")
 
 
         grayblanck = cv2.cvtColor(blanck, cv2.COLOR_BGR2GRAY)
@@ -121,25 +145,5 @@ for objects in liste_object:
             data = to_list(blanck1)
             predictions = model.predict([data])
             print(predictions)
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+            #["Fourchette", "Cuillere", "Couteau"]
+            show_picture("blanck1", blanck1, 0, "")
