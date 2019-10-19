@@ -4,7 +4,7 @@
 
 <br><br>
 
-vérifier que ca marche pteptre ca marche pas
+j'apppliquai pas ce que j'appliquai avant puré
         
         
         
