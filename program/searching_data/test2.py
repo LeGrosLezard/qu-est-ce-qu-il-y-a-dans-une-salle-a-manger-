@@ -5,12 +5,11 @@ import urllib.request
 
 
 
-scrap_objet = ["espèce", "vivant", "animal", "fruit", "légume",
-              "élément", "plante", "appareil", "véhicule", "machine",
-              "outil"]
+scrap_objet = ["animal", "fruit", "légume", "plante",
+              "élément", "outil", "machine"]
 
 scrap_mot = ["{} est un", "{} est une",
-             "{}[1] est un", "{}[1] est une",]
+             "{}[1] est un", "{}[1] est une", "une {}", "un {}"]
 
 
 def our_dico_path_url():
@@ -40,28 +39,28 @@ def bs4_function(path, label, element_search):
 
 
 
-def searching(tag, scrap_list, dico_path):
+def searching(tag, scrap_list, dico_path, object):
 
     content_html = bs4_function(dico_path["wikipedia"],
                             objects, tag)
 
-    paragraph = None
+    type_object = None
     stop = False
     for i in content_html:
         i = i.get_text()
 
-        for scraping in scrap_list:
+        for scraping in scrap_mot:
 
             if stop is True:
                 break
-
-            search = str(i).find(str(scraping))
+    
+            search = str(i).find(scraping.format(object))
             if search >= 0:
-                paragraph = i[search:search+50]
+                type_object = i[search:search+50]
                 stop = True
                 break
 
-    return stop, paragraph
+    return stop, type_object
 
 
 
@@ -70,22 +69,20 @@ def main_category(objects, scrap_objet, scrap_mot):
 
     dico_path = our_dico_path_url()
 
-    paragraph1=None; paragraph2=None;paragraph3=None;paragraph4=None;
+    type_object1=None; type_object2=None;type_object3=None;type_object4=None;
 
-    stop, paragraph1 = searching("p", scrap_objet, dico_path)
-    stop_stop, paragraph2 = searching("p", scrap_mot, dico_path)
+    stop, type_object1 = searching("p", scrap_objet, dico_path, objects)
+    stop_stop, type_object2 = searching("p", scrap_mot, dico_path, objects)
 
 
     if stop_stop is False and stop is False:
 
-        _, paragraph3 = searching("div", scrap_objet, dico_path)
-        _, paragraph4 = searching("li", scrap_objet, dico_path)
+        _, type_object3 = searching("div", scrap_objet, dico_path, objects)
+        _, type_object4 = searching("li", scrap_objet, dico_path, objects)
 
-    paragraphs = [paragraph1, paragraph2, paragraph3, paragraph4]
+    objects = [type_object1, type_object2, type_object3, type_object4]
 
-    return paragraphs
-
-
+    return objects
 
 
 
@@ -94,71 +91,17 @@ def main_category(objects, scrap_objet, scrap_mot):
 
 
 
-def dictionnaire(mot):
-    dico_path = our_dico_path_url()
 
-    bs4_function(dico_path["dictionnaire"], mot, element_search)
+
     
 
-objects = "voiture";
-paragraphs = main_category(objects, scrap_objet, scrap_mot)
-
-scrap_objet = ["espèce", "animal", "animaux", "vivant", "fruit", "légume",
-              "élément", "plante", "appareil", "véhicule", "machine",
-              "outil", "plante"];
-
-scrap_designation = ["de la", "est un", "est une", "de",
-                     "{}[1] est un", "{}[1] est une"];
+objects = "pantalon";
+this_objects = main_category(objects, scrap_objet, scrap_mot)
 
 
-
-technic = ""
-if paragraphs[0] != None:
-    technic = 0
-
-elif paragraphs[1] != None:
-    technic = 1
-
-elif paragraphs[2] != None:
-    technic = 2
-
-elif paragraphs[3] != None:
-    technic = 3
-
-print(technic)
-print(paragraphs)
-
-espece_find = ["animal", "animeaux", "plante", "plantes",
-               "légume", "légumes", "fruit", "fruits"]
-to_search = []
-
-
-for para in paragraphs:
-
-    if para is not None:
-        para_no_split = para
-        para = para.split();
-
-        if para[0] == "espèce":
-
-            #plante or animal ?
-            for mot in para:
-                for spf in espece_find:
-                    if mot == spf:to_search.append(mot)
-             
-
-
-print(to_search)
-if to_search == []:
-    pass
-
-    #faut chercher si animal ou plante
-
-    #si animal chercher habitation/domestique
-
-    #si plante se mange ? chene != tomate
-
-    
+for obj in this_objects:
+    if obj is not None:
+        print(obj)
 
 
 
