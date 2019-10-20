@@ -4,7 +4,7 @@
 
 <br><br>
 
-assiete -> vaisselle -> wiki
+assiette -> vaisselle -> wiki
 
 voiture -> véhicule -> route -> élément de la route
 
