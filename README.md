@@ -4,7 +4,9 @@
 
 <br><br>
 
-j'apppliquai pas ce que j'appliquai avant puré
+assiete -> vaisselle -> wiki
+
+mais chat, tomate, téléphone, et marteau grrrrrrrr
         
         
         
