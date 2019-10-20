@@ -12,6 +12,8 @@ les produits laitiers
 
 determinant nom ajdectif
 
+https://www.le-dictionnaire.com/definition/laitier
+
 si un une des le la les alors récupérer le mot deriere + adjectifs
 
 puis continuer jusqu'a avoir une catégorie pour chaque mot
