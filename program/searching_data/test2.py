@@ -21,8 +21,9 @@ def our_dico_path_url():
 
     dico_path = {"google":"https://www.google.com/search?sxsrf=ACYBGNSdXLbezE1nvpQMhQ6Hp7qFGaiDxg%3A1570625734452&ei=xtidXfahG8rCgwfSsauQDQ&q=cat%C3%A9gorie+de+l%27objet+{0}&oq=cat%C3%A9gorie+de+l%27objet+{0}&gs_l=psy-ab.3..33i160.683.1619..1667...0.0..0.200.916.0j6j1......0....1..gws-wiz.......33i22i29i30.ya7xfhMLlT8&ved=0ahUKEwj2nOjnnI_lAhVK4eAKHdLYCtIQ4dUDCAs&uact=5",
                  "wikipedia": "https://fr.wikipedia.org/wiki/{}",
-                 "exemple_of":"https://www.google.com/search?hl=fr&sxsrf=ACYBGNQeVb_NYY7utIXV-9TKkWxW89ABgg%3A1570629335228&ei=1-adXZHODb6IjLsP6N2VuAc&q=exemple+de+{0}&oq=exemple+de+{0}&gs_l=psy-ab.3..0i22i10i30j0i22i30l9.4989.6189..6333...0.4..0.115.711.4j3......0....1..gws-wiz.......0i71j0j0i20i263j0i203.QvdVxJ7yvh4&ved=0ahUKEwjRleacqo_lAhU-BGMBHehuBXcQ4dUDCAs&uact=5"}
-
+                 "exemple_of":"https://www.google.com/search?hl=fr&sxsrf=ACYBGNQeVb_NYY7utIXV-9TKkWxW89ABgg%3A1570629335228&ei=1-adXZHODb6IjLsP6N2VuAc&q=exemple+de+{0}&oq=exemple+de+{0}&gs_l=psy-ab.3..0i22i10i30j0i22i30l9.4989.6189..6333...0.4..0.115.711.4j3......0....1..gws-wiz.......0i71j0j0i20i263j0i203.QvdVxJ7yvh4&ved=0ahUKEwjRleacqo_lAhU-BGMBHehuBXcQ4dUDCAs&uact=5",
+                 "dictionnaire":"https://www.le-dictionnaire.com/resultats.php?mot={}"}
+                
     return dico_path
 
 
@@ -86,54 +87,89 @@ def main_category(objects, scrap_objet, scrap_mot):
 
 
 
-objects = "assiette";
+
+
+
+
+
+
+
+def dictionnaire(mot):
+    dico_path = our_dico_path_url()
+
+    bs4_function(dico_path["dictionnaire"], mot, element_search)
+    
+
+objects = "voiture";
 paragraphs = main_category(objects, scrap_objet, scrap_mot)
 
 scrap_objet = ["espèce", "animal", "animaux", "vivant", "fruit", "légume",
               "élément", "plante", "appareil", "véhicule", "machine",
-              "outil"];
+              "outil", "plante"];
 
-scrap_designation = ["de la", "est un", "est une",
-                     "{}[1] est un", "{}[1] est une",
-                     "de"];
-
+scrap_designation = ["de la", "est un", "est une", "de",
+                     "{}[1] est un", "{}[1] est une"];
 
 
-treatment = [];
+
+technic = ""
+if paragraphs[0] != None:
+    technic = 0
+
+elif paragraphs[1] != None:
+    technic = 1
+
+elif paragraphs[2] != None:
+    technic = 2
+
+elif paragraphs[3] != None:
+    technic = 3
+
+print(technic)
+print(paragraphs)
+
+espece_find = ["animal", "animeaux", "plante", "plantes",
+               "légume", "légumes", "fruit", "fruits"]
+to_search = []
+
+
 for para in paragraphs:
-    liste_w = []; increment = "";
 
     if para is not None:
-        for mot in para:
-            if mot == " ":liste_w.append(increment);increment = "";
-            else: increment += mot;
+        para_no_split = para
+        para = para.split();
 
-        treatment.append(liste_w);
+        if para[0] == "espèce":
 
-
-
-for liste1 in treatment:
-    c = 0;
-    for liste2 in treatment:
-        if liste1 == liste2:c+=1;
-        if c == 2:treatment.remove(liste1);
-
-
-
-dico_objet = {"habitation": ["animal", "animeaux", "vivant", "espèce", "plante"],
-              "category": ["élément", "appareil", "machine", "outil", "espèce"],
-             };
-
-
-to_search = []
-for liste in treatment:
-    for mot in liste:
-        for key, value in dico_objet.items():
-            for element in value:
-                if liste[0] == element:to_search.append(element);
+            #plante or animal ?
+            for mot in para:
+                for spf in espece_find:
+                    if mot == spf:to_search.append(mot)
+             
 
 
 print(to_search)
+if to_search == []:
+    pass
+
+    #faut chercher si animal ou plante
+
+    #si animal chercher habitation/domestique
+
+    #si plante se mange ? chene != tomate
+
+    
+
+
+
+
+
+
+
+
+
+
+
     
 
 
