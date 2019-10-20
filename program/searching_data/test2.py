@@ -29,6 +29,33 @@ def bs4_function(path, label, element_search):
     return content_html
 
 
+def searching(tag, scrap_list):
+
+    content_html = bs4_function(dico_path["wikipedia"],
+                            objects, tag)
+
+
+    stop = False
+    for i in content_html:
+        i = i.get_text()
+
+        for scraping in scrap_list:
+
+            if stop is True:
+                break
+
+            search = str(i).find(str(scraping))
+            if search >= 0:
+                print(scraping)
+                paragraph = i[search:search+50]
+                print(paragraph)
+                stop = True
+                break
+
+    return stop
+
+
+
 
 
 objects = "marteau"
@@ -39,99 +66,19 @@ scrap_objet = ["espèce", "vivant", "animal", "fruit", "légume",
               "élément", "plante", "appareil", "véhicule", "machine",
               "outil"]
 
-content_html = bs4_function(dico_path["wikipedia"],
-                            objects, "p")
-
-
-stop = False
-for i in content_html:
-    i = i.get_text()
-
-    for so in scrap_objet:
-
-        if stop is True:
-            break
-
-        search1 = str(i).find(str(so))
-        if search1 >= 0:
-            print(so)
-            paragraph = i[search1:search1+50]
-            print(paragraph)
-            stop = True
-            break
-
-
-#non trouvée
 scrap_mot = ["{} est un", "{} est une",
              "{}[1] est un", "{}[1] est une",]
 
-stop_stop = False
-
-for i in content_html:
-    i = i.get_text()
-
-    for el in scrap_mot:
-
-        if stop_stop is True:
-            break
 
 
-        search1 = str(i).find(str(el.format(objects)))
-        if search1 >= 0:
-            print(el)
-            paragraph = i[search1:search1+50]
-            print(paragraph)
-            stop_stop = True
-            break
-
-
+stop = searching("p", scrap_objet)
+stop_stop = searching("p", scrap_mot)
 
 
 if stop_stop is False and stop is False:
-    
-    content_html = bs4_function(dico_path["wikipedia"],
-                                objects, "div")
-    stop = False
-    for i in content_html:
-        i = i.get_text()
 
-
-        for so in scrap_objet:
-
-            if stop is True:
-                break
-
-            search1 = str(i).find(str(so))
-            if search1 >= 0:
-                print(so)
-                paragraph = i[search1:search1+50]
-                print(paragraph)
-                stop = True
-                break
-
-
-
-
-
-    content_html = bs4_function(dico_path["wikipedia"],
-                                objects, "li")
-    stop = False
-    for i in content_html:
-        i = i.get_text()
-
-
-        for so in scrap_objet:
-
-            if stop is True:
-                break
-
-            search1 = str(i).find(str(so))
-            if search1 >= 0:
-                print(so)
-                paragraph = i[search1:search1+50]
-                print(paragraph)
-                stop = True
-                break
+    _ = searching("div", scrap_objet)
+    _ = searching("li", scrap_objet)
 
 
 
