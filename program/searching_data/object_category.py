@@ -6,37 +6,6 @@ import datetime
 
 
 
-def element_to_detection(label, detection):
-    with open("label.py", "a") as file:
-        row = str(label) + "," + str(detection) + ";\n"
-        file.write(str(row))
-
-
-def element_in_label_PY():
-
-    label = []
-    number_label = []
-    increment = ""
- 
-    with open("label.py", "r") as file:
-        for i in file:
-            for j in i:
-
-                if j in (";"):
-                    label.append(increment)
-                    increment = ""
-
-                if j not in (",", " ", "\n"):
-                    try:
-                        j = int(j)
-                        if j == int(j):
-                            number_label.append(j)
-                    except:
-                        increment += j
-
-    return number_label, label
-                
-
 
 def our_dico_path_url():
     """Google for category of our label,
@@ -57,13 +26,42 @@ def bs4_function(path, label, element_search):
     """Request, content, bs4, element"""
 
     request = requests.get(path.format(label))
-    print(path.format(label))
     page = request.content
     soup_html = BeautifulSoup(page, "html.parser")
     content_html = soup_html.find_all(element_search)
 
     return content_html
 
+
+
+def searching_category(label, dico_path):
+
+    """We search category like plate for vaisselle"""
+
+
+    liste = []
+
+    #BS4 function 1)search category of ... -> 2) give wikipedia:categorie of...
+    content_html = bs4_function(dico_path["google"], label, "a")
+
+    #pass for "" or \n
+    for i in content_html:
+        if i.get_text() in ("", "\n"):
+            pass
+
+        else:
+            #search word wikipedia and category
+            wiki_search = str(i).find(str("wikipedia"))
+            categorie_obj = str(i).find(str("Catégorie"))
+
+
+            #recup only text for category
+            if wiki_search >= 0 and categorie_obj >= 0:
+
+                liste.append(i.get_text())
+
+    #recup category
+    return liste
 
 
 def treatment_list_category(liste, label):
@@ -90,36 +88,8 @@ def treatment_list_category(liste, label):
 
 
 
-def searching_category(label, dico_path):
 
-    """We search category like plate for vaisselle"""
 
-    print(label)
-    print("time to search object catergory...")
-    print("")
-
-    liste = []
-
-    #BS4 function 1)search category of ... -> 2) give wikipedia:categorie of...
-    content_html = bs4_function(dico_path["google"], label, ("a", {"class":"mw-body"}))
-
-    #pass for "" or \n
-    for i in content_html:
-        if i.get_text() in ("", "\n"):
-            pass
-
-        else:
-            #search word wikipedia and category
-            wiki_search = str(i).find(str("wikipedia"))
-            categorie = str(i).find(str("Catégorie"))
-
-            #recup only text for category
-            if wiki_search >= 0 and categorie >= 0:
-                liste.append(i.get_text())
-
-    #recup category
-    object_category = treatment_list_category(liste, label)
-    return object_category
 
 
 
@@ -128,7 +98,6 @@ def other_element_from_category(object_category, label, dico_path):
 
     """vaiselle give spoon"""
 
-    print("\nother object from category where ", label, "is ", object_category)
 
     #BS4 function We recup all ahref of text content
     content_html = content_html = bs4_function(dico_path["wikipedia"],
@@ -146,6 +115,8 @@ def other_element_from_category(object_category, label, dico_path):
             break
 
     return liste
+
+
 
 
 
@@ -224,6 +195,14 @@ def search_no_object(content_html, mode):
 
 
 
+
+
+
+
+
+
+
+
 def transform_category_to_object(category_found, dico_path):
 
     """There are two differents way:
@@ -258,6 +237,8 @@ def transform_category_to_object(category_found, dico_path):
                 for i in liste_li:
                     objects_to_search.append(i)
 
+        
+    print("This is what we searching now:\n\n", objects_to_search, "\n\n")
     return objects_to_search
 
 
@@ -270,47 +251,12 @@ def transform_category_to_object(category_found, dico_path):
 
 
 
-def searching_on_internet(label):
-    #It's our path ex: wikipedia question url
-    our_path = our_dico_path_url()
-##    #We search category of our first label
-##    category = searching_category(label, our_path)
-##    #We recup other object from this last category
-##    category_found = other_element_from_category(category, label, our_path)
-##    #We filter this object because we can have category of the last category
-##    objects_to_search = transform_category_to_object(category_found, our_path)
+label = "assiette"
 
+dico_path = our_dico_path_url()
+liste = searching_category(label, dico_path)
+object_category = treatment_list_category(liste, label)
+category_found = other_element_from_category(object_category, label, dico_path)
+objects_to_search = transform_category_to_object(category_found, dico_path)
 
-    return objects_to_search
-
-
-
-
-def inventory_item():
-    #Writte a new lign in our inventory
-    #element_to_detection("1", "assiette")
-    #Recup item for our inventory
-    number_label, label = element_in_label_PY()
-
-    return number_label, label
-
-
-number_label, label = inventory_item()
-objects_to_search = searching_on_internet(label)
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+print(objects_to_search)
