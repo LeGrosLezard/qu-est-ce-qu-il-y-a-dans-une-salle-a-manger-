@@ -6,11 +6,11 @@
 
 assiete -> vaisselle -> wiki
 
-voiture -> véhicule donc panneau et tout
+voiture -> véhicule -> route -> élément de la route
 
 mais chat -> doemstique -> habitation -> décors intérieur
 
-tomate -> fruit -> comment mange t-on ?
+tomate -> fruit -> élement pour manger
 
 téléphone -> chai pas
 
