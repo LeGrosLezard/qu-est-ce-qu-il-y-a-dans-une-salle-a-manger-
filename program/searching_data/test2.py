@@ -4,6 +4,15 @@ from bs4 import *
 import urllib.request
 
 
+
+scrap_objet = ["espèce", "vivant", "animal", "fruit", "légume",
+              "élément", "plante", "appareil", "véhicule", "machine",
+              "outil"]
+
+scrap_mot = ["{} est un", "{} est une",
+             "{}[1] est un", "{}[1] est une",]
+
+
 def our_dico_path_url():
     """Google for category of our label,
     wiki for words in ahref
@@ -29,12 +38,13 @@ def bs4_function(path, label, element_search):
     return content_html
 
 
-def searching(tag, scrap_list):
+
+def searching(tag, scrap_list, dico_path):
 
     content_html = bs4_function(dico_path["wikipedia"],
                             objects, tag)
 
-
+    paragraph = None
     stop = False
     for i in content_html:
         i = i.get_text()
@@ -46,39 +56,111 @@ def searching(tag, scrap_list):
 
             search = str(i).find(str(scraping))
             if search >= 0:
-                print(scraping)
                 paragraph = i[search:search+50]
-                print(paragraph)
                 stop = True
                 break
 
-    return stop
+    return stop, paragraph
 
 
 
 
+def main_category(objects, scrap_objet, scrap_mot):
 
-objects = "marteau"
+    dico_path = our_dico_path_url()
 
-dico_path = our_dico_path_url()
+    paragraph1=None; paragraph2=None;paragraph3=None;paragraph4=None;
 
-scrap_objet = ["espèce", "vivant", "animal", "fruit", "légume",
+    stop, paragraph1 = searching("p", scrap_objet, dico_path)
+    stop_stop, paragraph2 = searching("p", scrap_mot, dico_path)
+
+
+    if stop_stop is False and stop is False:
+
+        _, paragraph3 = searching("div", scrap_objet, dico_path)
+        _, paragraph4 = searching("li", scrap_objet, dico_path)
+
+    paragraphs = [paragraph1, paragraph2, paragraph3, paragraph4]
+
+    return paragraphs
+
+
+
+objects = "assiette";
+paragraphs = main_category(objects, scrap_objet, scrap_mot)
+
+scrap_objet = ["espèce", "animal", "animaux", "vivant", "fruit", "légume",
               "élément", "plante", "appareil", "véhicule", "machine",
-              "outil"]
+              "outil"];
 
-scrap_mot = ["{} est un", "{} est une",
-             "{}[1] est un", "{}[1] est une",]
-
-
-
-stop = searching("p", scrap_objet)
-stop_stop = searching("p", scrap_mot)
+scrap_designation = ["de la", "est un", "est une",
+                     "{}[1] est un", "{}[1] est une",
+                     "de"];
 
 
-if stop_stop is False and stop is False:
 
-    _ = searching("div", scrap_objet)
-    _ = searching("li", scrap_objet)
+treatment = [];
+for para in paragraphs:
+    liste_w = []; increment = "";
+
+    if para is not None:
+        for mot in para:
+            if mot == " ":liste_w.append(increment);increment = "";
+            else: increment += mot;
+
+        treatment.append(liste_w);
+
+
+
+for liste1 in treatment:
+    c = 0;
+    for liste2 in treatment:
+        if liste1 == liste2:c+=1;
+        if c == 2:treatment.remove(liste1);
+
+
+
+dico_objet = {"habitation": ["animal", "animeaux", "vivant", "espèce", "plante"],
+              "category": ["élément", "appareil", "machine", "outil", "espèce"],
+             };
+
+
+to_search = []
+for liste in treatment:
+    for mot in liste:
+        for key, value in dico_objet.items():
+            for element in value:
+                if liste[0] == element:to_search.append(element);
+
+
+print(to_search)
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
