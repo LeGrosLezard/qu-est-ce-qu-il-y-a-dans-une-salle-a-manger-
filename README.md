@@ -18,5 +18,5 @@ chene -> non comestible -> élément de dehors ?
 
 et marteau -> catégorie -> ok
         
-        
+chaussure -> élément d'habillement -> élément habiement ca ok      
         
