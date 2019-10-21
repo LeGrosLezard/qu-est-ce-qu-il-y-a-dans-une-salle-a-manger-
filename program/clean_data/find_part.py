@@ -195,9 +195,6 @@ def final_part(blanck):
         if cv2.contourArea(cnt) != maxi:
             cv2.fillPoly(blanck, pts =[cnt], color=(0,0,0))
 
-
-
-
     return blanck
 
 
@@ -249,24 +246,34 @@ def main_comparaison(img):
             blanck1 = no_black_part(blanck1)
             blanck2 = no_black_part(blanck2)
 
-
-            blanck1 = cv2.resize(blanck1, (50, 100))
-            blanck2 = cv2.resize(blanck2, (50, 100))
-
+            blanck1 = cv2.resize(blanck1, (100, 150))
+            blanck2 = cv2.resize(blanck2, (100, 150))
 
             blanck1 = cv2.cvtColor(blanck1, cv2.COLOR_BGR2GRAY)
             show_picture("blanck1", blanck1, 0, "y")
 
-
-
-
             blanck2 = cv2.cvtColor(blanck2, cv2.COLOR_BGR2GRAY)
             show_picture("blanck2", blanck2, 0, "y")
 
+            _,thresh = cv2.threshold(blanck1,245,255,cv2.THRESH_BINARY_INV)
+            show_picture("thresh", thresh, 0, "")
 
+            _,thresh = cv2.threshold(blanck2,245,255,cv2.THRESH_BINARY_INV)
+            show_picture("thresh", thresh, 0, "")
 
         except:
             pass
+
+
+
+
+
+
+
+
+
+
+
 
 
 
