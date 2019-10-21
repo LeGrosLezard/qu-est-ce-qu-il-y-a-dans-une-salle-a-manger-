@@ -464,15 +464,13 @@ def define_rotation(X_min, Xy_min, X_max, Xy_max,
     else:
         img_final = normal_angle(img)
 
-    show_picture("img_final", img_final, 0, "y")
+    #show_picture("img_final", img_final, 0, "y")
     #cv2.imwrite(picture, img_final)
 
-
+    return img_final
 
 
 def take_features_position(picture):
-
-    print(picture)
 
     #Make copies and make a border
     img, copy, img_final = early_picture(picture)
@@ -481,5 +479,7 @@ def take_features_position(picture):
     #Find the header and the footer of the object
     X_min, Xy_min, X_max, Xy_max = delimited_by_points(copy)
     #Find the best, ok rotation !
-    define_rotation(X_min, Xy_min, X_max, Xy_max,
-                    copy, img, img_final, str(picture))
+    img_final = define_rotation(X_min, Xy_min, X_max, Xy_max,
+                                copy, img, img_final, str(picture))
+
+    return img_final
