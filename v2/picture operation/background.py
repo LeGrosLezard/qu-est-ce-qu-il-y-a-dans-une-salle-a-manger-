@@ -3,6 +3,7 @@
 import os
 import cv2
 import math
+import time
 import imutils
 import numpy as np
 from PIL import Image
@@ -22,7 +23,11 @@ def show_picture(name, image, mode, destroy):
     """
     
     cv2.imshow(name, image)
-    cv2.waitKey(mode)
+    if mode == 0:
+        cv2.waitKey(mode)
+    if mode == 1:
+        time.sleep(1)
+        cv2.destroyAllWindows()
     if destroy == "y":
         cv2.destroyAllWindows()
 
@@ -172,27 +177,34 @@ def third_treatment(blanck, img):
 
 
 
-def main(img):
+def main_background(img):
 
     #keep name for saving.
     name = img
 
     #resize picture.
-    img = cv2.resize(open_picture(img), (200, 200))
-    show_picture("dzad", img, 0, "")
-    #Threshold + copy current picture.
-    th3, copy = pre_treatment(img)
+    img = open_picture(img)
+    #img = cv2.resize(open_picture(img), (200, 200))
+    #show_picture("dzad", img, 0, "")
 
-    #First treatment contour on green.
-    copy = make_first_treatment(th3, copy)
+    color = main_color_background(img)
 
-    #Second treatment on blanck.
-    blanck = second_treatment(copy, img)
+    if color != (255, 255, 255):
+        #Threshold + copy current picture.
+        th3, copy = pre_treatment(img)
 
-    #Finish it on copy picture.
-    img = third_treatment(blanck, img)
-    show_picture("img", img, 0, "y")
+        #First treatment contour on green.
+        copy = make_first_treatment(th3, copy)
 
+        #Second treatment on blanck.
+        blanck = second_treatment(copy, img)
 
+        #Finish it on copy picture.
+        img = third_treatment(blanck, img)
 
-main(r"C:\Users\jeanbaptiste\Desktop\assiette\program\dataset\aa\images.jpg")
+        return img
+
+    else:
+        return img
+
+#main(r"C:\Users\jeanbaptiste\Desktop\assiette\program\dataset\aa\images.jpg")
