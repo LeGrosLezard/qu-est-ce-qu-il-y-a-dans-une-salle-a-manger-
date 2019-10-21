@@ -172,7 +172,7 @@ def take_max_contour_to_csv(blanck):
         Recup the max contour (imutil function better)
         and redraw it on a new picture
     """
-
+    #show_picture("blanck", blanck, 0, "")
     #Grayscal picture for one channel
     grayblanck = cv2.cvtColor(blanck, cv2.COLOR_BGR2GRAY)
 
@@ -198,18 +198,18 @@ def take_max_contour_to_csv(blanck):
     if non is False:
 
         #Draw the max contour on a black picture
-        blanck1 = blanck_picture(img)
+        blanck1 = blanck_picture(blanck)
         for cnts in contours:
-            if cv2.contourArea(c) == maxi:
+            if cv2.contourArea(cnts) == maxi:
                 cv2.fillPoly(blanck1, pts =[cnts], color=(255,255,255))
-
+        #show_picture("blanck1", blanck1, 0, "")
         blanck1 = cv2.cvtColor(blanck1, cv2.COLOR_BGR2GRAY)
 
 
     return blanck1
 
 
-def picture_treatment(path_picture):
+def picture_treatment(csv_name, picture, w, h, label):
     """
         We open picture,
         resize it
@@ -219,15 +219,16 @@ def picture_treatment(path_picture):
         wirte it on csv file
     """
 
-    img = open_picture(path_picture)
-    img = cv2.resize(img, (100, 150))
-    #show_picture("dza", img, 0, "")
+
+    img = open_picture(picture)
+    img = cv2.resize(img, (int(w), int(h)))
+    #("dza", img, 0, "")
 
     blanck = make_contours(img)
-    blanck1 = take_max_contour(blanck)
+    blanck1 = take_max_contour_to_csv(blanck)
 
     data = to_list(blanck1)
-    write_data_into_csv(data, str(label))
+    write_data_into_csv(csv_name, data, str(label))
 
 
 
@@ -318,19 +319,45 @@ def training(X, Y, model_name):
 
 
 
-def main(csv_name, number_pix, path_picture, model_name):
+
+
+
+
+
+
+
+
+
+#A IMPORTER
+
+def head_writting(csv_name, number_pix):
 
     #Write header of csv
     csv_write(csv_name, number_pix)
 
-    #Write pixel of picture into csv
-    picture_treatment(path_picture)
+
+def picture_writting(csv_name, path_folder, path_picture, w, h, label):
+
+    liste = os.listdir(path_folder)
+    for i in liste:
+        picture_treatment(csv_name, path_picture.format(i), w, h, label)
+
+
+def train(csv_name, model_name):
 
     #Recup data from csv
     X, Y = csv_to_list(csv_name)
 
     #And make a model
     training(X, Y, model_name)
+
+
+
+
+
+
+
+
 
 
 
