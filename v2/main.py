@@ -5,6 +5,7 @@ import os
 from main_function_image import open_picture
 from main_function_image import show_picture
 from main_function_image import save_picture
+from main_function_image import to_crop
 
 #Background
 from picture_operation.background import main_background
@@ -14,6 +15,8 @@ from picture_operation.multiple_objects import take_features_multi_obj
 
 #rotation objects
 from picture_operation.picture_orientation import take_features_position
+
+
 
 def step_one():
     """
@@ -56,9 +59,10 @@ def step_one():
         if i != "current.jpg":
             img = path_current + i
             img = take_features_position(img)
+            img = to_crop(img)
             save_picture(str(path_current + i), img)
             show_picture("display", img, 1, "y")
-            
+
     print("Reposition of objects finsh")
 
     print("\nTreatment finish")
