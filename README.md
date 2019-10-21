@@ -4,8 +4,9 @@
 
 tache en cours
 
-      - afin de faire l'entrainement il faut faire la lecture du fichier label deca découle la récupération de la taille, le label, le nom du csv ect
-
+      - Une fois que nous avons fait le traitement de l'image et que nous avons un model, il faut pouvoir identifier les objets que nous possédons. 
+      
+      - Dans le cas contraire, ou nous n'avons pas l'objet il va falloir le chercher.
 
 
 <br><br><br><br>
