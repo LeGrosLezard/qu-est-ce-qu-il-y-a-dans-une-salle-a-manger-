@@ -18,11 +18,15 @@ def show_picture(name, image, mode, destroy):
         mode 0 = entrance key  pass to next
         mode y = destroy windows
     """
-
+    
     cv2.imshow(name, image)
     cv2.waitKey(mode)
+    if mode == 1:
+        time.sleep(3)
     if destroy == "y":
         cv2.destroyAllWindows()
+
+
 
 def blanck_picture(img):
     """
@@ -114,8 +118,8 @@ def save(copy, name, counter):
 
         
         new_name = str(name[:-4]) + "v" + str(counter) + ".jpg"
-        show_picture(str(new_name), copy, 0, "")
-        #cv2.imwrite(new_name, copy)
+        #show_picture(str(new_name), copy, 1, "y")
+        cv2.imwrite(new_name, copy)
         #os.remove(name)
 
 
@@ -134,11 +138,12 @@ def take_features_multi_obj(img):
         img = open_picture(img)
         img = cv2.resize(img, (200, 200))
 
-        show_picture("img", img, 0, "")
+        #show_picture("img", img, 0, "")
 
         blanck, contours = find_contour(img)
         copy = recup_object(img, blanck, contours,
                             name)
+        return copy
     except:
         pass
 
@@ -146,7 +151,7 @@ def take_features_multi_obj(img):
 
 
 
-take_features_multi_obj(r"C:\Users\jeanbaptiste\Desktop\assiette\program\dataset\assiette_couvert\assiette1.jpg")
+#take_features_multi_obj(r"C:\Users\jeanbaptiste\Desktop\assiette\program\dataset\assiette_couvert\assiette1.jpg")
 
 
 
