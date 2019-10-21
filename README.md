@@ -4,6 +4,8 @@
 
 <br><br>
 
+- label -> nom; csv; label; nombre de partie (nom des parties); dimension;
+
 - On récupère les dimensions de l'objet afin de modifier la taille de l'array pour l'entrainement -> dimension.py
 
       -> une assiette -> 50x50
