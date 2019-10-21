@@ -4,22 +4,27 @@
 
 <br><br>
 
-- dimension pour taille entrainement -> dimension.py
+- On récupère les dimensions de l'objet afin de modifier la taille de l'array pour l'entrainement -> dimension.py
 
-- s'il y a plusieurs parties, les chercher -> find_part.py
+- Il faut chercher les différentes parties de l'objet via le scrap -> find_part.py
+      
+      - puis les mettre dans un csv
+      
+      -> manche / cuve
+      
+    
 
-- les mettre dans le csv -> 
 
-- si csv > 10 (0...9 labels) modifier les programmes de training
+- si le csv contient deja 10 labels il faut modifier les programmes de training
 
--  la detection -> detection.py
-
+- la detection des objets se fait par -> detection.py
 
 
-tant qu'on ne trouve pas l'objet:
 
-  - thread scrap/téléchargement
+tant qu'on ne trouve pas l'objet il faut faire:
+
+  - 1) thread scrap/téléchargement
   
-  - traitement/apprentissage/comparaison
+  - 2) traitement/apprentissage/comparaison
 
 
