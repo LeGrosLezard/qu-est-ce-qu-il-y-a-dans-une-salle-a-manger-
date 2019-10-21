@@ -10,7 +10,7 @@
 
 - les mettre dans le csv -> 
 
- la detection -> detection.py
+-  la detection -> detection.py
 
 
 
