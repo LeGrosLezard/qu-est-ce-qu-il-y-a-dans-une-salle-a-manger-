@@ -8,7 +8,7 @@
 
       -> une assiette -> 50x50
       
-      -> le haut de la fourchette -> 100x200 -> sinon il n'y a pas de detection entre cuillere/fourchette 
+      -> le haut de la fourchette -> 100x200 -> sinon il n'y a pas de detection entre cuillere/fourchette cela permet de mettre en valeur les dents de la fourchette
 
 - Il faut chercher les différentes parties de l'objet via le scrap -> find_part.py
       
