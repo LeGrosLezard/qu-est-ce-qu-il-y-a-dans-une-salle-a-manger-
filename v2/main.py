@@ -42,7 +42,7 @@ def step_one():
 
     liste = os.listdir(path_current)
     for i in liste:
-        if i != "current.jpg":
+        if i != "dataset/current/current.jpg":
             im = path_current + i
             img = open_picture(im)
             show_picture("display", img, 1, "y")
