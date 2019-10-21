@@ -2,7 +2,14 @@
 
 #download from penseeartificielle/google-image-scrapping
 
+
+- afin de faire l'entrainement il faut faire la lecture du fichier label deca découle la récupération de la taille, le label, le nom du csv ect
+
+
+
 <br><br>
+
+
 
 - label -> nom du label; nom du csv; label; nombre de partie, nom partie1, nom partie2,... ; dimension;
 
