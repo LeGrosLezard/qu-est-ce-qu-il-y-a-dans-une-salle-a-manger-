@@ -10,6 +10,8 @@
 
 - les mettre dans le csv -> 
 
+- si csv > 10 (0...9 labels) modifier le programme
+
 -  la detection -> detection.py
 
 
