@@ -4,7 +4,7 @@
 
 tache en cours
 
-      - Une fois que nous avons fait le traitement de l'image et que nous avons un model, il faut pouvoir identifier les objets que nous possédons. Dans le cas contraire, il faut faire une recherche.
+      - mettre sur une image (current.jpg) les elements détectés sinon mettre un ?
   
       
 
