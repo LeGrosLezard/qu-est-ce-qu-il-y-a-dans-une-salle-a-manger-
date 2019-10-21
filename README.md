@@ -4,7 +4,7 @@
 
 <br><br>
 
-- label -> nom du label; nom du csv; label; nombre de partie <strong>,</strong> nom partie1, nom partie2,... ; dimension;
+- label -> nom du label; nom du csv; label; nombre de partie, nom partie1, nom partie2,... ; dimension;
 
 - On récupère les dimensions de l'objet afin de modifier la taille de l'array pour l'entrainement -> dimension.py
 
