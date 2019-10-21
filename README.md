@@ -4,9 +4,15 @@
 
 <br><br>
 
-- dimension a faire avant les traitements pour taille entrainement -> dimension.py
+- dimension pour taille entrainement -> dimension.py
 
 - s'il y a plusieurs parties, les chercher -> find_part.py
+
+- les mettre dans le csv -> 
+
+ la detection -> detection.py
+
+
 
 tant qu'on ne trouve pas l'objet:
 
