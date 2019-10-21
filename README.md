@@ -10,7 +10,7 @@
 
 - les mettre dans le csv -> 
 
-- si csv > 10 (0...9 labels) modifier le programme
+- si csv > 10 (0...9 labels) modifier les programmes de training
 
 -  la detection -> detection.py
 
