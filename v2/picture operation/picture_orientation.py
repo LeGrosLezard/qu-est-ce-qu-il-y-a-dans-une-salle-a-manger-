@@ -114,8 +114,8 @@ def find_points(listex, listey):
     Xy_max = max(listex)
     X_max = listey[listex.index(max(listex))]
 
-    print(Xy_min, X_min)
-    print(Xy_max, X_max)
+    #print(Xy_min, X_min)
+    #print(Xy_max, X_max)
 
     return X_min, Xy_min, X_max, Xy_max
 
