@@ -4,9 +4,9 @@
 
 tache en cours
 
-      - Une fois que nous avons fait le traitement de l'image et que nous avons un model, il faut pouvoir identifier les objets que nous possédons. 
+      - Une fois que nous avons fait le traitement de l'image et que nous avons un model, il faut pouvoir identifier les objets que nous possédons. Sinon faire la recherche des autres éléments.
       
-      - Dans le cas contraire, ou nous n'avons pas l'objet il va falloir le chercher.
+
 
 
 <br><br><br><br>
