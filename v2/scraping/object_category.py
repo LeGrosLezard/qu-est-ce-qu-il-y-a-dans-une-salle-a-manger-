@@ -230,9 +230,7 @@ def transform_category_to_object(category_found, dico_path):
                 for i in liste_li:
                     objects_to_search.append(i)
 
-        
-    print("This is what we searching now:\n\n", objects_to_search, "\n\n")
-    return objects_to_search
+    return category_found + objects_to_search
 
 
 
@@ -248,12 +246,11 @@ def treatment_word(objects_to_search):
 
     for mot in objects_to_search:
 
-
-
+        #replace . , les ...
         for replacing in to_replace:
             mot = mot.replace(str(replacing), " ")
 
-
+        #raise "final s"
         mot_splt = mot.split()
 
         liste_w = []
@@ -264,13 +261,14 @@ def treatment_word(objects_to_search):
     
         mot = " ".join(liste_w)
 
+        #raise after "et" (dog and cat)
         for fnd in to_find:
             search = str(mot).find(fnd)
 
             if search >= 0:
                 mot = mot[:search]
-
-
+        
+        #final caractere is " "
         if mot[-1] == " ":
             mot = mot[:-1]
 
@@ -292,9 +290,6 @@ def main_scrap(label):
     category_found = other_element_from_category(object_category, label, dico_path)
 
     objects_to_search = transform_category_to_object(category_found, dico_path)
-    objects_to_search = treatment_word(objects_to_search)
-
-    objects_to_search = transform_category_to_object(objects_to_search, dico_path)
     objects_to_search = treatment_word(objects_to_search)
 
     return objects_to_search
