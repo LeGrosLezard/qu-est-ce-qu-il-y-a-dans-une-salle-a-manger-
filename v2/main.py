@@ -155,16 +155,18 @@ from scraping.download_data import download_picture
 def step_three(detection):
 
     #Scrap
-    liste = []
-    for i in detection:
-        items = main_scrap(i)
-        for it in items:
-            liste.append(it)
+##    liste = []
+##    for i in detection:
+##        items = main_scrap(i)
+##        for it in items:
+##            liste.append(it)
+##
+
+    liste = ['aliment', 'assiette', 'couvert', 'verre', 'bol', 'tasse', 'matière grasse', 'boisson', 'sucre', 'lait', 'farineux céréale', 'légume', 'viande poisson œuf', 'vitamine', 'assiette', 'Baguette', 'Couteau', 'Cuillère', 'Cure-dent', 'Fourchette', 'Paille', 'Pincette', 'Boire', 'Type de verre', 'Verre à Martini', 'Old fashioned', 'Flûte à champagne', 'Verre highball', 'Verre Collin', 'Coupe à champagne', 'bol', 'tasse']
 
     #Download
     for i in liste:
-
-        path = "dataset/image/dataset/{}"
+        path = "dataset/image/dataset/"
         download_picture(i, path.format(i))
 
 
