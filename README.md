@@ -5,10 +5,13 @@
 tache en cours
 
 
-      - Il faut trouver comment raccorder prediction et label..........
+      - Si detection l'afficher sur une image avec une fleche en bleu ou rouge. Dessus mettre le nom de la detection ici le nom du label. 
 
 
-  
+ 
+ Reflichis
+ 
+ Comparaison avec 5 labels = 1 minutes, avec 20.... 
       
 
       
