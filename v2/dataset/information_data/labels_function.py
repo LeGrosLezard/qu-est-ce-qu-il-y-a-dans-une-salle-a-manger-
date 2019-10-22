@@ -11,42 +11,48 @@ def write(path_label):
 
 #RECUP PART
 
-def read(path_label, objects):
+def read(path_label, model_number):
 
-    informations = []
-
+    informations = [];
+    
     with open(path_label, "r") as file:
 
         for i in file:
-            increment = ""
+            increment=""
 
             for j in i:
+                stop = False;
 
-                if j in (";"):
-                    if increment == objects:
+                if j == ";":
+                    if increment == model_number:
                         informations.append(i)
-                        return informations
-                    increment = ""
+                        increment = ""
+                        stop = True
+
+                if stop is True:
+                    break
+
                 increment += j
+
+    return informations
+
+
 
 
 
 def treatment_read(liste):
 
-    informations_object = {"name":"", "csv_name":"", "label":"",
+    informations_object = {"csv_name":"", "name":"", "label":"",
                            "part_object":[], "dimension":[]}
     
     liste = liste[0].split(";")
-    print(liste)
-    informations_object["name"] = liste[0]
-    informations_object["csv_name"] = liste[1]
-    informations_object["label"] = liste[2]
 
+    informations_object["csv_name"] = liste[0]
+    informations_object["name"] = liste[1]
+    informations_object["label"] = liste[2]
 
     increment = ""
     for i in liste[3]:
-        print(i)
-
         if i == ",":
             informations_object["part_object"].append(increment)
             increment = ""
@@ -69,31 +75,6 @@ def treatment_read(liste):
 
     informations_object["dimension"].append(increment)
 
+    print(informations_object)
     return informations_object
-
-
-a = read(path_label, "assiette")
-treatment_read(a)
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
