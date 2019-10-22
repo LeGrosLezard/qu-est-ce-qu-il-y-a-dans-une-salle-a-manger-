@@ -84,6 +84,7 @@ def step_two():
     
     path_current = "dataset/image/current/"
     path_models = "training/models/models/"
+    path_label = "dataset/information_data/label.py"
 
     liste_picture = os.listdir(path_current)
     model_list = os.listdir(path_models)
@@ -100,18 +101,25 @@ def step_two():
             for models in model_list:
                 model = path_models + str(models)
 
-                prediction = detection(model, 50, 50, img)
-
                 labels = read(path_label, str(models))
                 for lab in labels:
                     information = treatment_read([lab])
+
+                    w = int(information["dimension"][0])
+                    h = int(information["dimension"][1])
+
+                    try:
+                        prediction = detection(model, w, h, img)
+                    except:
+                        print("Pas le meme model")
+
                     if prediction == information["label"]:
                         print(information["name"])
-                
-                print(prediction)
+
+                    print(prediction)
+                    show_picture("picture", img, 0, "y")
 
 
-            show_picture("picture", img, 1, "y")
                 
     
 
