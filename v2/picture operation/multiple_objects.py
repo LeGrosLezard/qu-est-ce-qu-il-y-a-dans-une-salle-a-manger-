@@ -4,7 +4,7 @@ import math
 import imutils
 import numpy as np
 from PIL import Image
-
+from time import time
 
 def open_picture(image):
     """We open picture"""
@@ -116,11 +116,17 @@ def save(copy, name, counter):
 
     for cnts in contours:
 
-        
         new_name = str(name[:-4]) + "v" + str(counter) + ".jpg"
         #show_picture(str(new_name), copy, 1, "y")
         cv2.imwrite(new_name, copy)
-        #os.remove(name)
+        os.remove(name)
+
+
+def timmer():
+    start = time()
+    while True:
+        if time() - start >= 60:
+            return "stop"
 
 
 
@@ -131,6 +137,10 @@ def take_features_multi_obj(img):
         We found the contours
         We try to detect objects by objects
     """
+
+    time = timmer()
+    if timer == "stop":
+        return "stop"
 
     try:
         name = str(img)
