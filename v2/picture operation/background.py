@@ -7,7 +7,7 @@ import time
 import imutils
 import numpy as np
 from PIL import Image
-
+from time import time
 
 def open_picture(image):
     """We open picture"""
@@ -175,16 +175,25 @@ def third_treatment(blanck, img):
     return img
 
 
-
+def timmer():
+    start = time()
+    while True:
+        if time() - start >= 60:
+            return "stop"
 
 def main_background(img):
 
     #keep name for saving.
     name = img
+    timmer()
+    if timer == "stop":
+        return "stop"
 
-    #resize picture.
     img = open_picture(img)
-    #img = cv2.resize(open_picture(img), (200, 200))
+    x, w, ch = img.shape
+    if x > 5000:
+        img = cv2.resize(open_picture(img), (200, 200))
+
     #show_picture("dzad", img, 0, "")
 
     color = main_color_background(img)
