@@ -110,11 +110,18 @@ def recup_position(name):
 
 
 
-def draw(detection):
+def draw(detection, nb, image):
 
-    if detection[0] == "": detection[0] = "In searching"
+    img1 = open_picture(image)
+    h, w, ch = img1.shape
+
+    show_picture("img1", img1, 0, "y")
+
+
+    if detection[0] == "": detection[0] = "?"
     name = detection[0]; x = 0; y = 0;
-    increment = "";
+    increment = "";treatment=False
+
 
     for detec in detection[1]:
         for d in detec:
@@ -126,19 +133,64 @@ def draw(detection):
 
     y = int(increment)
 
+    if nb == 0:
+        treatment = True
+        path = "dataset/image/current/current.jpg";
+    if nb > 0:
+        path = "dataset/image/current/current_copy.jpg";
 
-    path = "dataset/image/current/current.jpg"
+
     img = open_picture(path)
-    img = cv2.resize(img, (200, 200))
-    img = cv2.copyMakeBorder(img, 200, 200, 200, 200,
-                             cv2.BORDER_CONSTANT, value=(177, 151, 151))
+    if treatment is True:
+        img = cv2.resize(img, (200, 200))
+
+        img = cv2.copyMakeBorder(img, 200, 200, 200, 200,
+                                 cv2.BORDER_CONSTANT, value=(177, 151, 151))
+
+
+        for i in range(0, img.shape[1], 100):
+            for j in range(0, img.shape[0], 100):
+                if j >= 200 and j <= 350 and i >= 200 and i <= 350:
+                    pass
+                else:
+                    cv2.rectangle(img, (i, j), (i + 100, j + 100), (0, 255, 0), 3)
+
+
+    img[y:y+h, x:x+w] = img1
 
 
 
-    cv2.circle(img, (x + 200, y + 200), 3, (0,0,255), 3)
-    cv2.line(img, (x + 150, y + 100), (x + 200, y + 200), (255,0,0), 3)
-    cv2.putText(img, name, (x + 100, y + 95), cv2.FONT_HERSHEY_SIMPLEX,
-                1.0, (0, 0, 255), lineType=cv2.LINE_AA) 
+
 
     return img
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
+
+
+
+
+
 
