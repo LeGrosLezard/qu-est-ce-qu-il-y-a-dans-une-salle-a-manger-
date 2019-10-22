@@ -142,6 +142,7 @@ def step_two():
 
         if i[1] == None:pass
         else:
+            print(images[nb])
             img = draw(i, nb, images[nb])
             show_picture("display", img, 0, "y")
             save_picture("dataset/image/current/current_copy.jpg", img)
