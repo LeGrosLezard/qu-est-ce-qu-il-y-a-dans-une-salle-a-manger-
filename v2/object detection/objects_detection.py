@@ -90,13 +90,10 @@ def detection(model, w, h, img):
     data = to_list(blanck1)
     predictions = model.predict([data])
 
+    print(predictions[0])
     return predictions[0]
 
 
-model = r"C:\Users\jeanbaptiste\Desktop\assiette\v2\training\models\models\1"
-path = r"C:\Users\jeanbaptiste\Desktop\assiette\v2\dataset\image\current\currentv4.jpg"
-img = open_picture(path)
-detection(model, 50, 50, img)
 
 
 
