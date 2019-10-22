@@ -55,7 +55,7 @@ def search_and_save(text, number, first_position, download_path):
 
     # Connect to Google Image
     url = "https://www.google.co.in/search?q="+text+"&source=lnms&tbm=isch"
-    driver = driver = webdriver.Chrome()
+    driver = webdriver.Chrome()
     driver.get(url)
     headers = {}
     headers['User-Agent'] = "Mozilla/5.0 (Windows NT 6.1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/77.0.3865.90 Safari/537.36"
