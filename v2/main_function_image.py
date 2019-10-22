@@ -62,4 +62,40 @@ def to_crop(img):
     return img, int(x+w/2)
 
 
-  
+def write_position(position, name):
+    path = "dataset/information_data/current/position.py"
+    with open(path, "a") as file:
+        file.write(str(position) + ";" + str(name) + "\n")
+
+
+def recup_position(name):
+
+    path = "dataset/information_data/current/position.py"
+
+    
+    liste = []
+    with open(path, "r") as file:
+        for i in file:
+            increment = ""
+            for j in i:
+                if j == ";" or j == "\n":
+                    liste.append(increment[1:])
+                    increment = ""
+
+                increment += j
+
+    coordinate = []
+    liste_w = []
+    for nb, i in enumerate(liste):
+        if nb % 2 == 0:
+            coordinate.append(liste_w)
+            liste_w = []
+
+        liste_w.append(i)
+
+    coordinate.append(liste_w)
+
+    for i in coordinate:
+        if i != []:
+            if i[1] == name:
+                return i[0]
