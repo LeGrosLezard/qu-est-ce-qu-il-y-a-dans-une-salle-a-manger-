@@ -17,12 +17,7 @@ from picture_operation.multiple_objects import take_features_multi_obj
 #rotation objects
 from picture_operation.picture_orientation import take_features_position
 
-#----
-"""
-    Il faut faire l'apprentissage de l'assiette
-    hors programme la
-"""
-#----
+
 
 def step_one():
     """
@@ -51,9 +46,14 @@ def step_one():
 
     liste = os.listdir(path_current)
     for i in liste:
-
+        
         im = path_current + i
         img = open_picture(im)
+
+        if i != "current.jpg":
+            img, positionx, positiony = to_crop(img)
+            write_position(positionx, positiony, str(im))
+
         show_picture("display", img, 1, "y")
 
     print("Separate objects finish")
@@ -65,9 +65,6 @@ def step_one():
         if i != "current.jpg":
             img = path_current + i
             img = take_features_position(img)
-
-            img, position = to_crop(img)
-            write_position(position, str(path_current + i))
 
             save_picture(str(path_current + i), img)
             show_picture("display", img, 1, "y")
@@ -87,7 +84,7 @@ from dataset.information_data.labels_function import read
 
 #Main function
 from main_function_image import recup_position
-
+from main_function_image import draw
 
 def step_two():
 
@@ -126,14 +123,20 @@ def step_two():
 
                     if prediction == int(information["label"]):
                         print(information["name"])
-                        detections.append(information["name"])
-                        detections.append(recup_position(image))
+                        detections.append([information["name"], recup_position(image)])
+                        break
+                    else:
+                        detections.append(["", recup_position(image)])
+                        break
 
                     #show_picture("picture", img, 1, "y")
 
-    print(detections)
 
-    
+
+    print(detections)
+    for i in detections:
+        img = draw(i)
+        show_picture("display", img, 1, "y")
 
 
 
