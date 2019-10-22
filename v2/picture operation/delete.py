@@ -61,7 +61,6 @@ def recup_contour(img):
 def timmer():
     start = time()
     while True:
-        print(time() - start)
         if time() - start >= 60:
             return "stop"
 
