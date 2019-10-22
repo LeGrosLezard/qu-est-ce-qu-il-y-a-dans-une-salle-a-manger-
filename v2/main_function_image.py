@@ -115,6 +115,9 @@ def draw(detection, nb, image):
     img1 = open_picture(image)
     h, w, ch = img1.shape
 
+    img1 = cv2.resize(img1, (50, 100))
+    
+
     show_picture("img1", img1, 0, "y")
 
 
@@ -132,6 +135,8 @@ def draw(detection, nb, image):
                 increment += d
 
     y = int(increment)
+
+    print(x, y)
 
     if nb == 0:
         treatment = True
@@ -178,6 +183,13 @@ def draw(detection, nb, image):
 
                     img[j:j + img1.shape[0], i:i + img1.shape[1]] = img1
 
+                    cv2.line(img, (i+ img1.shape[1], j+ img1.shape[0]),
+                             (x + 200, y + 200), (0, 0, 0), 2)
+                    if name == "":
+                        name = "?"
+                        
+                    cv2.putText(img, name, (i,j+img1.shape[0]), cv2.FONT_HERSHEY_COMPLEX_SMALL, 1, (0, 0, 255))
+
                     stop = True
 
             if stop is True:
@@ -187,11 +199,4 @@ def draw(detection, nb, image):
 
         show_picture("display", img, 0, "y")
 
-
-
-
-
-
-
     return img
-
