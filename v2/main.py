@@ -155,13 +155,13 @@ from scraping.download_data import download_picture
 def step_three(detection):
 
     #Scrap
-##    liste = []
-##    for i in detection:
-##        items = main_scrap(i)
-##        for it in items:
-##            liste.append(it)
-##
-    liste = ['verre', 'bol', 'Couteau', 'Cuillère', 'Fourchette', 'Paille', 'bol', 'tasse', 'assiette']
+    liste = []
+    for i in detection:
+        items = main_scrap(i)
+        for it in items:
+            liste.append(it)
+
+##    liste = ['verre', 'bol', 'Couteau', 'Cuillère', 'Fourchette', 'Paille', 'bol', 'tasse', 'assiette']
 
     liste_path = os.listdir("dataset/image/dataset")
     for i in liste:
@@ -173,6 +173,44 @@ def step_three(detection):
     for i in liste:
         path = "dataset/image/dataset/"
         download_picture(i, path.format(i))
+
+
+    return liste
+    
+
+
+
+
+from picture_operation.background import main_background
+from picture_operation.delete import main_deleting
+from picture_operation.multiple_objects import take_features_multi_obj
+from picture_operation.picture_orientation import take_features_position
+
+def step_fourth(objects):
+    
+    path_data = "dataset/image/dataset"
+    path_folder = "dataset/image/dataset/{}"
+    path_image = "dataset/image/dataset/{}/{}"
+    liste_path = os.listdir(path_data)
+    print(liste_path)
+
+    for i in liste_path:
+
+        picture_folder = os.listdir(path_folder.format(i))
+        print(path_folder.format(i))
+
+        for j in picture_folder:
+
+            img = main_background(path_image.format(i, j))
+            save_picture(path_image.format(i, j), img)
+    
+
+
+
+
+
+
+
 
 
 
@@ -190,12 +228,13 @@ def main():
 ##            via.append(i[0])
 
 
-    via = ['assiette']
-    step_three(via)
+    #via = ['assiette']
+    #step_three(via)
 
 
+    liste = ['verre', 'bol', 'Couteau', 'Cuillère', 'Fourchette', 'Paille', 'bol', 'tasse', 'assiette']
 
-
+    step_fourth(liste)
 
 
 
