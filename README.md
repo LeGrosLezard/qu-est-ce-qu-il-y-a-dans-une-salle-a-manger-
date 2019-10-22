@@ -4,7 +4,7 @@
 
 tache en cours
 
-    - améliorer le design de la detection la fouchette n'est pas bien callé
+    - Sur la bordure ajouter l'image de l'objet relié a l'image principale via une fleche. En sommes il faut -> scene principale ligne bleu image crop de l'image, et sa détection. Une fleche au lieu du point ? soh cah toa ?
 
 
  
