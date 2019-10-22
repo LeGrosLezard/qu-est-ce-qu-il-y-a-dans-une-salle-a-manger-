@@ -162,7 +162,7 @@ def step_three(detection):
 ##            liste.append(it)
 ##
 
-    liste = ['aliment', 'assiette', 'couvert', 'verre', 'bol', 'tasse', 'matière grasse', 'boisson', 'sucre', 'lait', 'farineux céréale', 'légume', 'viande poisson œuf', 'vitamine', 'assiette', 'Baguette', 'Couteau', 'Cuillère', 'Cure-dent', 'Fourchette', 'Paille', 'Pincette', 'Boire', 'Type de verre', 'Verre à Martini', 'Old fashioned', 'Flûte à champagne', 'Verre highball', 'Verre Collin', 'Coupe à champagne', 'bol', 'tasse']
+    liste = ['verre', 'bol', 'Couteau', 'Cuillère', 'Fourchette', 'Paille','bol', 'tasse']
 
     #Download
     for i in liste:
