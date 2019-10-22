@@ -18,7 +18,7 @@ tache en cours
 
 Memo
 
-- label -> nom du csv; nom du label; label; nombre de partie, nom partie1, nom partie2,... ; dimension;
+- label -> nom du csv; nom du label; label; nom partie1, nom partie2,... ; dimension;
 
 - On récupère les dimensions de l'objet afin de modifier la taille de l'array pour l'entrainement -> dimension.py
 
