@@ -4,7 +4,7 @@ import math
 import imutils
 import numpy as np
 from PIL import Image
-from time import time
+
 
 def open_picture(image):
     """We open picture"""
@@ -122,13 +122,6 @@ def save(copy, name, counter):
         os.remove(name)
 
 
-def timmer():
-    start = time()
-    while True:
-        if time() - start >= 60:
-            return "stop"
-
-
 
 def take_features_multi_obj(img):
     """
@@ -138,9 +131,6 @@ def take_features_multi_obj(img):
         We try to detect objects by objects
     """
 
-    time = timmer()
-    if timer == "stop":
-        return "stop"
 
     try:
         name = str(img)
