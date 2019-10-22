@@ -5,7 +5,7 @@ import time
 import imutils
 import numpy as np
 from PIL import Image
-from time import time
+
 
 
 def open_picture(image):
@@ -470,13 +470,6 @@ def define_rotation(X_min, Xy_min, X_max, Xy_max,
     return img_final
 
 
-def timmer():
-    start = time()
-    while True:
-        if time() - start >= 60:
-            return "stop"
-
-
 def take_features_position(picture):
 
     #Make copies and make a border
@@ -489,9 +482,5 @@ def take_features_position(picture):
     img_final = define_rotation(X_min, Xy_min, X_max, Xy_max,
                                 copy, img, img_final, str(picture))
 
-
-
-    if timer == "stop":
-        return "stop"
 
     return img_final
