@@ -292,6 +292,9 @@ def main_scrap(label):
     objects_to_search = transform_category_to_object(category_found, dico_path)
     objects_to_search = treatment_word(objects_to_search)
 
+    objects_to_search = transform_category_to_object(category_found, dico_path)
+    objects_to_search = treatment_word(objects_to_search)
+
     return objects_to_search
 
 
