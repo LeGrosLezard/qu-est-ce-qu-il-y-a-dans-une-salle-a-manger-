@@ -129,9 +129,10 @@ def draw(detection):
 
     path = "dataset/image/current/current.jpg"
     img = open_picture(path)
-
+    img = cv2.resize(img, (200, 200))
     img = cv2.copyMakeBorder(img, 200, 200, 200, 200,
                              cv2.BORDER_CONSTANT, value=(177, 151, 151))
+
 
 
     cv2.circle(img, (x + 200, y + 200), 3, (0,0,255), 3)
@@ -140,38 +141,4 @@ def draw(detection):
                 1.0, (0, 0, 255), lineType=cv2.LINE_AA) 
 
     return img
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    
-
-
-
-
-
 
