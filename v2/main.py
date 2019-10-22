@@ -50,7 +50,7 @@ def step_one():
         im = path_current + i
         img = open_picture(im)
 
-        if i != "current.jpg":
+        if i not in ("current.jpg", "current_copy"):
             print("Recuperate position")
             _, positionx, positiony = to_crop(img)
             write_position(positionx, positiony, str(im))
@@ -63,7 +63,7 @@ def step_one():
     print("Reposition of objects... ")
     liste = os.listdir(path_current)
     for i in liste:
-        if i != "current.jpg":
+        if i not in ("current.jpg", "current_copy"):
             img = path_current + i
             img = take_features_position(img)
 
@@ -144,7 +144,7 @@ def step_two():
         else:
             print(images[nb])
             img = draw(i, nb, images[nb])
-            show_picture("display", img, 0, "y")
+            show_picture("display", img, 1, "y")
             save_picture("dataset/image/current/current_copy.jpg", img)
 
 
@@ -159,7 +159,7 @@ def step_two():
 
 
 def main():
-    #step_one()
+    step_one()
     step_two()
 
 
