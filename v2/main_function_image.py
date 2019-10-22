@@ -110,20 +110,12 @@ def recup_position(name):
 
 
 
-def draw(detection, nb, image):
 
-    img1 = open_picture(image)
-    h, w, ch = img1.shape
-
-    img1 = cv2.resize(img1, (50, 100))
+def recup_label_position(detection):
     
-
-    show_picture("img1", img1, 0, "y")
-
-
     if detection[0] == "": detection[0] = "?"
     name = detection[0]; x = 0; y = 0;
-    increment = "";treatment=False
+    increment = "";
 
 
     for detec in detection[1]:
@@ -133,50 +125,62 @@ def draw(detection, nb, image):
                 increment = ""
             else:
                 increment += d
-
     y = int(increment)
 
-    print(x, y)
+    return name, x, y
+
+
+def picture_treatment(image, nb):
+    img1 = open_picture(image)
+    img1 = cv2.resize(img1, (50, 100))
 
     if nb == 0:
-        treatment = True
         path = "dataset/image/current/current.jpg";
     if nb > 0:
         path = "dataset/image/current/current_copy.jpg";
 
-    print(path)
     img = open_picture(path)
-    if treatment is True:
-        img = cv2.resize(img, (200, 200))
 
+
+    if nb == 0:
+        img = cv2.resize(img, (200, 200))
         img = cv2.copyMakeBorder(img, 200, 200, 200, 200,
                                  cv2.BORDER_CONSTANT, value=(177, 151, 151))
 
-    stop = False
 
-    if x < 100:
-        sens = 1
-    else:
-        sens = -1
-    
+
+
+    return img1, img
+
+
+
+
+def draw(detection, nb, image):
+
+
+    img1, img = picture_treatment(image, nb)
+    name, x, y = recup_label_position(detection)
+    #We add border to picture
+    #We course the picture
+    #if coursing == on the picture
+    #pass
+    #We verify slot.
+    #If slot or c == 0:
+    #empty slot
+    #else
+    #picture already on it
     for j in range(0, img.shape[0], img1.shape[0]):
         for i in range(0, img.shape[1], img1.shape[1]):
             if j >= 100 and j <= 380 and i >= 100 and i <= 450:
                 pass
+
             else:
-                #cv2.rectangle(img, (i, j), (i + img1.shape[1], j + img1.shape[0]),
-                #              (0, 255, 0), 3)
-
-
                 c = 0
                 for jj in range(j, j + img1.shape[0]):
                     for ii in range(i, i + img1.shape[1]): 
                         if img[jj, ii][0] != 177 and\
                            img[jj, ii][1] != 151 and\
-                           img[jj, ii][2] != 151 and\
-                           img[jj, ii][0] != 0 and\
-                           img[jj, ii][1] != 255 and\
-                           img[jj, ii][2] != 0:
+                           img[jj, ii][2] != 151:
                             c += 1
 
                 if c == 0:
@@ -185,18 +189,9 @@ def draw(detection, nb, image):
 
                     cv2.line(img, (i+ img1.shape[1], j+ img1.shape[0]),
                              (x + 200, y + 200), (0, 0, 0), 2)
-                    if name == "":
-                        name = "?"
-                        
+
                     cv2.putText(img, name, (i,j+img1.shape[0]), cv2.FONT_HERSHEY_COMPLEX_SMALL, 1, (0, 0, 255))
 
-                    stop = True
+                    return img
 
-            if stop is True:
-                break
-        if stop is True:
-            break
 
-        show_picture("display", img, 0, "y")
-
-    return img
