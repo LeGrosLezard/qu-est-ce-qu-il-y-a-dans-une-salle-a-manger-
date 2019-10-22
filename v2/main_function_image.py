@@ -59,5 +59,7 @@ def to_crop(img):
 
     img = img[y:y+h, x:x+w]
 
-    return img
+    return img, int(x+w/2)
 
+
+  
