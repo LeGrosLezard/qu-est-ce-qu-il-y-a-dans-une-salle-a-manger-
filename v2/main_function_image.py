@@ -148,30 +148,36 @@ def draw(detection, nb, image):
                                  cv2.BORDER_CONSTANT, value=(177, 151, 151))
 
     stop = False
-    for i in range(0, img.shape[1], img1.shape[1]):
-        for j in range(0, img.shape[0], img1.shape[0]):
+
+    if x < 100:
+        sens = 1
+    else:
+        sens = -1
+    
+    for j in range(0, img.shape[0], img1.shape[0]):
+        for i in range(0, img.shape[1], img1.shape[1]):
             if j >= 100 and j <= 380 and i >= 100 and i <= 450:
                 pass
             else:
-##                cv2.rectangle(img, (i, j), (i + img1.shape[1], j + img1.shape[0]),
-##                              (0, 255, 0), 3)
-
-                c = 0
-                for ii in range(i, i + img1.shape[1], img1.shape[1]):
-                    for jj in range(j, j + img1.shape[0], img1.shape[0]):
-                        if img[jj, ii][0] != 177 and\
-                           img[jj, ii][1] != 151 and\
-                           img[jj, ii][2] != 151:
-                            c += 1
-
-                print(c)
                 #cv2.rectangle(img, (i, j), (i + img1.shape[1], j + img1.shape[0]),
                 #              (0, 255, 0), 3)
-                show_picture("display", img, 0, "y")
+
+
+                c = 0
+                for jj in range(j, j + img1.shape[0]):
+                    for ii in range(i, i + img1.shape[1]): 
+                        if img[jj, ii][0] != 177 and\
+                           img[jj, ii][1] != 151 and\
+                           img[jj, ii][2] != 151 and\
+                           img[jj, ii][0] != 0 and\
+                           img[jj, ii][1] != 255 and\
+                           img[jj, ii][2] != 0:
+                            c += 1
 
                 if c == 0:
-                    print(i + img1.shape[1], j + img1.shape[0])
-                    img[ j:j + img1.shape[0], i:i + img1.shape[1]] = img1
+
+                    img[j:j + img1.shape[0], i:i + img1.shape[1]] = img1
+
                     stop = True
 
             if stop is True:
@@ -179,7 +185,7 @@ def draw(detection, nb, image):
         if stop is True:
             break
 
-
+        show_picture("display", img, 0, "y")
 
 
 
@@ -188,34 +194,4 @@ def draw(detection, nb, image):
 
 
     return img
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    
-
-
-
-
-
 
