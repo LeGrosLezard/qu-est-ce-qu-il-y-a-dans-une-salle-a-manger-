@@ -136,22 +136,35 @@ def step_two():
                     #show_picture("picture", img, 1, "y")
 
 
-    print(detections)
+    #print(detections)
     
     for nb, i in enumerate(detections):
 
         if i[1] == None:pass
         else:
-            print(images[nb])
             img = draw(i, nb, images[nb])
             show_picture("display", img, 1, "y")
             save_picture("dataset/image/current/current_copy.jpg", img)
 
+    print(detections)
+    return detections
 
 
+from scraping.object_category import main_scrap
+from scraping.download_data import download_picture
+def step_three(detection):
 
+    #Scrap
+    liste = []
+    for i in detection:
+        items = main_scrap(i)
+        for it in items:
+            liste.append(it)
 
-
+    #Download
+    for i in liste:
+        path = "dataset/image/dataset/{}"
+        download_picture(path.format(i), path)
 
 
 
@@ -159,9 +172,18 @@ def step_two():
 
 
 def main():
-    step_one()
-    step_two()
+    #step_one()
+    #detection = step_two()
 
+##    via = []
+##    for i in detection:
+##        if i[0] not in ("?") and\
+##           i[1] != None :
+##            via.append(i[0])
+
+
+    via = ['assiette']
+    step_three(via)
 
 
 
