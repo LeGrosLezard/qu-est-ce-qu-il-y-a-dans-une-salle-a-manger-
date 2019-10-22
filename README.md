@@ -8,6 +8,8 @@ tache en cours
     
 sous tache en cours
 
+    - trouver et effacer le assiette None 
+
     - Récupérer les éléments de wiki depuis assiette
  
 
