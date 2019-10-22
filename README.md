@@ -4,7 +4,7 @@
 
 tache en cours
 
-
+    - améliorer le design de la detection la fouchette n'est pas bien callé
 
 
  
