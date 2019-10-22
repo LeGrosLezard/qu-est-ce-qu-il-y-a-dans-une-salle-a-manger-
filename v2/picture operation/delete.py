@@ -7,7 +7,7 @@ import time
 import imutils
 import numpy as np
 from PIL import Image
-from time import time
+
 
 
 def open_picture(image):
@@ -58,20 +58,14 @@ def recup_contour(img):
     return delete
 
 
-def timmer():
-    start = time()
-    while True:
-        if time() - start >= 60:
-            return "stop"
+
 
 
 def main_deleting(img):
     """
         We deleting on contour
     """
-    timmer()
-    if timer == "stop":
-        return "stop"
+
     img = open_picture(img)
     delete = recup_contour(img)
 
