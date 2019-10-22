@@ -5,6 +5,10 @@
 tache en cours
 
 
+      - Il faut trouver comment raccorder prediction et label..........
+
+      - Il faut raccorder la prise de dimension de l'objet, et effectuer une proportionalité via l'image de départ.
+  
       - mettre sur une image (current.jpg) les elements détectés sinon mettre un ?
   
       
