@@ -1,5 +1,5 @@
-feafae;1;1;1,None;50x50;
-assiette;1;1;None;50x50;
-ginette;1;1;1,None;50x50;
-fza;1;1;1,None;50x50;
-dfghdf;1;1;1,None;50x50;
+1;assiette;1;None;50x50;
+1;chaussure;1;None;50x50;
+1;fourchette;1;manche,tine;50x50;
+1;coucou;1;chouette,coucou;50x50;
+1;czacza;1;None;50x50;
