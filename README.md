@@ -7,11 +7,11 @@ tache en cours
 
       - Si detection l'afficher sur une image avec une fleche en bleu ou rouge. Dessus mettre le nom de la detection ici le nom du label. 
 
-
+<br><br><br><br>
  
  Reflichis
  
- Comparaison avec 5 labels = 1 minutes, avec 20.... 
+ Comparaison avec 5 labels = 1 minutes, avec 100.... 
       
 
       
