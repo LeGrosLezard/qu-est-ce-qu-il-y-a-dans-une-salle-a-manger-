@@ -6,6 +6,7 @@ from main_function_image import open_picture
 from main_function_image import show_picture
 from main_function_image import save_picture
 from main_function_image import to_crop
+from main_function_image import write_position
 
 #Background
 from picture_operation.background import main_background
@@ -64,7 +65,10 @@ def step_one():
         if i != "current.jpg":
             img = path_current + i
             img = take_features_position(img)
-            img = to_crop(img)
+
+            img, position = to_crop(img)
+            write_position(position, str(path_current + i))
+
             save_picture(str(path_current + i), img)
             show_picture("display", img, 1, "y")
 
@@ -74,14 +78,21 @@ def step_one():
 
 
 
+#Detection
 from object_detection.objects_detection import detection
+
+#Label
 from dataset.information_data.labels_function import treatment_read
 from dataset.information_data.labels_function import read
+
+#Main function
+from main_function_image import recup_position
+
+
 def step_two():
 
     print("Detection in progress ...")
 
-    
     path_current = "dataset/image/current/"
     path_models = "training/models/models/"
     path_label = "dataset/information_data/label.py"
@@ -89,12 +100,12 @@ def step_two():
     liste_picture = os.listdir(path_current)
     model_list = os.listdir(path_models)
 
-    detections = 0
+    detections = []
 
     for picture in liste_picture:
 
         if picture != "current.jpg":
-        
+
             image = path_current + str(picture)
             img = open_picture(image)
 
@@ -111,16 +122,17 @@ def step_two():
                     try:
                         prediction = detection(model, w, h, img)
                     except:
-                        print("Pas le meme model")
+                        pass
 
-                    if prediction == information["label"]:
+                    if prediction == int(information["label"]):
                         print(information["name"])
+                        detections.append(information["name"])
+                        detections.append(recup_position(image))
 
-                    print(prediction)
-                    show_picture("picture", img, 0, "y")
+                    #show_picture("picture", img, 1, "y")
 
+    print(detections)
 
-                
     
 
 
