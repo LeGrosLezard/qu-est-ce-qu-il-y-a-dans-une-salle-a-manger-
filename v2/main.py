@@ -200,12 +200,24 @@ def step_fourth(objects):
         print(path_folder.format(i))
 
         for j in picture_folder:
-
+            print(path_image.format(i, j))
             img = main_background(path_image.format(i, j))
             save_picture(path_image.format(i, j), img)
-    
+
+        for j in picture_folder:
+            print(path_image.format(i, j))
+            img = take_features_multi_obj(path_image.format(i, j))
+            save_picture(path_image.format(i, j), img)
+
+        for j in picture_folder:
+            print(path_image.format(i, j))
+            img = take_features_position(path_image.format(i, j))
+            save_picture(path_image.format(i, j), img)
 
 
+        for j in picture_folder:
+            print(path_image.format(i, j))
+            main_deleting(path_image.format(i, j))
 
 
 
