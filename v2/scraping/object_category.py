@@ -196,13 +196,6 @@ def search_no_object(content_html, mode):
 
 
 
-
-
-
-
-
-
-
 def transform_category_to_object(category_found, dico_path):
 
     """There are two differents way:
@@ -245,34 +238,66 @@ def transform_category_to_object(category_found, dico_path):
 
 
 
+def treatment_word(objects_to_search):
+
+    liste = []
+    to_replace = [".", ",", " les ", "Les ", "Le ",
+                  "La ", " le ", " la ", "…"]
+
+    to_find = ["et "]
+
+    for mot in objects_to_search:
 
 
 
+        for replacing in to_replace:
+            mot = mot.replace(str(replacing), " ")
+
+
+        mot_splt = mot.split()
+
+        liste_w = []
+        for i in mot_splt:
+            if i[-1] == "s":
+                i = i[:-1]
+            liste_w.append(i)
+    
+        mot = " ".join(liste_w)
+
+        for fnd in to_find:
+            search = str(mot).find(fnd)
+
+            if search >= 0:
+                mot = mot[:search]
+
+
+        if mot[-1] == " ":
+            mot = mot[:-1]
+
+        liste.append(mot)
+
+
+    return liste
 
 
 
-label = "assiette"
-
-dico_path = our_dico_path_url()
-liste = searching_category(label, dico_path)
-object_category = treatment_list_category(liste, label)
-category_found = other_element_from_category(object_category, label, dico_path)
-#objects_to_search = transform_category_to_object(category_found, dico_path)
+def main_scrap(label):
 
 
+    dico_path = our_dico_path_url()
+    liste = searching_category(label, dico_path)
+    
+    object_category = treatment_list_category(liste, label)
 
-objects_to_search = ['Exemples potentiels', 'Fruits', 'légumes', 'lin', ' poissons gras', "Céréales de son d'avoine", 'Jus de fruits enrichi de calcium', 'assiettes', 'Baguettes', 'Couteau', 'Cuillère', 'Cure-dent', 'Fourchette', 'Paille', 'Pincettes', 'verres', 'bols', 'tasses']
-objects_to_search = transform_category_to_object(objects_to_search, dico_path)
+    category_found = other_element_from_category(object_category, label, dico_path)
 
+    objects_to_search = transform_category_to_object(category_found, dico_path)
+    objects_to_search = treatment_word(objects_to_search)
 
+    objects_to_search = transform_category_to_object(objects_to_search, dico_path)
+    objects_to_search = treatment_word(objects_to_search)
 
-
-print(objects_to_search)
-
-
-
-
-
+    return objects_to_search
 
 
 
