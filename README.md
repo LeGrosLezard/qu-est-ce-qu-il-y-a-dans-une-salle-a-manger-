@@ -5,7 +5,6 @@
 tache en cours
 
 
-      - raccorder label et detection depuis main. En effet, il faut récupérer les différentes informations via les différents objets que l'on a.
       - mettre sur une image (current.jpg) les elements détectés sinon mettre un ?
   
       
