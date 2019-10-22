@@ -51,7 +51,8 @@ def step_one():
         img = open_picture(im)
 
         if i != "current.jpg":
-            img, positionx, positiony = to_crop(img)
+            print("Recuperate position")
+            _, positionx, positiony = to_crop(img)
             write_position(positionx, positiony, str(im))
 
         show_picture("display", img, 1, "y")
@@ -66,6 +67,7 @@ def step_one():
             img = path_current + i
             img = take_features_position(img)
 
+            img, _, _ = to_crop(img)
             save_picture(str(path_current + i), img)
             show_picture("display", img, 1, "y")
 
@@ -98,7 +100,7 @@ def step_two():
     model_list = os.listdir(path_models)
 
     detections = []
-
+    images = []
     for picture in liste_picture:
 
         if picture != "current.jpg":
@@ -122,23 +124,27 @@ def step_two():
                         pass
 
                     if prediction == int(information["label"]):
-                        print(information["name"])
-                        detections.append([information["name"], recup_position(image)])
+                        detections.append([information["name"],
+                                           recup_position(image)])
+                        images.append(image)
                         break
                     else:
                         detections.append(["", recup_position(image)])
+                        images.append(image)
                         break
-
+        
                     #show_picture("picture", img, 1, "y")
 
 
-
     print(detections)
-    for i in detections:
-        img = draw(i)
-        show_picture("display", img, 1, "y")
+    
+    for nb, i in enumerate(detections):
 
-
+        if i[1] == None:pass
+        else:
+            img = draw(i, nb, images[nb])
+            show_picture("display", img, 0, "y")
+            save_picture("dataset/image/current/current_copy.jpg", img)
 
 
 
