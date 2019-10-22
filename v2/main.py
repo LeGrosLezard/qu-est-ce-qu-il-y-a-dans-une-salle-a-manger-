@@ -163,8 +163,9 @@ def step_three(detection):
 
     #Download
     for i in liste:
+
         path = "dataset/image/dataset/{}"
-        download_picture(path.format(i), path)
+        download_picture(i, path.format(i))
 
 
 
