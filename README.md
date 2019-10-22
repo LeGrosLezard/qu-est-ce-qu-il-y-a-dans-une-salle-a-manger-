@@ -4,7 +4,15 @@
 
 tache en cours
 
-      - refaire position. A cause de la redimension... bonne chance pour demain
+      - refaire position. A cause de la redimension... 
+      
+            -> main premiere partie
+            
+            -> main function write position
+            
+            -> info data -> current
+            
+            -> main function recup position
 
       - Si detection l'afficher sur une image avec une fleche en bleu ou rouge. Dessus mettre le nom de la detection ici le nom du label. 
 
