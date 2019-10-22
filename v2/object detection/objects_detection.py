@@ -62,7 +62,7 @@ def detection(model, w, h, img):
 
     for cnts in contours:
         cv2.fillPoly(blanck, pts =[cnts], color=(255,255,255))
-    show_picture("blanck", blanck, 0, "")
+    #show_picture("blanck", blanck, 0, "")
 
     grayblanck = cv2.cvtColor(blanck, cv2.COLOR_BGR2GRAY)
 
@@ -90,38 +90,5 @@ def detection(model, w, h, img):
     data = to_list(blanck1)
     predictions = model.predict([data])
 
-    print(predictions[0])
     return predictions[0]
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
