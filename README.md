@@ -4,6 +4,7 @@
 
 tache en cours
 
+      - Il faut récupérer la position des objets que l'on découpe de la scène lors de la premiere étape. En effet nous devons les récupérer afin de faire l'étape ci dessous:
 
       - Si detection l'afficher sur une image avec une fleche en bleu ou rouge. Dessus mettre le nom de la detection ici le nom du label. 
 
