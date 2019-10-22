@@ -161,8 +161,13 @@ def step_three(detection):
 ##        for it in items:
 ##            liste.append(it)
 ##
+    liste = ['verre', 'bol', 'Couteau', 'Cuillère', 'Fourchette', 'Paille', 'bol', 'tasse', 'assiette']
 
-    liste = ['verre', 'bol', 'Couteau', 'Cuillère', 'Fourchette', 'Paille','bol', 'tasse']
+    liste_path = os.listdir("dataset/image/dataset")
+    for i in liste:
+        for j in liste_path:
+            if i == j:
+                liste.remove(i)
 
     #Download
     for i in liste:
