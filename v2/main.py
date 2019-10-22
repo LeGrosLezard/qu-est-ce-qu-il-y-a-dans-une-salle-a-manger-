@@ -16,15 +16,20 @@ from picture_operation.multiple_objects import take_features_multi_obj
 #rotation objects
 from picture_operation.picture_orientation import take_features_position
 
-
+#----
+"""
+    Il faut faire l'apprentissage de l'assiette
+    hors programme la
+"""
+#----
 
 def step_one():
     """
         Input image
     """
     
-    path_picture = "dataset/current/current.jpg"
-    path_current = "dataset/current/"
+    path_picture = "dataset/image/current/current.jpg"
+    path_current = "dataset/image/current/"
     oInput = input("Enter an image")
 
     oInput = r"C:\Users\jeanbaptiste\Desktop\assiette\v2\dataset\image\test\assiette1.jpg"
@@ -68,9 +73,64 @@ def step_one():
     print("\nTreatment finish")
 
 
-def main():
-    step_one()
 
+from object_detection.objects_detection import detection
+from dataset.information_data.labels_function import treatment_read
+from dataset.information_data.labels_function import read
+def step_two():
+
+    print("Detection in progress ...")
+
+    
+    path_current = "dataset/image/current/"
+    path_models = "training/models/models/"
+
+    liste_picture = os.listdir(path_current)
+    model_list = os.listdir(path_models)
+
+    detections = 0
+
+    for picture in liste_picture:
+
+        if picture != "current.jpg":
+        
+            image = path_current + str(picture)
+            img = open_picture(image)
+
+            for models in model_list:
+                model = path_models + str(models)
+
+                prediction = detection(model, 50, 50, img)
+
+                labels = read(path_label, str(models))
+                for lab in labels:
+                    information = treatment_read([lab])
+                    if prediction == information["label"]:
+                        print(information["name"])
+                
+                print(prediction)
+
+
+            show_picture("picture", img, 1, "y")
+                
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+def main():
+    #step_one()
+    step_two()
 
 
 
