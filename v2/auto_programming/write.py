@@ -1,12 +1,12 @@
 import importlib
-import test2
+import thread
 
 
 
 
 def writtte(number):
 
-    with open('test2.py', 'w') as file:
+    with open('thread.py', 'w') as file:
 
         file.write("import os\n")
         file.write('import threading\n')
@@ -58,7 +58,7 @@ def writtte(number):
 
 
 
-
+    importlib.reload(thread)
 
 
 
@@ -76,4 +76,4 @@ def writtte(number):
     
     
 
-a(8)
+
