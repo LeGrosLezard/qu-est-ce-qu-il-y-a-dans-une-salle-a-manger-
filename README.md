@@ -5,15 +5,6 @@
 
 
 
-tache en cours
-
-   -  maintenant qu'on a la detection qui est hyper bien fait il faut chercher les autres objets
-    
-sous tache en cours
-
-    - trouver et effacer le assiette None 
-
-    - Récupérer les éléments de wiki depuis assiette
  
 
       
@@ -22,7 +13,13 @@ sous tache en cours
 
 
 
-a savoir mais ne pas faire
+a savoir mais ne pas faire de suite
+
+ - le fond a refaire ex aliment
+ 
+ - rotations ok pour les couverts mais pas pour les bols ni les tasses et on veut éviter la rotation pendant ladetection
+
+ - c'est hyper long (rotation et delete se sont pas fait)
 
  - y'aura un probleme si on trouve pas d'un coup le truk
 
