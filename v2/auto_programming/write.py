@@ -2,10 +2,8 @@ import importlib
 import to_thread
 
 
-
-
 def writtte(number):
-
+    
     with open('to_thread.py', 'w') as file:
 
         file.write("import os\n")
@@ -62,7 +60,6 @@ def writtte(number):
 
 
 
-writtte(8)
 
 
 
