@@ -4,9 +4,13 @@
 
 refaire la meme chose pour le csv
 
+faut que jdorme chui a plat depuis quelques jours
 
+- faire le training
 
+- essayer un a un avec assiete negative
 
+- si ca marche pas essayé tout avec les dimensions selon le truk
 
 <br><br><br><br><br><br><br><br>
 
