@@ -23,6 +23,8 @@ a savoir mais ne pas faire de suite
  
  - rotation et delete se sont pas fait
 
+ - delete c pas fait apres rotation 
+
  - y'aura un probleme si on trouve pas d'un coup le truk
 
  - ne pas oublier d'affacer current (info data)
