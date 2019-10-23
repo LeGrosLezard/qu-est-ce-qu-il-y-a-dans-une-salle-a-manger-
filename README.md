@@ -4,15 +4,6 @@
 
 
 
-
- trouver comment importer un fichier en arriere
- 
- stp marche 
-
-      
-
-      
-
 <br><br><br><br><br><br><br><br>
 
 a savoir mais ne pas faire de suite
