@@ -241,7 +241,6 @@ def step_five():
     liste_path = os.listdir(path_data)
     print(len(liste_path))
 
-
     liste = []
 
     write = writtte(len(liste_path))
@@ -254,42 +253,46 @@ def step_five():
 
 
 from main_function_image import define_size
+from main_function_image import negativ_training
+from training.training import head_writting
+from training.training import picture_writting
+from training.training import train
 def step_six(liste):
 
     #Verify csv
-    
+
     path_data = "dataset/image/dataset"
     path_folder = "dataset/image/dataset/{}"
     path_image = "dataset/image/dataset/{}/{}"
     liste_path = os.listdir(path_data)
 
-
-    
     for i in liste_path:
         print(i)
 
-        for info_size in liste:
-            if info_size[2] == path_folder.format(i):
-                size = define_size(liste)
-                print(size)
+        picture_folder = os.listdir(path_folder.format(i))
+
+        if len(picture_folder) > 10:
+
+            for info_size in liste:
+                if info_size[2] == path_folder.format(i):
+                    size = define_size(liste)
+                    number_pix = size[0] * size[1]
+
+            csv_name = "training/csv/in_training/" + str(i) + ".csv"
+            model_name = "training/models/in_training/" + str(i)
+            head_writting(csv_name, number_pix)
+
+            for j in picture_folder:
+                picture_writting(csv_name,
+                                 path_folder.format(i),
+                                 path_image.format(i, j),
+                                 size[0], size[1], "1")
+
+            negativ_training(i, csv_name, size)
 
 
-#head_writting(csv_name, number_pix)
-#picture_writting(csv_name, path_folder, path_picture, w, h, label)
-#train(csv_name, model_name)
 
-
-##        picture_folder = os.listdir(path_folder.format(i))
-##        print(path_folder.format(i))
-##
-##
-##        if len(picture_folder) > 10:
-##
-##            for j in picture_folder:
-##                print(path_image.format(i, j))
- 
-
-
+            train(csv_name, model_name)
 
 
 
