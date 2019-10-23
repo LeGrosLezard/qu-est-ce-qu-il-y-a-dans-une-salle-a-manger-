@@ -1,5 +1,5 @@
 import os
-
+import threading
 
 #Main function picture
 from main_function_image import open_picture
@@ -42,7 +42,7 @@ def step_one():
 
 
     print("Separate objects...")
-    img = take_features_multi_obj(path_picture)
+    img = take_features_multi_obj(path_picture, "")
 
     liste = os.listdir(path_current)
     for i in liste:
@@ -146,12 +146,14 @@ def step_two():
             show_picture("display", img, 1, "y")
             save_picture("dataset/image/current/current_copy.jpg", img)
 
-    print(detections)
+
     return detections
+
 
 
 from scraping.object_category import main_scrap
 from scraping.download_data import download_picture
+
 def step_three(detection):
 
     #Scrap
@@ -161,7 +163,6 @@ def step_three(detection):
         for it in items:
             liste.append(it)
 
-##    liste = ['verre', 'bol', 'Couteau', 'Cuillère', 'Fourchette', 'Paille', 'bol', 'tasse', 'assiette']
 
     liste_path = os.listdir("dataset/image/dataset")
     for i in liste:
@@ -179,15 +180,12 @@ def step_three(detection):
     
 
 
-
-
-from picture_operation.background import main_background
 from picture_operation.delete import main_deleting
 from picture_operation.multiple_objects import take_features_multi_obj
 from picture_operation.picture_orientation import take_features_position
-
+from picture_operation.background import main_background
 def step_fourth(objects):
-    
+
     path_data = "dataset/image/dataset"
     path_folder = "dataset/image/dataset/{}"
     path_image = "dataset/image/dataset/{}/{}"
@@ -200,14 +198,16 @@ def step_fourth(objects):
         print(path_folder.format(i))
 
         for j in picture_folder:
+
             print(path_image.format(i, j))
             img = main_background(path_image.format(i, j))
             save_picture(path_image.format(i, j), img)
 
+
         for j in picture_folder:
             print(path_image.format(i, j))
             img = take_features_multi_obj(path_image.format(i, j))
-            save_picture(path_image.format(i, j), img)
+
 
         for j in picture_folder:
             print(path_image.format(i, j))
@@ -217,7 +217,9 @@ def step_fourth(objects):
 
         for j in picture_folder:
             print(path_image.format(i, j))
-            main_deleting(path_image.format(i, j))
+            delete = main_deleting(path_image.format(i, j))
+            if delete is True:
+                os.remove(path_image.format(i, j))
 
 
 
@@ -226,6 +228,21 @@ def step_fourth(objects):
 
 
 
+
+from training.training import head_writting
+from training.training import picture_writting
+from training.training import train
+from auto_programming.write import writtte
+from auto_programming.thread import main_threading
+def step_five():
+
+    path_data = "dataset/image/dataset"
+
+    liste_path = os.listdir(path_data)
+    print(len(liste_path))
+
+    writtte(len(liste_path))
+    main_threading()
 
 
 
@@ -239,14 +256,15 @@ def main():
 ##           i[1] != None :
 ##            via.append(i[0])
 
+    #liste = step_three(via)
+    #print("\n We need to search this in a first time: ", liste)
+    #step_fourth(objects)
+    step_five()
 
-    #via = ['assiette']
-    #step_three(via)
 
 
-    liste = ['verre', 'bol', 'Couteau', 'Cuillère', 'Fourchette', 'Paille', 'bol', 'tasse', 'assiette']
 
-    step_fourth(liste)
+
 
 
 
