@@ -233,7 +233,7 @@ from training.training import head_writting
 from training.training import picture_writting
 from training.training import train
 from auto_programming.write import writtte
-from auto_programming.thread import main_threading
+import importlib
 def step_five():
 
     path_data = "dataset/image/dataset"
@@ -241,8 +241,14 @@ def step_five():
     liste_path = os.listdir(path_data)
     print(len(liste_path))
 
-    writtte(len(liste_path))
-    main_threading()
+    write = writtte(len(liste_path))
+    if write:
+        from auto_programming.to_thread import main_threading
+        main_threading()
+
+
+
+
 
 
 
