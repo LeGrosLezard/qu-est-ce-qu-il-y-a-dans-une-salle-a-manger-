@@ -17,9 +17,11 @@ a savoir mais ne pas faire de suite
 
  - le fond a refaire ex aliment
  
- - rotations ok pour les couverts mais pas pour les bols ni les tasses et on veut éviter la rotation pendant ladetection
+ - rotations ok pour les couverts mais pas pour les bols ni les tasses et on veut éviter la rotation pendant la detection
 
- - c'est hyper long (rotation et delete se sont pas fait)
+ - c'est hyper long
+ 
+ - rotation et delete se sont pas fait
 
  - y'aura un probleme si on trouve pas d'un coup le truk
 
