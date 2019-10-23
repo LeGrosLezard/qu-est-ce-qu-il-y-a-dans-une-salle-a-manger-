@@ -2,6 +2,10 @@
 
 #download from penseeartificielle/google-image-scrapping
 
+refaire la meme chose pour le csv
+
+
+
 
 
 <br><br><br><br><br><br><br><br>
