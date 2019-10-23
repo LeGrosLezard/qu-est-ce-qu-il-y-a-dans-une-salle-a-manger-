@@ -51,7 +51,7 @@ def writtte(number):
             file.write('    thread_' + str(i) + '.join()\n\n')
 
 
-
+        file.write('    return LISTE')
 
     importlib.reload(ecriture.to_thread)
     print("reload fait")
