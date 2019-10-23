@@ -1,12 +1,12 @@
 import importlib
-import thread
+import to_thread
 
 
 
 
 def writtte(number):
 
-    with open('thread.py', 'w') as file:
+    with open('to_thread.py', 'w') as file:
 
         file.write("import os\n")
         file.write('import threading\n')
@@ -43,26 +43,26 @@ def writtte(number):
 
         file.write('def main_threading():\n')
         for i in range(number):
-            file.write('    thread_' + str(i) + ' = threading.Thread(target=a(path_folder.format(liste_path[' + str(i) + '])))')
+            file.write('    thread_' + str(i) + ' = threading.Thread(target=a(path_folder.format(liste_path[' + str(i) + '])))\n\n')
 
         file.write('\n\n')
 
         for i in range(number):
-            file.write('    thread_' + str(i) + '.start()')
+            file.write('    thread_' + str(i) + '.start()\n\n')
 
         file.write('\n\n')
 
         for i in range(number):
-            file.write('    thread_' + str(i) + '.join()')
+            file.write('    thread_' + str(i) + '.join()\n\n')
 
 
 
 
-    importlib.reload(thread)
+    importlib.reload(to_thread)
 
 
 
-
+writtte(8)
 
 
 
