@@ -2,7 +2,7 @@
 
 #download from penseeartificielle/google-image-scrapping
 
-oups je crois que **args ca fait la meme chose
+j'ai trop peur davoir pété le truk du coup faut que je répare mais pffffffff
 
 <br><br><br><br><br><br><br><br>
 
