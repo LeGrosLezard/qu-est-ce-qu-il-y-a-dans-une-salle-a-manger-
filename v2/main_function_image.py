@@ -130,6 +130,7 @@ def recup_label_position(detection):
     return name, x, y
 
 
+
 def picture_treatment(image, nb):
     img1 = open_picture(image)
     img1 = cv2.resize(img1, (50, 100))
@@ -160,6 +161,7 @@ def draw(detection, nb, image):
 
     img1, img = picture_treatment(image, nb)
     name, x, y = recup_label_position(detection)
+
     #We add border to picture
     #We course the picture
     #if coursing == on the picture
@@ -169,6 +171,7 @@ def draw(detection, nb, image):
     #empty slot
     #else
     #picture already on it
+
     for j in range(0, img.shape[0], img1.shape[0]):
         for i in range(0, img.shape[1], img1.shape[1]):
             if j >= 100 and j <= 380 and i >= 100 and i <= 450:
@@ -193,5 +196,58 @@ def draw(detection, nb, image):
                     cv2.putText(img, name, (i,j+img1.shape[0]), cv2.FONT_HERSHEY_COMPLEX_SMALL, 1, (0, 0, 255))
 
                     return img
+
+
+
+def define_size(liste):
+
+    out = ""
+
+    for i in liste:
+
+        if abs(i[0] - i[1]) > 3 and\
+           i[0] > i[1]:
+            out = "100x200"
+   
+        elif abs(i[0] - i[1]) > 2 and\
+             abs(i[0] - i[1]) < 3 and\
+             i[0] > i[1]:
+            out = "50x50"
+
+        elif abs(i[0] - i[1]) > 1 and\
+             abs(i[0] - i[1]) < 2 and\
+             i[0] > i[1]:
+            out = "50x100"
+
+
+        elif abs(i[0] - i[1]) > 0 and\
+             abs(i[0] - i[1]) < 1 and\
+             i[0] > i[1]:
+            out = "50x50"
+
+        return out
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
+
+
+
+
 
 
