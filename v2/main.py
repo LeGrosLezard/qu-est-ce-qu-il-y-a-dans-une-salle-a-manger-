@@ -238,20 +238,18 @@ def step_five():
 
     path_data = "dataset/image/dataset"
 
-    liste_path = os.listdir(path_data)
-    print(len(liste_path))
+##    liste_path = os.listdir(path_data)
+##    print(len(liste_path))
+##
+##
+##    liste = []
+##
+##    write = writtte(len(liste_path))
+##    if write:
+    from ecriture.to_thread import main_threading
+    liste = main_threading()
 
-
-    liste = []
-
-    write = writtte(len(liste_path))
-    if write:
-        from ecriture.to_thread import main_threading
-        main_threading()
-        liste = main_threading.LISTE
-
-
-        print(liste)
+    print(liste)
 
 
 
