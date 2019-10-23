@@ -2,7 +2,7 @@
 
 #download from penseeartificielle/google-image-scrapping
 
-j'ai trop peur davoir pété le truk du coup faut que je répare mais pffffffff
+
 
 <br><br><br><br><br><br><br><br>
 
