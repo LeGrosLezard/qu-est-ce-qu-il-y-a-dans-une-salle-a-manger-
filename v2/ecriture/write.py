@@ -5,7 +5,7 @@ import ecriture.to_thread
 
 def writtte(number):
     
-    with open('auto_programming/to_thread.py', 'w') as file:
+    with open('ecriture/to_thread.py', 'w') as file:
 
         file.write("import os\n")
         file.write('import threading\n')
@@ -17,7 +17,7 @@ def writtte(number):
         file.write('path_folder = "dataset/image/dataset/{}"\n\n')
         file.write('liste_path = os.listdir(path_data)\n\n')
 
-
+        file.write('LISTE = []\n\n')
 
         dico = {1:"a", 2:"b", 3:"c", 4:"d",
                 5:"e", 6:"f", 7:"g", 8:"h", 9:"i"}
@@ -27,12 +27,12 @@ def writtte(number):
         file.write('    Lm = 0;lcm = 0;nb=0;\n')
         file.write('    liste = os.listdir(path)\n')
         file.write('    for i in liste:\n')
-        file.write('        L, l = main_demension(path + i)\n')
+        file.write('        L, l = main_demension(path + "/" + i)\n')
         file.write('        Lm += L; lcm+=l;nb += 1;\n')
+        file.write('        print(Lm/nb, lcm/nb)\n')
 
-        
-        file.write('    print(Lm/nb, lcm/nb)\n\n')
-
+        file.write('    LISTE.append([Lm/nb, lcm/nb, path])\n')
+        file.write('    print(Lm/nb, lcm/nb)\n\n\n')
 
 
 
@@ -53,7 +53,7 @@ def writtte(number):
 
 
 
-    importlib.reload(auto_programming.to_thread)
+    importlib.reload(ecriture.to_thread)
     print("reload fait")
 
     return True
