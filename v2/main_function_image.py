@@ -207,40 +207,49 @@ def define_size(liste):
 
         if abs(i[0] - i[1]) > 3 and\
            i[0] > i[1]:
-            out = "100x200"
+            out = [100,200]
    
         elif abs(i[0] - i[1]) > 2 and\
              abs(i[0] - i[1]) < 3 and\
              i[0] > i[1]:
-            out = "50x50"
+            out = [50, 50]
 
         elif abs(i[0] - i[1]) > 1 and\
              abs(i[0] - i[1]) < 2 and\
              i[0] > i[1]:
-            out = "50x100"
+            out = [50, 100]
 
 
         elif abs(i[0] - i[1]) > 0 and\
              abs(i[0] - i[1]) < 1 and\
              i[0] > i[1]:
-            out = "50x50"
+            out = [50, 50]
 
         return out
 
 
 
+from training.training import head_writting
+from training.training import picture_writting
+from training.training import train
+def negativ_training(positive, csv_name, size):
+    
+    path_data = "dataset/image/dataset"
+    path_folder = "dataset/image/dataset/{}"
+    path_image = "dataset/image/dataset/{}/{}"
 
 
+    liste = os.listdir(path_data)
+    for i in liste:
+        if i != positive:
+            liste1 = os.listdir(path_folder.format(i))
 
+            for i1 in liste1:
 
-
-
-
-
-
-
-
-
+                picture_writting(csv_name,
+                                 path_folder.format(i),
+                                 path_image.format(i, i1),
+                                 size[0], size[1], "0")
 
 
 
