@@ -238,19 +238,19 @@ def step_five():
 
     path_data = "dataset/image/dataset"
 
-##    liste_path = os.listdir(path_data)
-##    print(len(liste_path))
-##
-##
-##    liste = []
-##
-##    write = writtte(len(liste_path))
-##    if write:
-    from ecriture.to_thread import main_threading
-    liste = main_threading()
+    liste_path = os.listdir(path_data)
+    print(len(liste_path))
+
+
+    liste = []
+
+    write = writtte(len(liste_path))
+    if write:
+        from ecriture.to_thread import main_threading
+        liste = main_threading()
 
     print(liste)
-
+    return liste
 
 
 def main():
@@ -266,8 +266,8 @@ def main():
     #liste = step_three(via)
     #print("\n We need to search this in a first time: ", liste)
     #step_fourth(objects)
-    step_five()
-    
+    #liste = step_five()
+    liste = [[4.385468750000137, 2.9368750000000916, 'dataset/image/dataset/aliment'], [3.3115911458334373, 2.2479661458334026, 'dataset/image/dataset/bol'], [4.904211387434708, 1.5215619546248298, 'dataset/image/dataset/Couteau'], [4.7288758680557015, 1.298111979166708, 'dataset/image/dataset/Cuillere'], [4.772159391534541, 0.9914175485009131, 'dataset/image/dataset/Fourchette'], [4.148116883117012, 2.142094155844224, 'dataset/image/dataset/Paille'], [2.9227008928572342, 2.185962301587369, 'dataset/image/dataset/tasse'], [3.5509643817205414, 2.5156754032258855, 'dataset/image/dataset/verre']]
 
 
 
