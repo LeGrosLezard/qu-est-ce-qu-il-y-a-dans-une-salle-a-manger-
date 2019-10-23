@@ -232,7 +232,7 @@ def step_fourth(objects):
 from training.training import head_writting
 from training.training import picture_writting
 from training.training import train
-from auto_programming.write import writtte
+from ecriture.write import writtte
 import importlib
 def step_five():
 
@@ -241,14 +241,17 @@ def step_five():
     liste_path = os.listdir(path_data)
     print(len(liste_path))
 
+
+    liste = []
+
     write = writtte(len(liste_path))
     if write:
-        from auto_programming.to_thread import main_threading
+        from ecriture.to_thread import main_threading
         main_threading()
+        liste = main_threading.LISTE
 
 
-
-
+        print(liste)
 
 
 
@@ -266,7 +269,7 @@ def main():
     #print("\n We need to search this in a first time: ", liste)
     #step_fourth(objects)
     step_five()
-
+    
 
 
 
