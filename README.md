@@ -2,7 +2,7 @@
 
 #download from penseeartificielle/google-image-scrapping
 
-oups
+oups je crois que **args ca fait la meme chose
 
 <br><br><br><br><br><br><br><br>
 
