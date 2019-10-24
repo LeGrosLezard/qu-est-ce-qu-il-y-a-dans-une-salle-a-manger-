@@ -137,7 +137,7 @@ def step_two():
 
 
     #print(detections)
-    
+
     for nb, i in enumerate(detections):
 
         if i[1] == None:pass
@@ -153,7 +153,6 @@ def step_two():
 
 from scraping.object_category import main_scrap
 from scraping.download_data import download_picture
-
 def step_three(detection):
 
     #Scrap
@@ -267,7 +266,7 @@ def step_six(liste):
     path_image = "dataset/image/dataset/{}/{}"
     liste_path = os.listdir(path_data)
     path_label = "dataset/information_data/label.py"
-    
+
 
     for i in liste_path:
         print(i)
@@ -315,8 +314,6 @@ def step_seven():
     images = []
 
 
-
-
     for picture in liste_picture:
 
         if picture != "current.jpg" and\
@@ -356,7 +353,6 @@ def step_seven():
                     show_picture("picture", img, 1, "y")
 
 
-    
     print(detections)
 
 
@@ -375,10 +371,10 @@ def main():
     #print("\n We need to search this in a first time: ", liste)
     #step_fourth(objects)
     #liste = step_five()
-
     liste = [[4.385468750000137, 2.9368750000000916, 'dataset/image/dataset/aliment'], [3.3115911458334373, 2.2479661458334026, 'dataset/image/dataset/bol'], [4.904211387434708, 1.5215619546248298, 'dataset/image/dataset/Couteau'], [4.7288758680557015, 1.298111979166708, 'dataset/image/dataset/Cuillere'], [4.772159391534541, 0.9914175485009131, 'dataset/image/dataset/Fourchette'], [4.148116883117012, 2.142094155844224, 'dataset/image/dataset/Paille'], [2.9227008928572342, 2.185962301587369, 'dataset/image/dataset/tasse'], [3.5509643817205414, 2.5156754032258855, 'dataset/image/dataset/verre']]
-    #step_six(liste)
-    step_seven()
+
+    step_six(liste)
+    #step_seven()
 
 
 
