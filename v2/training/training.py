@@ -60,6 +60,7 @@ def to_list(thresh):
         for j in range(thresh.shape[1]):
 
             #if value of pixel > 120 we put 1 else 0
+            
             if thresh[i, j] > 120:
                 nb = 1
             else:
@@ -183,6 +184,10 @@ def take_max_contour_to_csv(blanck):
     #max cnt; bad picture so pass;
     maxi = 0; non = False;
 
+
+    #ici
+    blanck1 = blanck_picture(blanck)
+
     #take the max contour
     for cnts in contours:
 
@@ -203,9 +208,8 @@ def take_max_contour_to_csv(blanck):
             if cv2.contourArea(cnts) == maxi:
                 cv2.fillPoly(blanck1, pts =[cnts], color=(255,255,255))
         #show_picture("blanck1", blanck1, 0, "")
-        blanck1 = cv2.cvtColor(blanck1, cv2.COLOR_BGR2GRAY)
-
-
+     
+    blanck1 = cv2.cvtColor(blanck1, cv2.COLOR_BGR2GRAY)
     return blanck1
 
 
@@ -319,15 +323,6 @@ def training(X, Y, model_name):
 
 
 
-
-
-
-
-
-
-
-
-
 #A IMPORTER
 
 def head_writting(csv_name, number_pix):
@@ -340,7 +335,9 @@ def picture_writting(csv_name, path_folder, path_picture, w, h, label):
 
     liste = os.listdir(path_folder)
     for i in liste:
-        picture_treatment(csv_name, path_picture.format(i), w, h, label)
+        path_picture = path_folder + "/" + str(i)
+        print(path_picture)
+        picture_treatment(csv_name, path_picture, w, h, label)
 
 
 def train(csv_name, model_name):
@@ -353,11 +350,22 @@ def train(csv_name, model_name):
 
 
 
-
-
-
-
-
+##csv_name = r"C:\Users\jeanbaptiste\Desktop\assiette\v2\training\csv\csv\1.csv"
+##
+##head_writting(csv_name, 2500)
+##
+##path_folder = r"C:\Users\jeanbaptiste\Desktop\assiette\v2\dataset\image\dataset\assiette"
+##path_picture = r"C:\Users\jeanbaptiste\Desktop\assiette\v2\dataset\image\dataset\assiette\{}"
+##picture_writting(csv_name, path_folder, path_picture, 50, 50, "1")
+##
+##path_folder = r"C:\Users\jeanbaptiste\Desktop\assiette\v2\dataset\image\dataset\N"
+##path_picture = r"C:\Users\jeanbaptiste\Desktop\assiette\v2\dataset\image\dataset\N\{}"
+##picture_writting(csv_name, path_folder, path_picture, 50, 50, "0")
+##
+##
+##model_name = r"C:\Users\jeanbaptiste\Desktop\assiette\v2\training\models\models\1"
+#train(r"C:\Users\jeanbaptiste\Desktop\assiette\v2\training\csv\in_training\bol.csv",
+#      r"C:\Users\jeanbaptiste\Desktop\assiette\v2\training\models\in_training\bol")
 
 
 
