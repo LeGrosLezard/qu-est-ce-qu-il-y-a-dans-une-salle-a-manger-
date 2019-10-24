@@ -271,7 +271,7 @@ def step_six(liste):
 
         picture_folder = os.listdir(path_folder.format(i))
 
-        if len(picture_folder) > 10:
+        if len(picture_folder) > 10 and i != "assiette":
 
             for info_size in liste:
                 if info_size[2] == path_folder.format(i):
@@ -280,13 +280,13 @@ def step_six(liste):
 
             csv_name = "training/csv/in_training/" + str(i) + ".csv"
             model_name = "training/models/in_training/" + str(i)
+
             head_writting(csv_name, number_pix)
 
-            for j in picture_folder:
-                picture_writting(csv_name,
-                                 path_folder.format(i),
-                                 path_image.format(i, j),
-                                 size[0], size[1], "1")
+            picture_writting(csv_name,
+                             path_folder.format(i),
+                             "", 
+                             size[0], size[1], "1")
 
             negativ_training(i, csv_name, size)
 
