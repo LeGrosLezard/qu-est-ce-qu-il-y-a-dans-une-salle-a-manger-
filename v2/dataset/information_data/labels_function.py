@@ -1,12 +1,13 @@
 
 path_label = r"C:\Users\jeanbaptiste\Desktop\assiette\v2\dataset\information_data\label.py"
 
-def write(path_label):
+def write_labels(path_label, model, name, label, size1, size2, items):
     with open(path_label, "a") as file:
-        pass
 
-
-
+        to_write = model + ";" + name + ";" +\
+                   label + ";" +\
+                   items + ";" + size1 + "x" + size2 + ";\n"
+        file.write(str(to_write))
 
 
 #RECUP PART
@@ -75,6 +76,28 @@ def treatment_read(liste):
 
     informations_object["dimension"].append(increment)
 
-    print(informations_object)
     return informations_object
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
