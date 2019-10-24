@@ -229,9 +229,7 @@ def define_size(liste):
 
 
 
-from training.training import head_writting
 from training.training import picture_writting
-from training.training import train
 def negativ_training(positive, csv_name, size):
     
     path_data = "dataset/image/dataset"
@@ -244,17 +242,16 @@ def negativ_training(positive, csv_name, size):
         if i != positive:
             liste1 = os.listdir(path_folder.format(i))
 
-            for i1 in liste1:
 
-                picture_writting(csv_name,
-                                 path_folder.format(i),
-                                 path_image.format(i, i1),
-                                 size[0], size[1], "0")
+
+            picture_writting(csv_name,
+                             path_folder.format(i),
+                             "",
+                             size[0], size[1], "")
 
 
 
     
-
 
 
 
