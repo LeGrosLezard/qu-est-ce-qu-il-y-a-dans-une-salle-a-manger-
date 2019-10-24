@@ -2,9 +2,9 @@
 
 #download from penseeartificielle/google-image-scrapping
 
-refaire la meme chose pour le csv
+tout factoriser, tout rendre ok si plus tard on y revient et vetement mais avant yolo
 
-si ca marche extraire du csv le label 1
+le scrap les parties et la lenteur et si y'a un ballon et aucun élément de cuisine et les thread
 
 
 
