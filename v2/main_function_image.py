@@ -247,7 +247,7 @@ def negativ_training(positive, csv_name, size):
             picture_writting(csv_name,
                              path_folder.format(i),
                              "",
-                             size[0], size[1], "")
+                             size[0], size[1], "0")
 
 
 
