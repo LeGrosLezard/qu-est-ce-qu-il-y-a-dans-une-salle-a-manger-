@@ -2,6 +2,10 @@
 
 #download from penseeartificielle/google-image-scrapping
 
+exrtaire les ligne et le mettre dans csv
+
+faire le truk 0-9 des csv
+
 tout factoriser, tout rendre ok si plus tard on y revient et vetement et apres yolo
 
 le scrap les parties et la lenteur et si y'a un ballon et aucun élément de cuisine et les thread
