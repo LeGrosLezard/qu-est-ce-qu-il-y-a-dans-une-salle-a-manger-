@@ -2,7 +2,7 @@
 
 #download from penseeartificielle/google-image-scrapping
 
-exrtaire les ligne et le mettre dans csv
+refaire le csv bol et cuillere
 
 faire le truk 0-9 des csv
 
@@ -10,7 +10,7 @@ tout factoriser, tout rendre ok si plus tard on y revient et vetement et apres y
 
 le scrap les parties et la lenteur et si y'a un ballon et aucun élément de cuisine et les thread
 
-et non chui pas un fana de mode c'est pour les images ^^ c'est comme il écrit des poésies au tout début et que le mec en face se forcait a pas rire 
+
 
 
 
