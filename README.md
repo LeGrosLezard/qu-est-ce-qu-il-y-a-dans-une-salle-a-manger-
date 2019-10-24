@@ -4,11 +4,11 @@
 
 refaire le csv bol et cuillere
 
-faire le truk 0-9 des csv
+tout factoriser
 
-tout factoriser, tout rendre ok si plus tard on y revient et vetement et apres yolo
+tout rendre ok si plus tard on y revient
 
-le scrap les parties et la lenteur et si y'a un ballon et aucun élément de cuisine et les thread
+le scrap les parties et la lenteur et si y'a un ballon et aucun élément de cuisine et les thread, le truk des csv
 
 
 
