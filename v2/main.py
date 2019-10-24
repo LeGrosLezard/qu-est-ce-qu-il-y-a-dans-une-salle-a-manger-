@@ -300,6 +300,65 @@ def step_six(liste):
 
 
 
+def step_seven():
+
+    print("Detection in progress ...")
+
+    path_current = "dataset/image/current/"
+    path_models = "training/models/in_training/"
+    path_label = "dataset/information_data/label.py"
+
+    liste_picture = os.listdir(path_current)
+    model_list = os.listdir(path_models)
+
+    detections = []
+    images = []
+
+
+
+
+    for picture in liste_picture:
+
+        if picture != "current.jpg" and\
+           picture != "current_copy.jpg":
+
+            image = path_current + str(picture)
+
+            img = open_picture(image)
+
+            for models in model_list:
+
+                model = path_models + str(models)
+
+                labels = read(path_label, str(None))
+
+
+                for lab in labels:
+                    information = treatment_read([lab])
+
+                    w = int(information["dimension"][0])
+                    h = int(information["dimension"][1])
+
+                    try:
+                        prediction = detection(model, w, h, img)
+                        print(models, prediction)
+                    except:
+                        pass
+
+                    if prediction == 1:
+                        detections.append([information["name"], models])
+                        images.append(image)
+
+                    else:
+                        pass
+
+
+                    show_picture("picture", img, 1, "y")
+
+
+    
+    print(detections)
+
 
 
 def main():
@@ -318,8 +377,8 @@ def main():
     #liste = step_five()
 
     liste = [[4.385468750000137, 2.9368750000000916, 'dataset/image/dataset/aliment'], [3.3115911458334373, 2.2479661458334026, 'dataset/image/dataset/bol'], [4.904211387434708, 1.5215619546248298, 'dataset/image/dataset/Couteau'], [4.7288758680557015, 1.298111979166708, 'dataset/image/dataset/Cuillere'], [4.772159391534541, 0.9914175485009131, 'dataset/image/dataset/Fourchette'], [4.148116883117012, 2.142094155844224, 'dataset/image/dataset/Paille'], [2.9227008928572342, 2.185962301587369, 'dataset/image/dataset/tasse'], [3.5509643817205414, 2.5156754032258855, 'dataset/image/dataset/verre']]
-    step_six(liste)
-
+    #step_six(liste)
+    step_seven()
 
 
 
