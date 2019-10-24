@@ -10,7 +10,7 @@ tout factoriser, tout rendre ok si plus tard on y revient et vetement et apres y
 
 le scrap les parties et la lenteur et si y'a un ballon et aucun élément de cuisine et les thread
 
-
+et non chui pas un fana de mode c'est pour les images ^^ 
 
 
 
