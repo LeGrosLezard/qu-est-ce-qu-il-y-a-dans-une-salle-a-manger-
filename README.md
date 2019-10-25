@@ -6,8 +6,12 @@ faire la sortie des crop (trouver d'ou vient le vaisselle none)
 
 supprimer les images
 
-fair eles csv et model
+faire les csv et model si detection
 
+supprimer les csv et model training
+
+
+<br><br><br><br><br>
 
 # plus tard
 
