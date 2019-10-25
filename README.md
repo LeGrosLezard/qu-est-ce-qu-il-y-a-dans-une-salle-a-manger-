@@ -2,6 +2,8 @@
 
 #download from penseeartificielle/google-image-scrapping
 
+faire la sortie des crop (trouver d'ou vient le vaisselle none)
+
 supprimer les images
 
 fair eles csv et model
