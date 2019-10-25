@@ -10,6 +10,7 @@ faire les csv et model si detection
 
 supprimer les csv et model training
 
+pteptre que y'a que cuillere qui marche voir si couteau et fourchette marchent
 
 <br><br><br><br><br>
 
