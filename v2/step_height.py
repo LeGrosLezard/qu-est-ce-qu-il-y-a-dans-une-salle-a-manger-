@@ -13,7 +13,7 @@ from training.training import train
 
 def get_csv(element, liste, name, liste_csv):
 
-    
+    #match detection and training csv
     size = []
     for i in liste:
         for n in name:
@@ -22,6 +22,7 @@ def get_csv(element, liste, name, liste_csv):
     size = list(set(size))
 
 
+    #recup all info: name, width, height
     current = []
     for i in size:
         i = i.split("x")
@@ -29,16 +30,14 @@ def get_csv(element, liste, name, liste_csv):
             current.append(i)
 
 
-
-
+    #recup official csv
     liste_csv_find = []
     for i in liste_csv:
         i = i.split("x")
         if i[-1][-4:] == ".csv":i[-1] = i[-1][:-4]
         liste_csv_find.append(i)
 
-
-
+    #match our detection size with official size
     to_search = []
     for i in liste_csv_find:
         for j in current:
@@ -48,17 +47,17 @@ def get_csv(element, liste, name, liste_csv):
                     to_search.append(i)
             except IndexError:
                 pass
-      
 
+    #no file create it
     if to_search == []:
         return "file", ""
 
+    #recup all csv with this dimension
     maxi_search = []
     for i in to_search:
         maxi_search.append(i[0])
 
-
-
+    #recup the max csv (the last created)
     current = ""
     for i in to_search:
         if i[0] == max(maxi_search):
@@ -67,12 +66,11 @@ def get_csv(element, liste, name, liste_csv):
 
 
 
-    
-
-    #label
+    #go recup label into csv
     labeled = []
     to_read = path_csv + "/" + str(current)
 
+    #recup only label column
     f =  open(to_read, 'r')
     dataframe = f.readlines()
     dataframe = dataframe
@@ -82,11 +80,16 @@ def get_csv(element, liste, name, liste_csv):
         except:
             pass
 
+    #if label is 9 create a new csv
     labeled = max(list(set(labeled)))
     if labeled == 9:
         return "label", ""
-    label = labeled + 1
 
+    #return label + 1 = new label
+    label = labeled + 1
+    print("")
+    print("")
+    
 
     return current, label
 
@@ -94,11 +97,8 @@ def get_csv(element, liste, name, liste_csv):
     
 
 def create(path_csv, liste_csv, liste, name, element):
-    print(liste_csv)
-    print(path_csv)
 
-
-    print(element)
+    #match detection and training csv
     size = []
     for i in liste:
         for n in name:
@@ -108,17 +108,19 @@ def create(path_csv, liste_csv, liste, name, element):
 
     print(size)
 
+    #recup the size
     to_size = []
     for i in size:
         i = i.split("x")
         if i[0] == element[:-4]:
             to_size.append(str(i[1]) + "x" + str(i[2]))
 
+    #return the new name csv and label = 0
     print(to_size)
     to_size = str(1) + "x" + to_size[0] + ".csv"
 
     print(to_size)
-
+    print("")
     
     return to_size, "0"
 
@@ -126,23 +128,26 @@ def create(path_csv, liste_csv, liste, name, element):
 def step_height(liste, path_csv_training, path_csv,
                 path_model_training, path_model):
 
-
+    #path
     liste_training_csv = os.listdir(path_csv_training)
     liste_csv = os.listdir(path_csv)
 
     liste_model_training = os.listdir(path_model_training)
     liste_model = os.listdir(path_model)
 
-
-
+    #get name from detection
     name = list(set([i[0] for i in liste]))
 
 
+    #csv training == detection
     to_change = []
     for i in name:
         for csv in liste_training_csv:
             if str(i) + ".csv" == str(csv):
                 to_change.append(csv)
+
+    
+
 
     for i in to_change:
 
@@ -154,6 +159,8 @@ def step_height(liste, path_csv_training, path_csv,
         else:
             print(there_is, label)
 
+
+        #write training info into official csv
 
         path = path_csv_training + "/" + str(i)
         print(path_csv + "/" + there_is)
