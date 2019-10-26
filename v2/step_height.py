@@ -8,10 +8,10 @@ from training.training import csv_to_list
 from training.training import training
 from training.training import train
 
-
-
-
-def get_csv(element, liste, name, liste_csv):
+#------------------------------------------------------------------
+def dection_training(name, liste):
+    """We got detection : name and width and height tranined
+    We need to recup the name of this csv"""
 
     #match detection and training csv
     size = []
@@ -21,6 +21,12 @@ def get_csv(element, liste, name, liste_csv):
                 size.append(str(i[0]) + "x" + str(i[1]) + "x" + str(i[2]))
     size = list(set(size))
 
+    return size
+
+
+def csv_offcials_files(size, liste_csv, element):
+    """We need to recuperate an official csv with the lasts
+    dimensions """
 
     #recup all info: name, width, height
     current = []
@@ -28,7 +34,6 @@ def get_csv(element, liste, name, liste_csv):
         i = i.split("x")
         if i[0] == element[:-4]:
             current.append(i)
-
 
     #recup official csv
     liste_csv_find = []
@@ -48,6 +53,49 @@ def get_csv(element, liste, name, liste_csv):
             except IndexError:
                 pass
 
+    return to_search
+
+    
+def recup_last_label(path_csv):
+    """We got a csv, now we need to recup last label"""
+
+    #go recup label into csv
+    labeled = []
+    to_read = path_csv + "/" + str(current)
+
+    #recup only label column
+    f =  open(to_read, 'r')
+    dataframe = f.readlines()
+    dataframe = dataframe
+    for i in dataframe:
+        try:
+            labeled.append(int(i[0]))
+        except:
+            pass
+
+    labeled = max(list(set(labeled)))
+    return labeled
+
+
+
+
+def get_csv(element, liste, name, liste_csv):
+    """Here we treat the detection who give us
+    name, width and height.
+
+    We go into csv trained. We match csv with detection.
+
+    We need to add this to official csv.
+    For that we need to recup a csv with current dimension
+    if yes we recup last label
+    if not we create a new offical csv
+
+    if label is 9 create a new official csv"""
+
+    #match detection and training csv
+    size = dection_training(name, liste)
+
+    to_search = csv_offcials_files(size, liste_csv, element)
     #no file create it
     if to_search == []:
         return "file", ""
@@ -65,48 +113,25 @@ def get_csv(element, liste, name, liste_csv):
     current = current + ".csv"
 
 
+    labeled = recup_last_label(path_csv)
 
-    #go recup label into csv
-    labeled = []
-    to_read = path_csv + "/" + str(current)
-
-    #recup only label column
-    f =  open(to_read, 'r')
-    dataframe = f.readlines()
-    dataframe = dataframe
-    for i in dataframe:
-        try:
-            labeled.append(int(i[0]))
-        except:
-            pass
-
-    #if label is 9 create a new csv
-    labeled = max(list(set(labeled)))
-    if labeled == 9:
-        return "label", ""
-
+    #if the last label = 9 go create new file
+    if labeled == 9: return "label", ""
     #return label + 1 = new label
-    label = labeled + 1
-    print("")
-    print("")
-    
+    else: label = labeled + 1
+
 
     return current, label
 
 
-    
+#------------------------------------------------------------------
 
 def create(path_csv, liste_csv, liste, name, element):
+    """Create a new offical csv"""
 
-    #match detection and training csv
-    size = []
-    for i in liste:
-        for n in name:
-            if i[0] == n:
-                size.append(str(i[0]) + "x" + str(i[1]) + "x" + str(i[2]))
-    size = list(set(size))
-
+    size = dection_training(name, liste)
     print(size)
+
 
     #recup the size
     to_size = []
@@ -115,18 +140,58 @@ def create(path_csv, liste_csv, liste, name, element):
         if i[0] == element[:-4]:
             to_size.append(str(i[1]) + "x" + str(i[2]))
 
+
+
     #return the new name csv and label = 0
     print(to_size)
     to_size = str(1) + "x" + to_size[0] + ".csv"
 
     print(to_size)
     print("")
-    
+
     return to_size, "0"
+
+def training_to_offical(path_csv_training, path_csv, there_is, label, i):
+    """We need to recup training information
+    for add it to the official"""
+
+    #write training info into official csv
+    path = path_csv_training + "/" + str(i)
+    print(path_csv + "/" + there_is)
+    main = open(path_csv + "/" + there_is, 'a')
+
+    f =  open(path, 'r')
+    dataframe = f.readlines()
+    dataframe = dataframe
+
+    for j in dataframe:
+        ok = False
+        if j[0] == "1":
+            j = j.split(";")
+            j[0] = str(label)
+            for k in j[:-1]:
+                main.write(str(k)+";")
+            ok = True
+        if ok is True:
+            main.write("\n")
+
 
 
 def step_height(liste, path_csv_training, path_csv,
                 path_model_training, path_model):
+    """
+    1 - Recup detections informations.
+    2 - Match it with his training csv
+    3 - Recup official csv with same dimension
+        - no create a official csv
+        - yes recup label
+            - label == 9
+            - create new official csv
+    4 - add training information into official csv
+    5 - need to create new model
+    6 - train it
+    7 - raised old training
+    """
 
     #path
     liste_training_csv = os.listdir(path_csv_training)
@@ -134,6 +199,7 @@ def step_height(liste, path_csv_training, path_csv,
 
     liste_model_training = os.listdir(path_model_training)
     liste_model = os.listdir(path_model)
+
 
     #get name from detection
     name = list(set([i[0] for i in liste]))
@@ -147,8 +213,6 @@ def step_height(liste, path_csv_training, path_csv,
                 to_change.append(csv)
 
     
-
-
     for i in to_change:
 
         print(i)
@@ -159,31 +223,8 @@ def step_height(liste, path_csv_training, path_csv,
         else:
             print(there_is, label)
 
+        training_to_offical(path_csv_training, path_csv, there_is, label, i)
 
-        #write training info into official csv
-
-        path = path_csv_training + "/" + str(i)
-        print(path_csv + "/" + there_is)
-        main = open(path_csv + "/" + there_is, 'a')
-
-        f =  open(path, 'r')
-        dataframe = f.readlines()
-        dataframe = dataframe
-
-        for j in dataframe:
-            ok = False
-            if j[0] == "1":
-                j = j.split(";")
-                j[0] = str(label)
-                for k in j[:-1]:
-                    main.write(str(k)+";")
-                ok = True
-            if ok is True:
-                main.write("\n")
-
-
-        print("")
-        print("")
     #X, Y = csv_to_list(to_read)
     #training(X, Y, to_read)
 
