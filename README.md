@@ -5,6 +5,10 @@
 
 faire des csv par taille mais la jpe plus
 
+csv1x50x50
+csv1x20x100
+
+
 <br><br><br><br><br>
 
 # plus tard
