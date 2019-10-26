@@ -17,7 +17,7 @@ faire les catégories des objets (vaiselle -> cuisine)
 
 y'a pas le couteau et une fois ca dit cuillere + fourchette ...
 
-
+ca dit couteau mais ca dit pas fourchette ni cuillere ect
 
 
 
