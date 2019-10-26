@@ -8,6 +8,10 @@ faire le label.py car pour savoir et faire dimension faut label
 
 tout supprimer image + training
 
+faire l'animation
+
+
+
 <br><br><br><br><br>
 
 # plus tard
