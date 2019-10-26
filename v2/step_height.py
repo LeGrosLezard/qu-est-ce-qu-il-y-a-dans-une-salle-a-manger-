@@ -27,7 +27,7 @@ def dection_training(name, liste):
 def csv_offcials_files(size, liste_csv, element):
     """We need to recuperate an official csv with the lasts
     dimensions """
-    print(liste_csv)
+
     #recup all info: name, width, height
     current = []
     for i in size:
@@ -160,7 +160,8 @@ def training_to_offical(path_csv_training, path_csv, there_is, label, i):
     dataframe = f.readlines()
     dataframe = dataframe
 
-    for j in dataframe:
+    for j in dataframe[1:]:
+
         ok = False
         if j[0] == "1":
             j = j.split(";")
@@ -255,19 +256,12 @@ def step_height(liste, path_csv_training, path_csv,
 
 
     name_model = get_model(liste_model_training, liste_model, there_is)
-        
-    X, Y = csv_to_list(there_is)
-    training(X, Y, name_model)
+
+    X, Y = csv_to_list(path_csv + "/" + there_is)
+
+
+    training(X, Y, path_model + "/" + name_model)
     
-
-
-
-
-
-
-
-
-
 
 
 
