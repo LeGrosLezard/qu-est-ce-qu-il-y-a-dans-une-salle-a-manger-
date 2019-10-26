@@ -160,7 +160,7 @@ def training_to_offical(path_csv_training, path_csv, there_is, label, i):
     dataframe = f.readlines()
     dataframe = dataframe
 
-    for j in dataframe[1:]:
+    for j in dataframe:
 
         ok = False
         if j[0] == "1":
@@ -258,8 +258,6 @@ def step_height(liste, path_csv_training, path_csv,
     name_model = get_model(liste_model_training, liste_model, there_is)
 
     X, Y = csv_to_list(path_csv + "/" + there_is)
-
-
     training(X, Y, path_model + "/" + name_model)
     
 
