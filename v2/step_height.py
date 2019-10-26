@@ -3,7 +3,7 @@ sys.path.append(r"C:\Users\jeanbaptiste\Desktop\assiette\v2")
 
 import os
 import csv
-
+import time
 from training.training import csv_to_list
 from training.training import training
 from training.training import train
@@ -27,7 +27,7 @@ def dection_training(name, liste):
 def csv_offcials_files(size, liste_csv, element):
     """We need to recuperate an official csv with the lasts
     dimensions """
-
+    print(liste_csv)
     #recup all info: name, width, height
     current = []
     for i in size:
@@ -56,7 +56,7 @@ def csv_offcials_files(size, liste_csv, element):
     return to_search
 
     
-def recup_last_label(path_csv):
+def recup_last_label(path_csv, current):
     """We got a csv, now we need to recup last label"""
 
     #go recup label into csv
@@ -97,6 +97,7 @@ def get_csv(element, liste, name, liste_csv):
 
     to_search = csv_offcials_files(size, liste_csv, element)
     #no file create it
+
     if to_search == []:
         return "file", ""
 
@@ -113,7 +114,7 @@ def get_csv(element, liste, name, liste_csv):
     current = current + ".csv"
 
 
-    labeled = recup_last_label(path_csv)
+    labeled = recup_last_label(path_csv, current)
 
     #if the last label = 9 go create new file
     if labeled == 9: return "label", ""
@@ -130,8 +131,6 @@ def create(path_csv, liste_csv, liste, name, element):
     """Create a new offical csv"""
 
     size = dection_training(name, liste)
-    print(size)
-
 
     #recup the size
     to_size = []
@@ -140,16 +139,13 @@ def create(path_csv, liste_csv, liste, name, element):
         if i[0] == element[:-4]:
             to_size.append(str(i[1]) + "x" + str(i[2]))
 
-
-
     #return the new name csv and label = 0
-    print(to_size)
+
     to_size = str(1) + "x" + to_size[0] + ".csv"
 
-    print(to_size)
-    print("")
-
     return to_size, "0"
+
+
 
 def training_to_offical(path_csv_training, path_csv, there_is, label, i):
     """We need to recup training information
@@ -157,7 +153,7 @@ def training_to_offical(path_csv_training, path_csv, there_is, label, i):
 
     #write training info into official csv
     path = path_csv_training + "/" + str(i)
-    print(path_csv + "/" + there_is)
+
     main = open(path_csv + "/" + there_is, 'a')
 
     f =  open(path, 'r')
@@ -177,8 +173,25 @@ def training_to_offical(path_csv_training, path_csv, there_is, label, i):
 
 
 
+def get_model(liste_model_training, liste_model, name_csv):
+
+
+    liste = [i.split("x") for i in liste_model]
+    name_csv = name_csv.split("x")
+
+
+    for i in liste:
+        if i[1] == name_csv[1] and\
+           i[2] == name_csv[2][:-4]:
+            return "x".join(i)
+        else:
+            name_csv = "x".join(name_csv)
+            name_csv = name_csv[:-4]
+            return name_csv
+    
+
 def step_height(liste, path_csv_training, path_csv,
-                path_model_training, path_model):
+                path_model, path_model_training):
     """
     1 - Recup detections informations.
     2 - Match it with his training csv
@@ -212,23 +225,40 @@ def step_height(liste, path_csv_training, path_csv,
             if str(i) + ".csv" == str(csv):
                 to_change.append(csv)
 
-    
-    for i in to_change:
 
+    #NO CASE ITEMS HAVE DIFFERENTS SIZES
+    cre = False
+    c = 0
+    a = 0
+    for i in to_change:
         print(i)
         there_is, label = get_csv(i, liste, name, liste_csv)
 
         if there_is is "file" or there_is is "label":
             there_is, label = create(path_csv, liste_csv, liste, name, i)
-        else:
-            print(there_is, label)
+            cre = True
 
+        #no time for reload folder...
+        if cre is True:
+            if c >= 1:
+                label = int(a) + 1
+                label = str(label)
+            else:
+                c += 1
+                a = label
+
+    
+        print(label)
         training_to_offical(path_csv_training, path_csv, there_is, label, i)
 
-    #X, Y = csv_to_list(to_read)
-    #training(X, Y, to_read)
 
 
+
+    name_model = get_model(liste_model_training, liste_model, there_is)
+        
+    X, Y = csv_to_list(there_is)
+    training(X, Y, name_model)
+    
 
 
 
@@ -249,18 +279,20 @@ def step_height(liste, path_csv_training, path_csv,
 path_csv_training = "../training/csv/in_training"
 path_csv = "../training/csv/csv"
 
-path_model = "../training/models/models"
+liste_model = "../training/models/models"
 path_models_training = "../training/models/in_training/"
 
+liste_model_training = os.listdir(path_models_training)
+liste_model = os.listdir(liste_model)
 
-liste = [['Fourchette', 20, 100, '../dataset/image/current/currentv0.jpg'], ['Fourchette', 20, 100, '../dataset/image/current/currentv00.jpg'], ['Cuillere', 20, 100, '../dataset/image/current/currentv000.jpg'], ['Cuillere', 20, 100, '../dataset/image/current/currentv1.jpg'], ['Fourchette', 20, 100, '../dataset/image/current/currentv1.jpg'], ['Cuillere', 20, 100, '../dataset/image/current/currentv3.jpg']]
+##liste = [['Fourchette', 20, 100, '../dataset/image/current/currentv0.jpg'], ['Fourchette', 20, 100, '../dataset/image/current/currentv00.jpg'], ['Cuillere', 20, 100, '../dataset/image/current/currentv000.jpg'], ['Cuillere', 20, 100, '../dataset/image/current/currentv1.jpg'], ['Fourchette', 20, 100, '../dataset/image/current/currentv1.jpg'], ['Cuillere', 20, 100, '../dataset/image/current/currentv3.jpg']]
+##
+##
+##step_height(liste, path_csv_training, path_csv,
+##            liste_model, path_models_training)
 
 
-step_height(liste, path_csv_training, path_csv,
-            path_model, path_models_training)
-
-
-
+##get_model(liste_model_training, liste_model, "1x20x100.csv")
 
 
 
