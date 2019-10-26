@@ -2,11 +2,9 @@
 
 #download from penseeartificielle/google-image-scrapping
 
+faire le truk model
 
-faire des csv par taille mais la jpe plus
-
-csv1x50x50
-csv1x20x100
+faire le label.py car pour savoir et faire dimension faut label
 
 
 <br><br><br><br><br>
