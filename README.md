@@ -3,7 +3,7 @@
 #download from penseeartificielle/google-image-scrapping
 
 
-
+faire des csv par taille mais la jpe plus
 
 <br><br><br><br><br>
 
