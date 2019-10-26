@@ -6,6 +6,7 @@ faire le truk model
 
 faire le label.py car pour savoir et faire dimension faut label
 
+tout supprimer image + training
 
 <br><br><br><br><br>
 
