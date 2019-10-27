@@ -6,7 +6,7 @@ ok supprimer le systeme de label 1x20x100 et de mis en model (en gros 1x20x100 a
 
 si ca dit fourchette/cuillere le laisser
 
-antonhy (on a dormis chez shawn)
+les autres dans la salle
 
 
 faire l'animation -> du coup ca met les ? pour le passage ect assiette, le systeme de slot est super!!
