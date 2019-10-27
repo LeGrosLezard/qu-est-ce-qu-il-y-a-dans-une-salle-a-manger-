@@ -55,7 +55,8 @@ def csv_offcials_files(size, liste_csv, element):
 
     return to_search
 
-    
+
+
 def recup_last_label(path_csv, current):
     """We got a csv, now we need to recup last label"""
 
@@ -75,8 +76,6 @@ def recup_last_label(path_csv, current):
 
     labeled = max(list(set(labeled)))
     return labeled
-
-
 
 
 def get_csv(element, liste, name, liste_csv, path_csv):
@@ -304,14 +303,12 @@ def step_height(liste, path_csv_training, path_csv,
                 c += 1
                 a = label
 
-    
-        print(label)
-        #training_to_offical(path_csv_training, path_csv, there_is, label, i)
 
+        training_to_offical(path_csv_training, path_csv, there_is, label, i)
         write_to_label(i, there_is, path_label)
 
 
-    #name_model = get_model(liste_model_training, liste_model, there_is)
+    name_model = get_model(liste_model_training, liste_model, there_is)
 
     X, Y = csv_to_list(path_csv + "/" + there_is)
     training(X, Y, path_model + "/" + name_model)
