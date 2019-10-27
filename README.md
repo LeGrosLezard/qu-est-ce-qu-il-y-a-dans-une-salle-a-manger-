@@ -4,7 +4,7 @@
 
 pas faire le truk model
 
-
+mettre les negative jcrois
 
 faire le label.py car pour savoir et faire dimension faut label
 
