@@ -79,7 +79,7 @@ def recup_last_label(path_csv, current):
 
 
 
-def get_csv(element, liste, name, liste_csv):
+def get_csv(element, liste, name, liste_csv, path_csv):
     """Here we treat the detection who give us
     name, width and height.
 
@@ -189,10 +189,65 @@ def get_model(liste_model_training, liste_model, name_csv):
             name_csv = "x".join(name_csv)
             name_csv = name_csv[:-4]
             return name_csv
-    
+
+def writting(liste_to_rewrite, path_label):
+    with open(path_label, "a") as file:
+        for i in liste_to_rewrite:
+            file.write(i)
+
+def clean_file(path_label):
+    with open(path_label, "r") as file:
+        liste = [i for i in file]
+
+    liste = list(set(liste))
+
+    liste_write = []
+    for i in liste:
+        i = i.split(";")
+        if i[0] == "None":
+            pass
+        else:
+            liste_write.append(";".join(i))
+
+    with open(path_label, "w") as file:
+        for i in liste_write:
+            file.write(i)
+
+
+
+
+def write_to_label(element, csv_name, path_label):
+
+
+    #open label file
+    with open(path_label, "r") as file:
+        liste = [i for i in file]
+
+    liste_to_rewrite = []; ok = False
+
+    #split lines
+    for i in liste:
+        i = i.split(";")
+        for j in i:
+            #if we got a detection and it hsnt got a model
+            #we append it to a list
+            if j == element[:-4] and i[0] == 'None':
+                i[0] = csv_name[:-4]
+                liste_to_rewrite.append(";".join(i))
+                ok = True
+            #If we already got this objet by current model
+            #add it too
+            elif i[0] != 'None':
+                liste_to_rewrite.append(";".join(i))
+
+    liste_to_rewrite = list(set(liste_to_rewrite))
+    writting(liste_to_rewrite, path_label)
+
+
 
 def step_height(liste, path_csv_training, path_csv,
-                path_model, path_model_training):
+                path_model, path_model_training,
+                path_label):
     """
     1 - Recup detections informations.
     2 - Match it with his training csv
@@ -233,8 +288,9 @@ def step_height(liste, path_csv_training, path_csv,
     a = 0
     for i in to_change:
         print(i)
-        there_is, label = get_csv(i, liste, name, liste_csv)
-
+        there_is, label = get_csv(i, liste, name, liste_csv, path_csv)
+        print(there_is)
+        
         if there_is is "file" or there_is is "label":
             there_is, label = create(path_csv, liste_csv, liste, name, i)
             cre = True
@@ -250,16 +306,17 @@ def step_height(liste, path_csv_training, path_csv,
 
     
         print(label)
-        training_to_offical(path_csv_training, path_csv, there_is, label, i)
+        #training_to_offical(path_csv_training, path_csv, there_is, label, i)
+
+        write_to_label(i, there_is, path_label)
 
 
-
-
-    name_model = get_model(liste_model_training, liste_model, there_is)
+    #name_model = get_model(liste_model_training, liste_model, there_is)
 
     X, Y = csv_to_list(path_csv + "/" + there_is)
     training(X, Y, path_model + "/" + name_model)
     
+    clean_file(path_label)
 
 
 
@@ -268,14 +325,23 @@ def step_height(liste, path_csv_training, path_csv,
 
 
 
-path_csv_training = "../training/csv/in_training"
-path_csv = "../training/csv/csv"
 
-liste_model = "../training/models/models"
-path_models_training = "../training/models/in_training/"
 
-liste_model_training = os.listdir(path_models_training)
-liste_model = os.listdir(liste_model)
+
+
+
+
+
+
+##
+##path_csv_training = "../training/csv/in_training"
+##path_csv = "../training/csv/csv"
+##
+##liste_model = "../training/models/models"
+##path_models_training = "../training/models/in_training/"
+##
+##liste_model_training = os.listdir(path_models_training)
+##liste_model = os.listdir(liste_model)
 
 ##liste = [['Fourchette', 20, 100, '../dataset/image/current/currentv0.jpg'], ['Fourchette', 20, 100, '../dataset/image/current/currentv00.jpg'], ['Cuillere', 20, 100, '../dataset/image/current/currentv000.jpg'], ['Cuillere', 20, 100, '../dataset/image/current/currentv1.jpg'], ['Fourchette', 20, 100, '../dataset/image/current/currentv1.jpg'], ['Cuillere', 20, 100, '../dataset/image/current/currentv3.jpg']]
 ##
