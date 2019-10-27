@@ -2,9 +2,10 @@
 
 #download from penseeartificielle/google-image-scrapping
 
-ptin sté en 50x100 jcomprenais pas
+ok supprimer le systeme de label 1x20x100 et de mis en model trouver un autre truk pour la passation de model
 
-faire l'animation
+
+faire l'animation -> du coup ca met les ? pour le passage ect assiette, le systeme de slot est super!!
 
 
 
