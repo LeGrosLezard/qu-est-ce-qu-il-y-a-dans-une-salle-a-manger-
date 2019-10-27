@@ -6,7 +6,7 @@ ok supprimer le systeme de label 1x20x100 et de mis en model (en gros 1x20x100 a
 
 si ca dit fourchette/cuillere le laisser
 
-non non j'étais dans le club de béné et jy suis allé avec jb et antonhy, kaina et la soeur damelie open st john en cm2
+non non j'étais dans le club de béné (c celle connue) et jy suis allé avec jb et antonhy, kaina et la soeur damelie open st john en cm2
 
 faire l'animation -> du coup ca met les ? pour le passage ect assiette, le systeme de slot est super!!
 
