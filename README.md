@@ -2,14 +2,7 @@
 
 #download from penseeartificielle/google-image-scrapping
 
-ok supprimer le systeme de label 1x20x100 et de mis en model (en gros 1x20x100 a cuillere) trouver un autre truk pour la passation de model puis au pire ca aura fait agiter les neurones
-
-si ca dit fourchette/cuillere le laisser
-
-
-
-
-faire l'animation -> du coup ca met les ? pour le passage ect assiette, le systeme de slot est super!!
+recup du file done du file c pcque le resultat est terrible ^^
 
 
 
