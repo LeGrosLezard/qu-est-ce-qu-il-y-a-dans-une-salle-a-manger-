@@ -2,13 +2,7 @@
 
 #download from penseeartificielle/google-image-scrapping
 
-pas faire le truk model
-
-mettre les negative jcrois
-
-faire le label.py car pour savoir et faire dimension faut label
-
-tout supprimer image + training
+ptin sté en 50x100 jcomprenais pas
 
 faire l'animation
 
