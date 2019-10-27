@@ -2,7 +2,7 @@
 
 #download from penseeartificielle/google-image-scrapping
 
-ok supprimer le systeme de label 1x20x100 et de mis en model trouver un autre truk pour la passation de model
+ok supprimer le systeme de label 1x20x100 et de mis en model (en gros 1x20x100 a cuillere) trouver un autre truk pour la passation de model
 
 si ca dit fourchette/cuillere le laisser
 
