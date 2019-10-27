@@ -2,7 +2,9 @@
 
 #download from penseeartificielle/google-image-scrapping
 
-faire le truk model
+pas faire le truk model
+
+
 
 faire le label.py car pour savoir et faire dimension faut label
 
